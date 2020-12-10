@@ -10,7 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Medical.Model.Jcy_Model;
+using Medical.System.BLL;
 namespace Medical.System.API
 {
     public class Startup
