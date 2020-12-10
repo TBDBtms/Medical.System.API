@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 
 namespace Medical.System.Servers
 {
-  public  class DBhelper
+  public static class DBhelper
     {
-        static string str = "Data Source=192.168.0.178;Initial Catalog=D_Clinic_System;User ID=sa";
+        static string str = "server=192.168.0.178;uid=sa;pwd=DLH1661392274;database=D_Clinic_System";
         public static List<T> GetList<T>(string sql)  
         {
             using (SqlConnection conn = new SqlConnection(str))  //查询
