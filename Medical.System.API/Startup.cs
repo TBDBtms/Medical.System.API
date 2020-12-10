@@ -24,6 +24,11 @@ namespace Medical.System.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //配置跨域处理，允许所有来源：
+            services.AddCors(options =>
+            options.AddPolicy("kkk",
+            p => p.AllowAnyOrigin())
+            );
             services.AddControllers();
         }
 
@@ -34,7 +39,7 @@ namespace Medical.System.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("kkk");//必须位于UserMvc之前 
             app.UseRouting();
 
             app.UseAuthorization();
