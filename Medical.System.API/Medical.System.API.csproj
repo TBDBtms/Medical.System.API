@@ -4,5 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medical.Model\Medical.Model.csproj" />
+    <ProjectReference Include="..\Medical.System.BLL\Medical.System.BLL.csproj" />
+  </ItemGroup>
+
 
 </Project>
