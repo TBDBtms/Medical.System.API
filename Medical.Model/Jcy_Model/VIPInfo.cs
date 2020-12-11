@@ -100,7 +100,7 @@ namespace Medical.Model.Jcy_Model
         /// <summary>
         /// 积分清零
         /// </summary>
-        public int InClear { get; set; }
+        public string InClearRemark { get; set; }
         /// <summary>
         /// 退款金额
         /// </summary>

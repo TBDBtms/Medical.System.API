@@ -1,3 +1,4 @@
+using Medical.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Medical.Model.Jcy_Model;
+using Medical.System.BLL;
 namespace Medical.System.API
 {
     public class Startup
@@ -24,6 +26,7 @@ namespace Medical.System.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             //配置跨域处理，允许所有来源：
             services.AddCors(options =>
             options.AddPolicy("kkk",
