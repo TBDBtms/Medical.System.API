@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Medical.System.API.Controllers
 {
-    [Route("api/[controller]")]
+ 
     [ApiController]
     public class DLH_FeeController : ControllerBase
     {
