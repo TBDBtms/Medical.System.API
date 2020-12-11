@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Medical.System.Servers
 {
-  public  class DapperHelper
+    public class DapperHelper
     {
         public IOptions<ConnectionStrings> _conn;
 
