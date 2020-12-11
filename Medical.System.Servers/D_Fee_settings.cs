@@ -56,7 +56,8 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int DelCost(int cid)
         {
-            return dbconn.Execute("delete from Userinfo where Uid=@SequenceId", cid);
+            var sql = $"delete from CostsInfo where SequenceId={cid}";
+            return dbconn.Execute(sql);
         }
         /// <summary>
         /// 修改附加费用
@@ -79,44 +80,26 @@ namespace Medical.System.Servers
             return dbconn.Query<CostsInfo>(sql).FirstOrDefault();
         }
         /// <summary>
-        /// 判断费用状态开始
+        /// 判断费用状态开始/判断费用状态关闭
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
         public int FYStart(CostsInfo c)
         {
-            string sql = $"update CostsInfo set c.CState=CState-1 where SequenceId={c.SequenceId}";
+            string sql = $"update CostsInfo set CState=CState-1 where SequenceId={c.SequenceId}";
             return dbconn.Execute(sql);
         }
+
         /// <summary>
-        /// 判断费用状态关闭
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int FYStart1(CostsInfo c)
-        {
-            string sql = $"update CostsInfo set c.CState=CState+1 where SequenceId={c.SequenceId}";
-            return dbconn.Execute(sql);
-        }
-        /// <summary>
-        /// 会员状态为否
+        /// 会员状态为否/会员状态为是
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
         public int VIPZheko(CostsInfo c)
         {
-            string sql = $"update CostsInfo set Vip=Vip+1 where SequenceId={c.SequenceId}";
-            return dbconn.Execute(sql);
-        }
-        /// <summary>
-        /// 会员状态为是
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int VIPZhoKo1(CostsInfo c)
-        {
             string sql = $"update CostsInfo set Vip=Vip-1 where SequenceId={c.SequenceId}";
             return dbconn.Execute(sql);
         }
+        
     }
 }
