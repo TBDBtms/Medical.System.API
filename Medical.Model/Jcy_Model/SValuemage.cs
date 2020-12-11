@@ -22,7 +22,7 @@ namespace Medical.Model.Jcy_Model
 		/// </summary>
 		public string VTypeName { get; set; }
 		/// <summary>
-		/// 会员等级
+		/// 会员等级id
 		/// </summary>
         public int VGradeId { get; set; }
 		/// <summary>
@@ -73,5 +73,9 @@ namespace Medical.Model.Jcy_Model
 		/// 备注
 		/// </summary>
 		public string Remark { get; set; }
-	}
+		/// <summary>
+		/// 会员等级
+		/// </summary>
+        public string VGradeName { get; set; }
+    }
 }

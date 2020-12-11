@@ -152,5 +152,76 @@ namespace Medical.System.Servers
             string str = $"select * from VIPInfo a join SetGrade b on a.Id=b.Id where 1=1";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
+        /// <summary>
+        /// 储值管理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public List<SValuemage> GetSValuemages(int id, string name = "", string phone = "", string card = "")
+        {
+            string str = $"select * from SValuemage a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            if (id>0)
+            {
+                str += $" and a.VGradeId={id}";
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                str += $" and a.VIPName='{name}'";
+            }
+            if (!string.IsNullOrEmpty(phone))
+            {
+                str += $" and a.Phone='{phone}'";
+            }
+            if (!string.IsNullOrEmpty(card))
+            {
+                str += $" and a.Card='{card}'";
+            }
+            return dbcoon.Query<SValuemage>(str).ToList();
+        }
+        /// <summary>
+        /// 积分管理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public List<Pointmanage> GetPointmanages(int id, string name = "", string phone = "", string card = "")
+        {
+            string str = $"select * from Pointmanage a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            if (id > 0)
+            {
+                str += $" and a.VGradeId={id}";
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                str += $" and a.VIPName='{name}'";
+            }
+            if (!string.IsNullOrEmpty(phone))
+            {
+                str += $" and a.Phone='{phone}'";
+            }
+            if (!string.IsNullOrEmpty(card))
+            {
+                str += $" and a.Card='{card}'";
+            }
+            return dbcoon.Query<Pointmanage>(str).ToList();
+        }
+        /// <summary>
+        /// 会员设置
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public List<MemberSet> GetMembers()
+        {
+            string str = $"select * from MemberSet a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            return dbcoon.Query<MemberSet>(str).ToList();
+        }
     }
 }

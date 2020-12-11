@@ -14,9 +14,13 @@ namespace Medical.Model.Jcy_Model
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// 会员等级
+        /// 会员等级id
         /// </summary>
         public int VGradeId { get; set; }
+        /// <summary>
+        /// 会员等级
+        /// </summary>
+        public string VGradeName { get; set; }
         /// <summary>
         /// 会员姓名
         /// </summary>
