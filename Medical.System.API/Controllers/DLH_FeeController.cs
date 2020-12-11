@@ -13,11 +13,11 @@ namespace Medical.System.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class D_Fee_Controller : ControllerBase
+    public class DLH_FeeController : ControllerBase
     {
         D_Fee_BLL bll;
         public IOptions<ConnectionStrings> _conn;
-        public D_Fee_Controller(IOptions<ConnectionStrings> coon)
+        public DLH_FeeController(IOptions<ConnectionStrings> coon)
         {
             _conn = coon;
             bll = new D_Fee_BLL(coon);
