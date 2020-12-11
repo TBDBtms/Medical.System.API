@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Medical.System.Servers
 {
-  public  class DBhelper
+    public  class DBhelper
     {
         static string str = "Data Source=192.168.0.178;Initial Catalog=D_Clinic_System;User ID=sa";
         public static List<T> GetList<T>(string sql)  
