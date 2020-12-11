@@ -53,6 +53,7 @@ namespace Medical.Model.ZZH_Model
         /// 会员等级外键
         /// </summary>
         public int MemberId { get; set; }
+        public string VGradeName { get; set; }
         /// <summary>
         /// 到期时间
         /// </summary>
@@ -90,8 +91,16 @@ namespace Medical.Model.ZZH_Model
         /// </summary>
         public string WorkUnit { get; set; }
         /// <summary>
+        /// 操作人
+        /// </summary>
+        public string CaoPeople { get; set; }
+        /// <summary>
         /// 备注
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        /// 时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }
