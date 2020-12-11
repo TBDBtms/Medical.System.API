@@ -38,7 +38,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<CostsInfo> GetCostsInfos(string name="",int pid=0)
         {
-            string sql = "select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId join Userinfo u on c.CreatepersonKey=u.Uid where 1=1";
+            string sql = "select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId join Userinfo u on c.CreatepersonKey=u.Uid where 1=1 ";
             if (!string.IsNullOrEmpty(name))
             {
                 sql += $" and c.Additional='{name}'";
@@ -47,7 +47,7 @@ namespace Medical.System.Servers
             {
                 sql += $" and p.RecipeId={pid}";
             }
-            return dbconn.Query<CostsInfo>(name, pid).ToList();
+            return dbconn.Query<CostsInfo>(sql).ToList();
         }
         /// <summary>
         /// 删除附加费用

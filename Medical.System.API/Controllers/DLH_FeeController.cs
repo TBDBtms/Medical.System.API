@@ -21,9 +21,10 @@ namespace Medical.System.API.Controllers
         {
             _conn = coon;
             bll = new D_Fee_BLL(coon);
-        }
+        }   
+        [HttpGet]
         [RouteAttribute("api/[controller]/GetPrescriptionInfos")]
-        [HttpPost]
+
         /// <summary>
         /// 查询处方类型
         /// </summary>
@@ -32,9 +33,9 @@ namespace Medical.System.API.Controllers
         {
             var list = bll.GetPrescriptionInfos();
             return list;
-        }
+        }      
+        [HttpGet]
         [RouteAttribute("api/[controller]/GetCostsInfos")]
-        [HttpPost]
         /// <summary>
         /// 附加费用设置
         /// </summary>
@@ -43,7 +44,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         public List<CostsInfo> GetCostsInfos(string name = "", int pid = 0)
         {
-            var list = bll.GetCostsInfos(name, pid);
+            var list = bll.GetCostsInfos(name,pid);
             return list;
         }
         [RouteAttribute("api/[controller]/GetCostsInfos")]

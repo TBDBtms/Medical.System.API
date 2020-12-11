@@ -10,12 +10,13 @@ namespace Medical.System.BLL
 {
     public class D_Fee_BLL
     {
+        public IOptions<ConnectionStrings> _conn;
         D_Fee_settings dal;
-        private IOptions<ConnectionStrings> coon;
-
-        public D_Fee_BLL(IOptions<ConnectionStrings> coon)
+        public D_Fee_BLL(IOptions<ConnectionStrings> conn)
         {
-            this.coon = coon;
+            _conn = conn;
+            dal = new D_Fee_settings(conn);
+
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public List<CostsInfo> GetCostsInfos(string name = "", int pid = 0)
         {
-            return dal.GetCostsInfos(name, pid);
+            return dal.GetCostsInfos(name,pid);
         }
         /// <summary>
         /// 删除附加费用
