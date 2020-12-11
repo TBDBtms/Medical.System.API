@@ -36,7 +36,6 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
         {
-
             return Ok(bll.GetVIPInfos(stime, etime, id, name, phone, card));
         }
         /// <summary>
