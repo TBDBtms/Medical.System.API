@@ -73,15 +73,7 @@ namespace Medical.System.BLL
         {
             return dal.FYStart(c);
         }
-        /// <summary>
-        /// 判断费用状态关闭
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int FYStart1(CostsInfo c)
-        {
-            return dal.FYStart1(c);
-        }
+        
         /// <summary>
         /// 会员状态为否
         /// </summary>
@@ -91,14 +83,6 @@ namespace Medical.System.BLL
         {
             return dal.VIPZheko(c);
         }
-        /// <summary>
-        /// 会员状态为是
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int VIPZhoKo1(CostsInfo c)
-        {
-            return dal.VIPZhoKo1(c);
-        }
+        
     }
 }

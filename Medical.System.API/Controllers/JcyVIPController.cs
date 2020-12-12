@@ -36,7 +36,6 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
         {
-
             return Ok(bll.GetVIPInfos(stime, etime, id, name, phone, card));
         }
         /// <summary>
@@ -145,6 +144,48 @@ namespace Medical.System.API.Controllers
         public IActionResult SetGrade()
         {
             return Ok(bll.SetGrade());
+        }
+        /// <summary>
+        /// 储值管理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetCZ")]
+        [HttpGet]
+        public IActionResult GetCZ(int id=0,string name="",string phone="",string card="")
+        {
+            return Ok(bll.GetSValuemages(id,name,phone,card));
+        }
+        /// <summary>
+        /// 积分管理
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetJF")]
+        [HttpGet]
+        public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "")
+        {
+            return Ok(bll.GetPointmanages(id, name, phone, card));
+        }
+        /// <summary>
+        /// 会员设置
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetMemberSet")]
+        [HttpGet]
+        public IActionResult GetMemberSet()
+        {
+            return Ok(bll.GetMembers());
         }
     }
 }

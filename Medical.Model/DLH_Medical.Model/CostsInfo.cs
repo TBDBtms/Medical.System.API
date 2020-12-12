@@ -46,5 +46,17 @@ namespace Medical.Model.DLH_Medical.Model
         /// </summary>
         public bool CState { get; set; }
 
+
+        #region 员工
+        public int Uid { get; set; }
+        public string Uname { get; set; }
+        #endregion
+
+        #region 下拉
+        public int RecipeId { get; set; }
+        public string RecipeName { get; set; }
+        #endregion
+
+
     }
 }

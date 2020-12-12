@@ -118,5 +118,25 @@ namespace Medical.Model.ZHQ
         /// 药品状态
         /// </summary>
         public int DrugState { get; set; }
+        /// <summary>
+        /// 药品分类名称
+        /// </summary>
+        public string DrugClassName { get; set; }
+        /// <summary>
+        /// 发票项目名称
+        /// </summary>
+        public string InvoiceName { get; set; }
+        /// <summary>
+        /// 药品剂型名称
+        /// </summary>
+        public string Dosage_formName { get; set; }
+        /// <summary>
+        /// 生产厂家名称
+        /// </summary>
+        public string ManufacturerName { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime Drugctime { get; set; }
     }
 }
