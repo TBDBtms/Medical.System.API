@@ -60,10 +60,27 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetById(int id)
+        public VIPInfo GetById(int id)
         {
-            string str = $"select * from VIPInfo where Id={id}";
-            return dbcoon.Query<VIPInfo>(str).ToList();
+            try
+            {
+                string str = $"select * from VIPInfo where Id={id}";
+                var strs=dbcoon.Query<VIPInfo>(str).ToList();
+                if (strs.Count>0)
+                {
+                    return strs.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
         /// <summary>
         /// 余额充值
@@ -181,6 +198,17 @@ namespace Medical.System.Servers
             }
             return dbcoon.Query<SValuemage>(str).ToList();
         }
+        /// <summary>
+        /// 储值管理的充值
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int Upd(SValuemage sva)
+        {
+            string str = $"update SValuemage set PayMoney={sva.PayMoney},GiveMoney={sva.GiveMoney},SId={sva.SId} where id={sva.Id}";
+            return dbcoon.Execute(str);
+        }
+
         /// <summary>
         /// 积分管理
         /// </summary>

@@ -37,7 +37,7 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetById(int id)
+        public VIPInfo GetById(int id)
         {
             return dal.GetById(id);
         }
