@@ -14,9 +14,6 @@ namespace Medical.Model.HZX_Model
         /// 角色姓名
         /// </summary>
         public string Rname { get; set; }
-        /// <summary>
-        /// 权限外键
-        /// </summary>
-        public int qids { get; set; }
+    
     }
 }

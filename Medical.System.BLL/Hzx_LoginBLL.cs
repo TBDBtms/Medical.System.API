@@ -59,9 +59,9 @@ namespace Medical.System.BLL
             return dal.Upd(u);
 
         }
-        public int Del(int Uid)
+        public int DelUserinfo(int Uid)
         {
-            return dal.Del(Uid);
+            return dal.DelUserinfo(Uid);
         }
         /// <summary>
         /// 角色下拉
@@ -87,6 +87,15 @@ namespace Medical.System.BLL
         public List<County> GetCounties(int Mid)
         {
             return dal.GetCounties(Mid);
+        }
+        /// <summary>
+        /// 科室下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Keshi> GetKeshis()
+        {
+            return dal.GetKeshis();
+
         }
     }
 }
