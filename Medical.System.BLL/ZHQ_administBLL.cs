@@ -15,9 +15,9 @@ namespace Medical.System.BLL
         {
             dal = new ZHQ_administrationDAL(conn);
         }
-        public List<Drug_administration> Getadministration()
+        public List<Drug_administration> Getadministration(string name="")
         {
-            return dal.Getadministration();
+            return dal.Getadministration(name);
         }
     }
 }

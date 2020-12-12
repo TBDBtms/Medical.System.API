@@ -22,13 +22,38 @@ namespace Medical.System.Servers
         /// 查看所有药品
         /// </summary>
         /// <returns></returns>
-        public List<Drug_administration> Getadministration()
+        public List<Drug_administration> Getadministration(string name="")
         {
             string sql = "select * from Drug_administration a join Drug_classification b on a.DrugFL=b.DrugClassId join " +
                 "Dosage_form c on a.DrugJX = c.Dosage_formId join Invoice1 d on a.DrugFP = d.InvoiceId join Manufacturer e on" +
-                " a.DrugCJ = e.ManufacturerId";
+                " a.DrugCJ = e.ManufacturerId where 1=1";
+            if (!string.IsNullOrEmpty(name))
+            {
+                var t = IsNumberic(name);
+                if (t)
+                {
+                    sql += $" and a.DrugBM='{name}'";
+                }
+                else
+                {
+                    sql += $" and a.DrugTYM like '%{name}%'";
+                }
+            }
+           
             var list = dbconn.Query<Drug_administration>(sql).ToList();
             return list;
+        }
+        private bool IsNumberic(string name="")
+        {
+            try
+            {
+                int var1 = Convert.ToInt32(name);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

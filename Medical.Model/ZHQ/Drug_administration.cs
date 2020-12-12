@@ -134,5 +134,9 @@ namespace Medical.Model.ZHQ
         /// 生产厂家名称
         /// </summary>
         public string ManufacturerName { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime Drugctime { get; set; }
     }
 }

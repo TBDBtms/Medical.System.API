@@ -20,9 +20,9 @@ namespace Medical.System.API.Controllers
         }
         [Route("Getadministration")]
         [HttpGet]
-        public IActionResult Getadministration()
+        public IActionResult Getadministration(string name="")
         {
-            return Ok(bll.Getadministration());
+            return Ok(bll.Getadministration(name));
         }
     }
 }
