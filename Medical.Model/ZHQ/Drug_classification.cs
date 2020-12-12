@@ -11,7 +11,7 @@ namespace Medical.Model.ZHQ
         /// </summary>
         public int DrugClassId { get; set; }
         /// <summary>
-        /// 药品分类主键
+        /// 药品分类名称
         /// </summary>
         public string DrugClassName { get; set; }
     }
