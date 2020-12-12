@@ -47,8 +47,8 @@ namespace Medical.System.API.Controllers
             var list = bll.GetCostsInfos(name,pid);
             return list;
         }
-        [RouteAttribute("api/[controller]/GetCostsInfos")]
         [HttpPost]
+        [RouteAttribute("api/[controller]/DelCost")]
         /// <summary>
         /// 删除附加费用
         /// </summary>
@@ -95,18 +95,7 @@ namespace Medical.System.API.Controllers
             var list = bll.FYStart(c);
             return list;
         }
-        [RouteAttribute("api/[controller]/FYStart1")]
-        [HttpPost]
-        /// <summary>
-        /// 判断费用状态关闭
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int FYStart1(CostsInfo c)
-        {
-            var list = bll.FYStart1(c);
-            return list;
-        }
+        
         [RouteAttribute("api/[controller]/VIPZheko")]
         [HttpPost]
         /// <summary>
@@ -119,17 +108,6 @@ namespace Medical.System.API.Controllers
             var list = bll.VIPZheko(c);
             return list;
         }
-        [RouteAttribute("api/[controller]/VIPZhoKo1")]
-        [HttpPost]
-        /// <summary>
-        /// 会员状态为是
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public int VIPZhoKo1(CostsInfo c)
-        {
-            var list = bll.VIPZhoKo1(c);
-            return list;
-        }
+        
     }
 }
