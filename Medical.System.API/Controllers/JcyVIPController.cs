@@ -56,9 +56,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/UpdVIPInfo")]
         [HttpPost]
-        public IActionResult UpdVIPInfo(VIPInfo vip)
+        public IActionResult UpdVIPInfo([FromForm]VIPInfo vip)
         {
-            return Ok(bll.UpdVIPgrade(vip));
+            return Ok(bll.UpdVIPInfo(vip));
         }
         /// <summary>
         /// 下拉会员等级
@@ -87,7 +87,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/UpdVIPgrade")]
         [HttpPost]
-        public IActionResult UpdVIPgrade(VIPInfo vip)
+        public IActionResult UpdVIPgrade([FromForm] VIPInfo vip)
         {
             return Ok(bll.UpdVIPgrade(vip));
         }
@@ -98,7 +98,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/AddIntegral")]
         [HttpPost]
-        public IActionResult AddIntegral(VIPInfo vip)
+        public IActionResult AddIntegral([FromForm] VIPInfo vip)
         {
             return Ok(bll.AddIntegral(vip));
         }
@@ -109,7 +109,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/JIanIntegral")]
         [HttpPost]
-        public IActionResult JIanIntegral(VIPInfo vip)
+        public IActionResult JIanIntegral([FromForm] VIPInfo vip)
         {
             return Ok(bll.JIanIntegral(vip));
         }
@@ -120,7 +120,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/ClearIntegrals")]
         [HttpPost]
-        public IActionResult ClearIntegral(VIPInfo vip)
+        public IActionResult ClearIntegral([FromForm] VIPInfo vip)
         {
             return Ok(bll.ClearIntegral(vip));
         }
@@ -131,7 +131,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/RePrice")]
         [HttpPost]
-        public IActionResult RePrice(VIPInfo vip)
+        public IActionResult RePrice([FromForm] VIPInfo vip)
         {
             return Ok(bll.RePrice(vip));
         }

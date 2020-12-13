@@ -37,7 +37,7 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetById(int id)
+        public VIPInfo GetById(int id)
         {
             return dal.GetById(id);
         }
@@ -48,7 +48,7 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public int UpdVIPInfo(VIPInfo vip)
         {
-            return dal.UpdVIPgrade(vip);
+            return dal.UpdVIPInfo(vip);
         }
         /// <summary>
         /// 下拉会员等级

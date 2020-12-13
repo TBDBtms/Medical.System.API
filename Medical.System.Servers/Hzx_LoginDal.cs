@@ -29,7 +29,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<Userinfo> Login(string Uiphone, string Upass)
         {
-            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Quanxian q on q.Qid=r.qids join Keshi k on k.Kid=u.Ukeids join County c on c.Cid=u.cids join Market m on m.Mid=c.mids where Uiphone='{Uiphone}'and Upass='{Upass}' ";
+            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Rqinfo rq on rq.Rids=r.Rid join Quanxian q on q.Qid=rq.Qids join Keshi ke on ke.Kid=u.Ukeids join County county on county.Cid=u.cids join Market m on m.Mid=county.mids where u.Uiphone='{Uiphone}'and u.Upass='{Upass}' ";
             return dbcoon.Query<Userinfo>(sql).ToList();
         }
         /// <summary>
@@ -38,7 +38,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<Userinfo> GetUserinfos()
         {
-            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Quanxian q on q.Qid=r.qids join Keshi k on k.Kid=u.Ukeids join County c on c.Cid=u.cids join Market m on m.Mid=c.mids";
+            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Rqinfo rq on rq.Rids=r.Rid join Quanxian q on q.Qid=rq.Qids join Keshi ke on ke.Kid=u.Ukeids join County county on county.Cid=u.cids join Market m on m.Mid=county.mids";
             return dbcoon.Query<Userinfo>(sql).ToList();
         }
         /// <summary>
@@ -58,7 +58,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public Userinfo GetUserinfodan(int Uid)
         {
-            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Quanxian q on q.Qid=r.qids join Keshi k on k.Kid=u.Ukeids join County c on c.Cid=u.cids join Market m on m.Mid=c.mids where Uid={Uid}";
+            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Rqinfo rq on rq.Rids=r.Rid join Quanxian q on q.Qid=rq.Qids join Keshi ke on ke.Kid=u.Ukeids join County county on county.Cid=u.cids join Market m on m.Mid=county.mids where Uid={Uid}";
             return dbcoon.Query<Userinfo>(sql).FirstOrDefault();
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="Uid">id</param>
         /// <returns></returns>
-        public int Del(int Uid)
+        public int DelUserinfo(int Uid)
         {
             string sql = $"delete from Userinfo where Uid='{Uid}'";
             return dbcoon.Execute(sql);
@@ -109,6 +109,17 @@ namespace Medical.System.Servers
         {
             string sql = $"select * from County where mids={Mid}";
             return dbcoon.Query<County>(sql).ToList();
+        }
+
+        /// <summary>
+        /// 科室下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Keshi> GetKeshis()
+        {
+            string sql = $"select * from Keshi";
+            return dbcoon.Query<Keshi>(sql).ToList();
+        
         }
 
     }
