@@ -89,7 +89,10 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPInfo(VIPInfo vip)
         {
-            string str = $"update VIPInfo set PayMoney={vip.PayMoney},GiveMoney={vip.GiveMoney},Id={vip.Id}";
+            var strs = vip.SvalueMoney + vip.PayMoney+ vip.GiveMoney;//余额
+            var strc = vip.PayMoney + vip.GiveMoney;//积累消费
+            var jf = vip.Integral + (vip.SvalueMoney);//积分
+            string str = $"update VIPInfo set Integral={jf},AmassPrice={strc},SvalueMoney={strs},PayMoney={vip.PayMoney},GiveMoney={vip.GiveMoney},SId={vip.SId} WHERE Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
