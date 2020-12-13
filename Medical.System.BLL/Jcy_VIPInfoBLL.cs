@@ -48,7 +48,7 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public int UpdVIPInfo(VIPInfo vip)
         {
-            return dal.UpdVIPgrade(vip);
+            return dal.UpdVIPInfo(vip);
         }
         /// <summary>
         /// 下拉会员等级
