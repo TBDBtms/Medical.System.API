@@ -13,6 +13,7 @@ namespace Medical.System.Servers
 {
   public  class Hzx_LoginDal
     {
+        
         public IOptions<ConnectionStrings> _conn;
         IDbConnection dbcoon;
         public Hzx_LoginDal(IOptions<ConnectionStrings> coon)
@@ -48,7 +49,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddUserinfo(Userinfo u)
         {
-            string sql = $"insert into Userinfo values('{u.Uname}','{u.Usex}','{u.Uage}','{u.Uiphone}','{u.Ukeids}','{u.CreateTime}','{u.CreatName}','{u.Uissale}','{u.Uzhanghao}','{u.Upass}','{u.rids}','{u.Uno}','{u.Uxue}','{u.cids}')";
+            string sql = $"insert into Userinfo values('{u.Uname}','{u.Usex}','{u.Uage}','{u.Uiphone}','{u.Ukeids}','{DateTime.Now}','{u.CreatName}','{u.Uissale}','{u.Uzhanghao}','{u.Upass}','{u.rids}','{u.Uno}','{u.Uxue}','{u.cids}')";
             return dbcoon.Execute(sql);
         }
         /// <summary>
@@ -68,7 +69,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int Upd(Userinfo u)
         {
-            string sql = $"Update Userinfo set Uname='{u.Uname}',Usex='{u.Usex}',Uage='{u.Uage}',Uiphone='{u.Uiphone}',Ukeids='{u.Ukeids}',CreateTime='{u.CreateTime}',CreateName='{u.CreatName}',Uissale='{u.Uissale}',Uzhanghao='{u.Uzhanghao}',Upass='{u.Upass}',rids='{u.rids}',Uno='{u.Uno}',Uxue='{u.Uxue}',cids='{u.cids}'where Uid='{u.Uid}'";
+            string sql = $"Update Userinfo set Uname='{u.Uname}',Usex='{u.Usex}',Uage='{u.Uage}',Uiphone='{u.Uiphone}',Ukeids='{u.Ukeids}',CreateTime='{DateTime.Now}',CreateName='{u.CreatName}',Uissale='{u.Uissale}',Uzhanghao='{u.Uzhanghao}',Upass='{u.Upass}',rids='{u.rids}',Uno='{u.Uno}',Uxue='{u.Uxue}',cids='{u.cids}'where Uid='{u.Uid}'";
             return dbcoon.Execute(sql);
 
         }
@@ -90,6 +91,11 @@ namespace Medical.System.Servers
         {
             string sql = $"select *from Roleinfo";
             return dbcoon.Query<Roleinfo>(sql).ToList();
+        }
+        public List<Quanxian> GetQuanxians()
+        {
+            string sql = $"select *from Quanxian";
+            return dbcoon.Query<Quanxian>(sql).ToList();
         }
         /// <summary>
         /// 县级下拉
@@ -121,6 +127,22 @@ namespace Medical.System.Servers
             return dbcoon.Query<Keshi>(sql).ToList();
         
         }
-
+        /// <summary>
+        /// 配置权限
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public bool Addquan(Rqinfo r)
+        {
+            var list = r.Qids.TrimEnd(',').Split(',');
+            List<string> sql = new List<string>();
+            foreach (var m in list)
+            {
+                sql.Add($"insert into Rqinfo(Qids,Rids) values({m},{r.Rids})");
+            }
+            return DBHelper.ExecuteSqlTran(sql);
+        
+        
+        }
     }
 }

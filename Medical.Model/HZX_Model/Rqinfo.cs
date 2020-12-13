@@ -7,7 +7,7 @@ namespace Medical.Model.HZX_Model
    public class Rqinfo
     {
         public int RQid  { get; set; }
-        public int Qids  { get; set; }
+        public string Qids  { get; set; }
         public int Rids { get; set; }
     }
 }
