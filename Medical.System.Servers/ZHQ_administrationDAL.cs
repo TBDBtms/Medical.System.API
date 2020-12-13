@@ -22,26 +22,39 @@ namespace Medical.System.Servers
         /// 查看所有药品
         /// </summary>
         /// <returns></returns>
-        public List<Drug_administration> Getadministration(string name="")
+        public Page<Drug_administration> Getadministration(int tj=0,string name="",int pageindex=1,int pagesize=10)
         {
-            string sql = "select * from Drug_administration a join Drug_classification b on a.DrugFL=b.DrugClassId join " +
-                "Dosage_form c on a.DrugJX = c.Dosage_formId join Invoice1 d on a.DrugFP = d.InvoiceId join Manufacturer e on" +
-                " a.DrugCJ = e.ManufacturerId where 1=1";
             if (!string.IsNullOrEmpty(name))
             {
                 var t = IsNumberic(name);
                 if (t)
                 {
-                    sql += $" and a.DrugBM='{name}'";
+                    tj = 1;
                 }
                 else
                 {
-                    sql += $" and a.DrugTYM like '%{name}%'";
+                    tj = 2;
                 }
             }
-           
-            var list = dbconn.Query<Drug_administration>(sql).ToList();
-            return list;
+            else
+            {
+                name = "";
+            }
+            SqlParameter[] param = new SqlParameter[] {
+                new SqlParameter() { ParameterName="@DId",DbType=DbType.Int32,Value=tj},
+                new SqlParameter() { ParameterName="@Name",DbType=DbType.String,Value=name},
+                new SqlParameter() { ParameterName="@PageIndex",DbType=DbType.Int32,Value=pageindex},
+                new SqlParameter() { ParameterName="@PageSize",DbType=DbType.Int32,Value=pagesize},
+                new SqlParameter() { ParameterName="@AllCount",DbType=DbType.Int32,Direction= ParameterDirection.Output},
+            };
+            List<Drug_administration> list = DBhelper.GetDataTable_Proc<Drug_administration>("Drug_administrationPage", param);
+
+            Page<Drug_administration> page = new Page<Drug_administration>()
+            { 
+                 Countnum = Convert.ToInt32(param[4].Value),
+                 PageList=list
+            };
+            return page;
         }
         private bool IsNumberic(string name="")
         {
@@ -54,6 +67,59 @@ namespace Medical.System.Servers
             {
                 return false;
             }
+        }
+        //DrugId, DrugBM, DrugTXM, DrugTYM, DrugPYM, DrugFL, DrugGG, DrugJX, DrugFP, DrugWH, DrugCJ, 
+        //DrugBZDW, DrugBZDWXS, DrugJBDW, DrugJLXS, DrugJLDW, DrugCGJ, DrugLSJ, DrugYF, DrugDCYL, DrugPD, 
+        //DrugYXQ, DrugKCSX, DrugKCXX, DrugSM, DrugXSNum, DrupPDState, DrugState
+        /// <summary>
+        /// 添加药品
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int Addadministration(Drug_administration model)
+        {
+            model.Drugctime = DateTime.Now;
+            model.DrugState = 1;
+            model.DrupPDState = 0;
+            model.DrugXSNum = 0;
+            return dbconn.Execute("insert into Drug_administration values(@DrugBM, @DrugTXM, @DrugTYM, @DrugPYM, @DrugFL, @DrugGG, @DrugJX, @DrugFP, @DrugWH, @DrugCJ, @DrugBZDW, @DrugBZDWXS, @DrugJBDW, @DrugJLXS, @DrugJLDW, @DrugCGJ, @DrugLSJ, @DrugYF,@DrugDCYL, @DrugPD, @DrugYXQ, @DrugKCSX, @DrugKCXX, @DrugSM,@DrugXSNum,@DrupPDState,@DrugState,@Drugctime)", model);
+        }
+
+        /// <summary>
+        /// 查询分类表
+        /// </summary>
+        /// <returns></returns>
+        public List<Drug_classification> Getclassification()
+        {
+            string sql = "select * from Drug_classification";
+            return dbconn.Query<Drug_classification>(sql).ToList();
+        }
+        /// <summary>
+        /// 查询剂型
+        /// </summary>
+        /// <returns></returns>
+        public List<Dosage_form> Getform()
+        {
+            string sql = "select * from Dosage_form";
+            return dbconn.Query<Dosage_form>(sql).ToList();
+        }
+        /// <summary>
+        /// 查询发票
+        /// </summary>
+        /// <returns></returns>
+        public List<Invoice1> GetInvoice1()
+        {
+            string sql = "select * from Invoice1";
+            return dbconn.Query<Invoice1>(sql).ToList();
+        }
+        /// <summary>
+        /// 查询厂家
+        /// </summary>
+        /// <returns></returns>
+        public List<Manufacturer> GetManufacturer()
+        {
+            string sql = "select * from Manufacturer";
+            return dbconn.Query<Manufacturer>(sql).ToList();
         }
     }
 }

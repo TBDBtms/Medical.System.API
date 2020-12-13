@@ -121,5 +121,9 @@ namespace Medical.Model.Jcy_Model
         /// 会员等级
         /// </summary>
         public string VGradeName { get; set; }
+        /// <summary>
+        /// 患者姓名
+        /// </summary>
+        public string PatientName { get; set; }
     }
 }

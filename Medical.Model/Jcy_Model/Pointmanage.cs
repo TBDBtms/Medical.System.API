@@ -14,6 +14,10 @@ namespace Medical.Model.Jcy_Model
         /// </summary>
         public int Id { get; set; }
         /// <summary>
+        /// 患者姓名
+        /// </summary>
+        public string PatientName { get; set; }
+        /// <summary>
         /// 卡号
         /// </summary>
         public string IdCard { get; set; }
