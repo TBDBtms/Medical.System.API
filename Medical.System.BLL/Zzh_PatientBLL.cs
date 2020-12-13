@@ -100,5 +100,23 @@ namespace Medical.System.BLL
         {
             return _Zzh_PatientServers.GetPosition();
         }
+        /// <summary>
+        /// 修改患者信息
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public int UpdPatient(Patient m)
+        {
+            return _Zzh_PatientServers.UpdPatient(m);
+        }
+        /// <summary>
+        /// 回显患者信息
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public Patient GetPatient(int patientId=0)
+        {
+            return _Zzh_PatientServers.GetPatient(patientId);
+        }
     }
 }

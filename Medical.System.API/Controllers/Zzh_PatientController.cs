@@ -126,5 +126,29 @@ namespace Medical.System.API.Controllers
             var list = _Zzh_PatientBLL.GetPosition();
             return list;
         }
+        /// <summary>
+        /// 修改患者信息
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdPatient")]
+        [HttpPost]
+        public int UpdPatient([FromForm]Patient m)
+        {
+            var list = _Zzh_PatientBLL.UpdPatient(m);
+            return list;
+        }
+        /// <summary>
+        /// 回显患者信息
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetPatient")]
+        [HttpGet]
+        public Patient GetPatient(int patientId=0)
+        {
+            var list= _Zzh_PatientBLL.GetPatient(patientId);
+            return list;
+        }
     }
 }
