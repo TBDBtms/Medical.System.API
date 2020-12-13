@@ -32,7 +32,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id=0,string name="",string phone="",string card="")
         {
-            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.Id=c.PatientId where 1=1";
             if (stime!=null && etime!=null)
             {
                 str += $" and a.StartTime Between {stime} and {etime}";
@@ -43,7 +43,7 @@ namespace Medical.System.Servers
             }
             if (!string.IsNullOrEmpty(name))
             {
-                str += $" and a.VIPName='{name}'";
+                str += $" and c.PatientName='{name}'";
             }
             if (!string.IsNullOrEmpty(phone))
             {
@@ -64,7 +64,7 @@ namespace Medical.System.Servers
         {
             try
             {
-                string str = $"select * from VIPInfo where Id={id}";
+                string str = $"select * from VIPInfo a join Patient c on a.id=c.PatientId  where a.Id={id}";
                 var strs=dbcoon.Query<VIPInfo>(str).ToList();
                 if (strs.Count>0)
                 {
@@ -110,7 +110,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> GetVIPgrade()
         {
-            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            string str = $"select distinct a.VGradeId,a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
         /// <summary>
@@ -182,14 +182,14 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<SValuemage> GetSValuemages(int id, string name = "", string phone = "", string card = "")
         {
-            string str = $"select * from SValuemage a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            string str = $"select * from SValuemage a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
             if (id>0)
             {
                 str += $" and a.VGradeId={id}";
             }
             if (!string.IsNullOrEmpty(name))
             {
-                str += $" and a.VIPName='{name}'";
+                str += $" and c.PatientName='{name}'";
             }
             if (!string.IsNullOrEmpty(phone))
             {
@@ -222,7 +222,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<Pointmanage> GetPointmanages(int id, string name = "", string phone = "", string card = "")
         {
-            string str = $"select * from Pointmanage a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            string str = $"select * from Pointmanage a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
             if (id > 0)
             {
                 str += $" and a.VGradeId={id}";
@@ -251,7 +251,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<MemberSet> GetMembers()
         {
-            string str = $"select * from MemberSet a join VIPgrade b on a.VGradeId=b.VGradeId where 1=1";
+            string str = $"select * from MemberSet a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
             return dbcoon.Query<MemberSet>(str).ToList();
         }
     }
