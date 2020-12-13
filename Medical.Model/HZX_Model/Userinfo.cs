@@ -31,7 +31,7 @@ namespace Medical.Model.HZX_Model
         public DateTime CreateTime { get; set; }
         //创建人
         public string CreatName { get; set; }
-        public int Uissale { get; set; }
+        public bool Uissale { get; set; }
         //账号
         public string Uzhanghao { get; set; }
         public string Upass { get; set; }

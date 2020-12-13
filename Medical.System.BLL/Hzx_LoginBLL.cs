@@ -80,6 +80,14 @@ namespace Medical.System.BLL
             return dal.GetMarkets();
         }
         /// <summary>
+        /// 权限下拉
+        /// </summary>
+        /// <returns></returns>
+        public List<Quanxian> GetQuanxians()
+        {
+            return dal.GetQuanxians();
+        }
+        /// <summary>
         /// 市下拉
         /// </summary>
         /// <param name="Mid"></param>
@@ -95,6 +103,18 @@ namespace Medical.System.BLL
         public List<Keshi> GetKeshis()
         {
             return dal.GetKeshis();
+
+        }
+        /// <summary>
+        /// 配置角色
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public bool Addquan(Rqinfo r)
+        {
+            return dal.Addquan(r);
+         
+
 
         }
     }

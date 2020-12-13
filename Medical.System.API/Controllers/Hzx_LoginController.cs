@@ -37,6 +37,12 @@ namespace Medical.System.API.Controllers
             return list;
         }
 
+        [RouteAttribute("api/[controller]/GetQuanxians")]
+        [HttpGet]
+        public List<Quanxian> GetQuanxians()
+        {
+            return bll.GetQuanxians();
+        }
         /// <summary>
         /// 显示所有用户
         /// </summary>
@@ -93,7 +99,42 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public List<County> GetCounties(int Mid)
         {
+            
             var list = bll.GetCounties(Mid);
+            return list;
+        }
+        /// <summary>
+        /// 配置角色
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        /// 
+        [RouteAttribute("api/[controller]/Addquan")]
+        [HttpPost]
+        public IActionResult Addquan()
+        {
+            Rqinfo r = new Rqinfo();
+            var rid = Request.Form["rid"];
+            var qid = Request.Form["qid"];
+            r.Qids = qid;
+            r.Rids = Convert.ToInt32(rid);
+            var list= bll.Addquan(r);
+            return Ok(list);
+
+
+
+        }
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="Mid"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdUser")]
+        [HttpPost]
+        public int UpdUser(Userinfo u)
+        {
+
+            var list = bll.Upd(u);
             return list;
         }
         /// <summary>
@@ -114,7 +155,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>       
     
         [RouteAttribute("api/[controller]/AddUserinfo")]
-    [HttpPost]
+         [HttpPost]
         public int AddUserinfo([FromForm]Userinfo u)
         {
             var list = bll.AddUserinfo(u);
