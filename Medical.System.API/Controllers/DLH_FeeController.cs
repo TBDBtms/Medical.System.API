@@ -29,10 +29,9 @@ namespace Medical.System.API.Controllers
         /// 查询处方类型
         /// </summary>
         /// <returns></returns>
-        public List<PrescriptionInfo> GetPrescriptionInfos()
+        public IActionResult GetPrescriptionInfos()
         {
-            var list = bll.GetPrescriptionInfos();
-            return list;
+            return Ok(bll.GetPrescriptionInfos());
         }      
         [HttpGet]
         [RouteAttribute("api/[controller]/GetCostsInfos")]
@@ -45,6 +44,10 @@ namespace Medical.System.API.Controllers
         public List<CostsInfo> GetCostsInfos(string name = "", int pid = 0)
         {
             var list = bll.GetCostsInfos(name,pid);
+            foreach (var item in list)
+            {
+                item.time = item.CTime.ToString("yyyy-MM-dd");
+            }
             return list;
         }
         [HttpPost]
@@ -66,19 +69,18 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int ModifyCost(CostsInfo model)
+        public IActionResult ModifyCost([FromForm]CostsInfo model)
         {
-            var list = bll.ModifyCost(model);
-            return list;
+            return Ok(bll.ModifyCost(model));
         }
         [RouteAttribute("api/[controller]/FXCost")]
-        [HttpPost]
+        [HttpGet]
         /// <summary>
         /// 修改附加回显
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CostsInfo FXCost(int cid)
+        public CostsInfo FXCost(int cid=0)
         {
             var list = bll.FXCost(cid);
             return list;
@@ -90,10 +92,9 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int FYStart(CostsInfo c)
+        public IActionResult FYStart(CostsInfo c)
         {
-            var list = bll.FYStart(c);
-            return list;
+            return Ok(bll.FYStart(c));
         }
         
         [RouteAttribute("api/[controller]/VIPZheko")]
@@ -103,11 +104,21 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int VIPZheko(CostsInfo c)
+        public IActionResult VIPZheko(CostsInfo c)
         {
-            var list = bll.VIPZheko(c);
-            return list;
+            return Ok(bll.VIPZheko(c));
         }
-        
+        [HttpPost]
+        [RouteAttribute("api/[controller]/AddCost")]
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public IActionResult AddCost([FromForm]CostsInfo c)
+        {
+            return Ok(bll.AddCost(c));
+        }
+
     }
 }

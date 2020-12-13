@@ -6,6 +6,7 @@ using Medical.Model;
 using Dapper;
 using System.Data.SqlClient;
 using System.Linq;
+using System;
 
 namespace Medical.System.Servers
 {
@@ -27,7 +28,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<PrescriptionInfo> GetPrescriptionInfos()
         {
-            string sql = "select * from PrescriptionInfo";
+            string sql = "select * from PrescriptionInfo where 1=1";
             return dbconn.Query<PrescriptionInfo>(sql).ToList();
         }
         /// <summary>
@@ -38,6 +39,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<CostsInfo> GetCostsInfos(string name="",int pid=0)
         {
+            
             string sql = "select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId join Userinfo u on c.CreatepersonKey=u.Uid where 1=1 ";
             if (!string.IsNullOrEmpty(name))
             {
@@ -66,14 +68,15 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int ModifyCost(CostsInfo model)
         {
-            return dbconn.Execute("Update CostsInfo set Additional=@Additional,RecipeKey=@RecipeKey,MoneyInfn=@MoneyInfn,Cost=@Cost,CreateTime=@CreateTime,CreatepersonKey=@CreatepersonKey,Vip=@Vip,CState=@CState", model);
+            string sql = $"Update CostsInfo set Additional='{model.Additional}',RecipeKey={model.RecipeKey},MoneyInfn={model.MoneyInfn},Cost={model.Cost},CTime='{model.CTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
+            return dbconn.Execute(sql);
         }
         /// <summary>
         /// 修改附加回显
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CostsInfo FXCost(int cid)
+        public CostsInfo FXCost(int cid=0)
         {
             string sql = $"select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId where c.SequenceId={cid}";
 
@@ -100,6 +103,16 @@ namespace Medical.System.Servers
             string sql = $"update CostsInfo set Vip=Vip-1 where SequenceId={c.SequenceId}";
             return dbconn.Execute(sql);
         }
-        
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddCost(CostsInfo c)
+        {
+            //c.CTime = DateTime.Now;
+            string sql = $"insert into CostsInfo values('{c.Additional}','{c.RecipeKey}', '{c.MoneyInfn}', '{c.Cost}','{c.CTime}' ,'{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
+            return dbconn.Execute(sql);
+        }
     }
 }
