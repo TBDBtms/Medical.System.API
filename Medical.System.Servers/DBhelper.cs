@@ -9,10 +9,6 @@ namespace Medical.System.Servers
 {
     public static class DBhelper
     {
-
-
-        public class DBhelpers
-        {
             static string str = "server=192.168.0.178;uid=sa;pwd=DLH1661392274;database=D_Clinic_System";
             public static List<T> GetList<T>(string sql)
             {
@@ -110,6 +106,5 @@ namespace Medical.System.Servers
                     return command.ExecuteNonQuery();
                 }
             }
-        }
     }
 }
