@@ -36,7 +36,7 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 性别外键
         /// </summary>
-        public int PatientSexId { get; set; }
+        public bool PatientSex { get; set; }
         /// <summary>
         /// 患者手机号码
         /// </summary>
@@ -49,6 +49,10 @@ namespace Medical.Model.ZZH_Model
         /// 患者来源外键
         /// </summary>
         public int PatientSourceId { get; set; }
+        /// <summary>
+        /// 会员类型
+        /// </summary>
+        public int MemberType { get; set; }
         /// <summary>
         /// 会员等级外键
         /// </summary>
@@ -65,7 +69,7 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 婚姻外键
         /// </summary>
-        public int MaritalStatusId { get; set; }
+        public bool MaritalStatus { get; set; }
         /// <summary>
         /// 学历外键
         /// </summary>

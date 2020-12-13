@@ -28,7 +28,7 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 患者家庭成员性别
         /// </summary>
-        public int ReleFamilySexId { get; set; }
+        public bool ReleFamilySex { get; set; }
         /// <summary>
         /// 患者家庭成员年龄
         /// </summary>
