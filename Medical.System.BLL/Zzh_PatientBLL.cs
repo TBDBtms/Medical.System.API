@@ -69,6 +69,23 @@ namespace Medical.System.BLL
             return _Zzh_PatientServers.AddPatientSource(m);
         }
         /// <summary>
+        /// 回显患者来源
+        /// </summary>
+        /// <param name="patientSourceId"></param>
+        /// <returns></returns>
+        public PatientSource ShowPatientSource(int patientSourceId = 0)
+        {
+            return _Zzh_PatientServers.ShoPatientSource(patientSourceId);
+        }
+        /// <summary>
+        /// 编辑患者来源
+        /// </summary>
+        /// <returns></returns>
+        public int UpdPatientSource(PatientSource m)
+        {
+            return _Zzh_PatientServers.UpdPatientSource(m);
+        }
+        /// <summary>
         /// 删除患者来源
         /// </summary>
         /// <param name="id"></param>
@@ -92,6 +109,23 @@ namespace Medical.System.BLL
         public int AddEducation(Education m)
         {
             return _Zzh_PatientServers.AddEducation(m);
+        }
+        /// <summary>
+        /// 回显学历
+        /// </summary>
+        /// <param name="educationId"></param>
+        /// <returns></returns>
+        public Education ShowEducation(int educationId = 0)
+        {
+            return _Zzh_PatientServers.ShowEducation(educationId);
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        public int UpdEducation(Education m)
+        {
+            return _Zzh_PatientServers.UpdEducation(m);
         }
         /// <summary>
         /// 删除学历下拉
@@ -133,6 +167,23 @@ namespace Medical.System.BLL
         public List<Position> GetPosition(string name)
         {
             return _Zzh_PatientServers.GetPosition(name);
+        }
+        /// <summary>
+        /// 回显职业
+        /// </summary>
+        /// <param name="positionId"></param>
+        /// <returns></returns>
+        public Position ShowPosition(int positionId = 0)
+        {
+            return _Zzh_PatientServers.ShowPosition(positionId);
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        public int UpdPosition(Position m)
+        {
+            return _Zzh_PatientServers.UpdPosition(m);
         }
         /// <summary>
         /// 新增职业
