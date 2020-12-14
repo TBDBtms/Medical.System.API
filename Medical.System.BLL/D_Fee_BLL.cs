@@ -60,7 +60,7 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CostsInfo FXCost(int cid)
+        public CostsInfo FXCost(int cid=0)
         {
             return dal.FXCost(cid);
         }
@@ -83,6 +83,14 @@ namespace Medical.System.BLL
         {
             return dal.VIPZheko(c);
         }
-        
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddCost(CostsInfo c)
+        {
+            return dal.AddCost(c);
+        }
     }
 }
