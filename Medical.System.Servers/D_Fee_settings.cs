@@ -115,7 +115,7 @@ namespace Medical.System.Servers
             return dbconn.Execute(sql);
         }
 
-        ///===========================================================================================================================================================================
+        ///=================================================================诊疗==========================================================================================================
         /// <summary>
         /// 诊疗费设置
         /// </summary>
@@ -176,7 +176,66 @@ namespace Medical.System.Servers
 
             return dbconn.Query<Consultation>(sql).FirstOrDefault();
         }
+        //============================================挂号============
+        /// <summary>
+        /// 挂号费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <param name="pid">处方类别</param>
+        /// <returns></returns>
+        public List<Registration> GetRegistrations(string name = "")
+        {
 
+            string sql = "select * from Registration r join Userinfo u on r.CreatepersonKey=u.Uid where 1=1";
+            if (!string.IsNullOrEmpty(name))
+            {
+                sql += $" and c.Registra='{name}'";
+            }
 
+            return dbconn.Query<Registration>(sql).ToList();
+        }
+
+        /// <summary>
+        /// 删除挂号费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelRegistration(int cid)
+        {
+            var sql = $"delete from Registration where SequenceId={cid}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 添加挂号费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddRegistration(Registration c)
+        {
+            //c.CTime = DateTime.Now;
+            string sql = $"insert into Registration values('{c.Registra}','{c.MoneyInfn}', '{c.Cost}','{c.GHTime}','{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 修改挂号费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int ModifyRegistration(Registration model)
+        {
+            string sql = $"Update Registration set Registra='{model.Registra}',MoneyInfn={model.MoneyInfn},Cost={model.Cost},GHTime='{model.GHTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 修改挂号回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public Registration FXRegistration(int cid = 0)
+        {
+            string sql = $"select * from Registration r join Userinfo u on r.CreatepersonKey=u.Uid where r.SequenceId={cid}";
+
+            return dbconn.Query<Registration>(sql).FirstOrDefault();
+        }
     }
 }

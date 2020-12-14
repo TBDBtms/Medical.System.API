@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Medical.System.API.Controllers
 {
- 
+
     [ApiController]
     public class DLH_FeeController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace Medical.System.API.Controllers
         {
             _conn = coon;
             bll = new D_Fee_BLL(coon);
-        }   
+        }
         [HttpGet]
         [RouteAttribute("api/[controller]/GetPrescriptionInfos")]
 
@@ -32,7 +32,7 @@ namespace Medical.System.API.Controllers
         public IActionResult GetPrescriptionInfos()
         {
             return Ok(bll.GetPrescriptionInfos());
-        }      
+        }
         [HttpGet]
         [RouteAttribute("api/[controller]/GetCostsInfos")]
         /// <summary>
@@ -43,7 +43,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         public List<CostsInfo> GetCostsInfos(string name = "", int pid = 0)
         {
-            var list = bll.GetCostsInfos(name,pid);
+            var list = bll.GetCostsInfos(name, pid);
             foreach (var item in list)
             {
                 item.time = item.CTime.ToString("yyyy-MM-dd");
@@ -69,7 +69,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult ModifyCost([FromForm]CostsInfo model)
+        public IActionResult ModifyCost([FromForm] CostsInfo model)
         {
             return Ok(bll.ModifyCost(model));
         }
@@ -80,7 +80,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CostsInfo FXCost(int cid=0)
+        public CostsInfo FXCost(int cid = 0)
         {
             var list = bll.FXCost(cid);
             return list;
@@ -96,7 +96,7 @@ namespace Medical.System.API.Controllers
         {
             return Ok(bll.FYStart(c));
         }
-        
+
         [RouteAttribute("api/[controller]/VIPZheko")]
         [HttpPost]
         /// <summary>
@@ -115,7 +115,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public IActionResult AddCost([FromForm]CostsInfo c)
+        public IActionResult AddCost([FromForm] CostsInfo c)
         {
             return Ok(bll.AddCost(c));
         }
@@ -132,7 +132,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         public List<Consultation> GetConsultations(string name = "")
         {
-            var list =  bll.GetConsultations(name);
+            var list = bll.GetConsultations(name);
             foreach (var item in list)
             {
                 item.time = item.ZLTime.ToString("yyyy-MM-dd");
@@ -155,11 +155,11 @@ namespace Medical.System.API.Controllers
         [HttpPost]
         [RouteAttribute("api/[controller]/AddConsultations")]
         /// <summary>
-        /// 添加附加费用
+        /// 添加诊疗费用
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public IActionResult AddConsultations(Consultation c)
+        public IActionResult AddConsultations([FromForm] Consultation c)
         {
             //c.CTime = DateTime.Now;
             return Ok(bll.AddConsultations(c));
@@ -168,25 +168,91 @@ namespace Medical.System.API.Controllers
         [RouteAttribute("api/[controller]/ModifyConsultations")]
         [HttpPost]
         /// <summary>
-        /// 修改附加费用
+        /// 修改诊疗费用
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int ModifyConsultations(Consultation model)
+        public IActionResult ModifyConsultations([FromForm] Consultation model)
         {
-            return bll.ModifyConsultations(model);
+            return Ok(bll.ModifyConsultations(model));
         }
 
         [RouteAttribute("api/[controller]/FXConsultations")]
         [HttpGet]
         /// <summary>
-        /// 修改附加回显
+        /// 修改诊疗费回显
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public IActionResult FXConsultations(int cid = 0)
+        public Consultation FXConsultations(int cid = 0)
         {
-            return Ok(bll.FXConsultations(cid));
+            var list = bll.FXConsultations(cid);
+            return list;
+        }
+
+        //===============================挂号=================================================
+        [HttpGet]
+        [RouteAttribute("api/[controller]/GetRegistrations")]
+        /// <summary>
+        /// 挂号费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <returns></returns>
+        public List<Registration> GetRegistrations(string name = "")
+        {
+            var list = bll.GetRegistrations(name);
+            foreach (var item in list)
+            {
+                item.time = item.GHTime.ToString("yyyy-MM-dd");
+            }
+            return list;
+        }
+        [HttpPost]
+        [RouteAttribute("api/[controller]/DelRegistration")]
+        /// <summary>
+        /// 删除挂号费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelRegistration(int cid)
+        {
+            var list = bll.DelRegistration(cid);
+            return list;
+        }
+        [HttpPost]
+        [RouteAttribute("api/[controller]/AddRegistration")]
+        /// <summary>
+        /// 添加挂号费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public IActionResult AddRegistration([FromForm]Registration c)
+        {
+            return Ok(bll.AddRegistration(c));
+        }
+        [RouteAttribute("api/[controller]/ModifyRegistration")]
+        [HttpPost]
+        /// <summary>
+        /// 修改挂号费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public IActionResult ModifyRegistration([FromForm]Registration model)
+        {
+            return Ok(bll.ModifyRegistration(model));
+         
+        }
+        [RouteAttribute("api/[controller]/FXRegistration")]
+        [HttpGet]
+        /// <summary>
+        /// 修改挂号回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public Registration FXRegistration(int cid = 0)
+        {
+            var list = bll.FXRegistration(cid);
+            return list;
         }
     }
 }

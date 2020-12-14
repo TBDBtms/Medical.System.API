@@ -17,5 +17,7 @@ namespace Medical.Model.ZZH_Model
         /// 患者来源
         /// </summary>
         public string PatientSourceName { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string CreatePeople { get; set; }
     }
 }

@@ -56,17 +56,51 @@ namespace Medical.System.BLL
         /// 患者来源下拉
         /// </summary>
         /// <returns></returns>
-        public List<PatientSource> GetPatientSource()
+        public List<PatientSource> GetPatientSource(string name)
         {
-            return _Zzh_PatientServers.GetPatientSource();
+            return _Zzh_PatientServers.GetPatientSource(name);
+        }
+        /// <summary>
+        /// 新增患者来源
+        /// </summary>
+        /// <returns></returns>
+        public int AddPatientSource(PatientSource m)
+        {
+            return _Zzh_PatientServers.AddPatientSource(m);
+        }
+        /// <summary>
+        /// 删除患者来源
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelPatientSource(int id)
+        {
+            return _Zzh_PatientServers.DelPatientSource(id);
         }
         /// <summary>
         /// 学历下拉
         /// </summary>
         /// <returns></returns>
-        public List<Education> GetEducation()
+        public List<Education> GetEducation(string name)
         {
-            return _Zzh_PatientServers.GetEducation();
+            return _Zzh_PatientServers.GetEducation(name);
+        }
+        /// <summary>
+        /// 新增学历
+        /// </summary>
+        /// <returns></returns>
+        public int AddEducation(Education m)
+        {
+            return _Zzh_PatientServers.AddEducation(m);
+        }
+        /// <summary>
+        /// 删除学历下拉
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelEducation(int id)
+        {
+            return _Zzh_PatientServers.DelEducation(id);
         }
         /// <summary>
         /// 省下拉
@@ -96,9 +130,26 @@ namespace Medical.System.BLL
         /// 职业下拉
         /// </summary>
         /// <returns></returns>
-        public List<Position> GetPosition()
+        public List<Position> GetPosition(string name)
         {
-            return _Zzh_PatientServers.GetPosition();
+            return _Zzh_PatientServers.GetPosition(name);
+        }
+        /// <summary>
+        /// 新增职业
+        /// </summary>
+        /// <returns></returns>
+        public int AddPosition(Position m)
+        {
+            return _Zzh_PatientServers.AddPosition(m);
+        }
+        /// <summary>
+        /// 删除职业下拉
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelPosition(int id)
+        {
+            return _Zzh_PatientServers.DelPosition(id);
         }
         /// <summary>
         /// 修改患者信息

@@ -17,5 +17,7 @@ namespace Medical.Model.ZZH_Model
         /// 职位名称
         /// </summary>
         public string PositionName { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string CreatePeople { get; set; }
     }
 }
