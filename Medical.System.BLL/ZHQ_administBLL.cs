@@ -55,5 +55,39 @@ namespace Medical.System.BLL
         {
             return dal.GetManufacturer();
         }
+        /// <summary>
+        /// 修改药品价格根据Id获取单挑数据
+        /// </summary>
+        /// <returns></returns>
+        public Drug_administration GetFirstPricing(int id = 0)
+        {
+            return dal.GetFirstPricing(id);
+        }
+        /// <summary>
+        /// 修改药品价格
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        public int UpdPrice(int id = 0, float price = 0)
+        {
+            return dal.UpdPrice(id, price);
+        }
+        /// <summary>
+        /// 查询药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        public Page<Pricing> GetPricing(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+        {
+            return dal.GetPricing(tj, name, pageindex, pagesize);
+        }
+        /// <summary>
+        /// 添加药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        public int AddPricing(Pricing model)
+        {
+            return dal.AddPricing(model);
+        }
     }
 }

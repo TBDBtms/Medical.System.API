@@ -87,5 +87,51 @@ namespace Medical.System.API.Controllers
         {
             return Ok(bll.GetManufacturer());
         }
+        /// <summary>
+        /// 修改药品价格根据Id获取单挑数据
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("api/[Controller]/GetFirstPricing")]
+        [HttpGet]
+        public IActionResult GetFirstPricing(int id = 0)
+        {
+            return Ok(bll.GetFirstPricing(id));
+        }
+        /// <summary>
+        /// 修改药品价格
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        /// 
+        [Route("api/[Controller]/UpdPrice2")]
+        [HttpGet]
+        public int UpdPrice(int id = 0, float price = 0)
+        {
+            return bll.UpdPrice(id, price);
+        }
+        /// <summary>
+        /// 查询药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("api/[Controller]/GetPricing")]
+        [HttpGet]
+        public IActionResult GetPricing(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+        {
+            return Ok(bll.GetPricing(tj, name, pageindex, pagesize));
+        }
+        /// <summary>
+        /// 添加药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("api/[Controller]/AddPricing")]
+        [HttpPost]
+        public int AddPricing([FromForm]Pricing model)
+        {
+            return bll.AddPricing(model);
+        }
     }
 }

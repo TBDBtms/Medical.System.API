@@ -121,5 +121,72 @@ namespace Medical.System.Servers
             string sql = "select * from Manufacturer";
             return dbconn.Query<Manufacturer>(sql).ToList();
         }
+        /// <summary>
+        /// 修改药品价格根据Id获取单挑数据
+        /// </summary>
+        /// <returns></returns>
+        public Drug_administration GetFirstPricing(int id=0)
+        {
+            string sql = $"select * from Drug_administration where DrugId={id}";
+            return dbconn.Query<Drug_administration>(sql).ToList().FirstOrDefault();
+        }
+        /// <summary>
+        /// 修改药品价格方法
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        public int UpdPrice(int id = 0, float price = 0)
+        {
+            string sql = $"update Drug_administration set DrugLSJ={price} where DrugId={id}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 查询药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        public Page<Pricing> GetPricing(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10) 
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                var t = IsNumberic(name);
+                if (t)
+                {
+                    tj = 1;
+                }
+                else
+                {
+                    tj = 2;
+                }
+            }
+            else
+            {
+                name = "";
+            }
+            SqlParameter[] param = new SqlParameter[] {
+                new SqlParameter() { ParameterName="@DId",DbType=DbType.Int32,Value=tj},
+                new SqlParameter() { ParameterName="@Name",DbType=DbType.String,Value=name},
+                new SqlParameter() { ParameterName="@PageIndex",DbType=DbType.Int32,Value=pageindex},
+                new SqlParameter() { ParameterName="@PageSize",DbType=DbType.Int32,Value=pagesize},
+                new SqlParameter() { ParameterName="@AllCount",DbType=DbType.Int32,Direction= ParameterDirection.Output},
+            };
+            List<Pricing> list = DBhelper.GetDataTable_Proc<Pricing>("PricingPage", param);
+
+            Page<Pricing> page = new Page<Pricing>()
+            {
+                Countnum = Convert.ToInt32(param[4].Value),
+                PageList = list
+            };
+            return page;
+        }
+        /// <summary>
+        /// 添加药品调价明细
+        /// </summary>
+        /// <returns></returns>
+        public int AddPricing(Pricing model)
+        {
+            model.PricingTime = DateTime.Now;
+            return dbconn.Execute("insert into Pricing values(@PricingBH, @PricingName, @PricingGG, @PricingKC,@PricingCGJ, @PricingLSJ, @PricingXLSJ, @PricingTime, @PricingRName)", model);
+        }
     }
 }
