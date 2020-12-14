@@ -28,9 +28,9 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="u"></param>
         /// <returns></returns>
-        public List<Userinfo> Login(string Uiphone, string Upass)
+        public List<Userinfo> Login(string Uname, string Upass)
         {
-            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Rqinfo rq on rq.Rids=r.Rid join Quanxian q on q.Qid=rq.Qids join Keshi ke on ke.Kid=u.Ukeids join County county on county.Cid=u.cids join Market m on m.Mid=county.mids where u.Uiphone='{Uiphone}'and u.Upass='{Upass}' ";
+            string sql = $"select * from Userinfo u join Roleinfo r on r.Rid=u.rids join Rqinfo rq on rq.Rids=r.Rid join Quanxian q on q.Qid=rq.Qids join Keshi ke on ke.Kid=u.Ukeids join County county on county.Cid=u.cids join Market m on m.Mid=county.mids where u.Uname='{Uname}'and u.Upass='{Upass}' ";
             return dbcoon.Query<Userinfo>(sql).ToList();
         }
         /// <summary>
@@ -69,7 +69,8 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int Upd(Userinfo u)
         {
-            string sql = $"Update Userinfo set Uname='{u.Uname}',Usex='{u.Usex}',Uage='{u.Uage}',Uiphone='{u.Uiphone}',Ukeids='{u.Ukeids}',CreateTime='{DateTime.Now}',CreateName='{u.CreatName}',Uissale='{u.Uissale}',Uzhanghao='{u.Uzhanghao}',Upass='{u.Upass}',rids='{u.rids}',Uno='{u.Uno}',Uxue='{u.Uxue}',cids='{u.cids}'where Uid='{u.Uid}'";
+            u.CreateTime = DateTime.Now;
+            string sql = $"Update Userinfo set Uname='{u.Uname}',Usex='{u.Usex}',Uage='{u.Uage}',Uiphone='{u.Uiphone}',Ukeids='{u.Ukeids}',CreateTime='{u.CreateTime}',CreatName='{u.CreatName}',Uissale='{u.Uissale}',Uzhanghao='{u.Uzhanghao}',Upass='{u.Upass}',rids='{u.rids}',Uno='{u.Uno}',Uxue='{u.Uxue}',cids='{u.cids}' where Uid='{u.Uid}'";
             return dbcoon.Execute(sql);
 
         }
@@ -141,6 +142,19 @@ namespace Medical.System.Servers
                 sql.Add($"insert into Rqinfo(Qids,Rids) values({m},{r.Rids})");
             }
             return DBHelper.ExecuteSqlTran(sql);
+        
+        
+        }
+        /// <summary>
+        /// 通过用户名修改密码
+        /// </summary>
+        /// <param name="Uname"></param>
+        /// <param name="Upass"></param>
+        /// <returns></returns>
+        public int UpdPass(string Uname, string Upass)
+        {
+            string sql = $"update Userinfo set Upass='{Upass}' where Uname='{Uname}'";
+            return dbcoon.Execute(sql);
         
         
         }

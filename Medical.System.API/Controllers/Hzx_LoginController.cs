@@ -30,10 +30,10 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/Login")]
         [HttpGet]
-        public Userinfo Login(string Uiphone = "", string Upass = "")
+        public Userinfo Login(string Uname = "", string Upass = "")
         {
 
-            var list = bll.Login(Uiphone, Upass).FirstOrDefault();
+            var list = bll.Login(Uname, Upass).FirstOrDefault();
             return list;
         }
 
@@ -127,11 +127,11 @@ namespace Medical.System.API.Controllers
         /// <summary>
         /// 修改
         /// </summary>
-        /// <param name="Mid"></param>
+        /// <param name="u"></param>
         /// <returns></returns>
         [RouteAttribute("api/[controller]/UpdUser")]
         [HttpPost]
-        public int UpdUser(Userinfo u)
+        public int UpdUser([FromForm]Userinfo u)
         {
 
             var list = bll.Upd(u);
@@ -175,6 +175,21 @@ namespace Medical.System.API.Controllers
 
             var list = bll.DelUserinfo(Uid);
             return list;
+        }
+        /// 通过用户名修改密码
+        /// </summary>
+        /// <param name="Uname"></param>
+        /// <param name="Upass"></param>
+        /// <returns></returns>
+        /// 
+        /// 
+        [RouteAttribute("api/[controller]/UpdPass")]
+        [HttpGet]
+        public int UpdPass(string Uname="", string Upass="")
+        {
+            var list = bll.UpdPass(Uname, Upass);
+            return list;
+
         }
 
 

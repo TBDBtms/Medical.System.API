@@ -114,5 +114,69 @@ namespace Medical.System.Servers
             string sql = $"insert into CostsInfo values('{c.Additional}','{c.RecipeKey}', '{c.MoneyInfn}', '{c.Cost}','{c.CTime}' ,'{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
             return dbconn.Execute(sql);
         }
+
+        ///===========================================================================================================================================================================
+        /// <summary>
+        /// 诊疗费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <param name="pid">处方类别</param>
+        /// <returns></returns>
+        public List<Consultation> GetConsultations(string name = "")
+        {
+
+            string sql = "select * from Consultation c join Userinfo u on c.CreatepersonKey=u.Uid where 1=1 ";
+            if (!string.IsNullOrEmpty(name))
+            {
+                sql += $" and c.Additional='{name}'";
+            }
+            
+            return dbconn.Query<Consultation>(sql).ToList();
+        }
+
+        /// <summary>
+        /// 删除诊疗费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelConsultations(int cid)
+        {
+            var sql = $"delete from Consultation where SequenceId={cid}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddConsultations(Consultation c)
+        {
+            //c.CTime = DateTime.Now;
+            string sql = $"insert into Consultation values('{c.Additional}','{c.MoneyInfn}', '{c.Cost}','{c.ZLTime}','{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 修改附加费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int ModifyConsultations(Consultation model)
+        {
+            string sql = $"Update Consultation set Additional='{model.Additional}',MoneyInfn={model.MoneyInfn},Cost={model.Cost},ZLTime='{model.ZLTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 修改附加回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public Consultation FXConsultations(int cid = 0)
+        {
+            string sql = $"select * from Consultation c join Userinfo u on c.CreatepersonKey=u.Uid where c.SequenceId={cid}";
+
+            return dbconn.Query<Consultation>(sql).FirstOrDefault();
+        }
+
+
     }
 }
