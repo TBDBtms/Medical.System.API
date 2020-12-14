@@ -17,5 +17,7 @@ namespace Medical.Model.ZZH_Model
         /// 学历名称
         /// </summary>
         public string EducationName { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string CreatePeople { get; set; }
     }
 }
