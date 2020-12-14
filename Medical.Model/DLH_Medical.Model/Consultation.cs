@@ -28,7 +28,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 当前时间
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime ZLTime { get; set; }
         /// <summary>
         /// 创建人员外键
         /// </summary>
@@ -41,5 +41,13 @@ namespace Medical.Model.DLH_Medical.Model
         /// 费用状态
         /// </summary>
         public bool CState { get; set; }
+
+
+        #region 员工
+        public int Uid { get; set; }
+        public string Uname { get; set; }
+        #endregion
+
+        public string time { get; set; }
     }
 }

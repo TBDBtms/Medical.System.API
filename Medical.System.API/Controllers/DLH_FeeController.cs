@@ -120,5 +120,73 @@ namespace Medical.System.API.Controllers
             return Ok(bll.AddCost(c));
         }
 
+
+        ///====================================================================================================================
+        [HttpGet]
+        [RouteAttribute("api/[controller]/GetConsultations")]
+        /// <summary>
+        /// 诊疗费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <param name="pid">处方类别</param>
+        /// <returns></returns>
+        public List<Consultation> GetConsultations(string name = "")
+        {
+            var list =  bll.GetConsultations(name);
+            foreach (var item in list)
+            {
+                item.time = item.ZLTime.ToString("yyyy-MM-dd");
+            }
+            return list;
+        }
+
+        [HttpPost]
+        [RouteAttribute("api/[controller]/DelConsultations")]
+        /// <summary>
+        /// 删除诊疗费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelConsultations(int cid)
+        {
+            return bll.DelConsultations(cid);
+        }
+
+        [HttpPost]
+        [RouteAttribute("api/[controller]/AddConsultations")]
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public IActionResult AddConsultations(Consultation c)
+        {
+            //c.CTime = DateTime.Now;
+            return Ok(bll.AddConsultations(c));
+        }
+
+        [RouteAttribute("api/[controller]/ModifyConsultations")]
+        [HttpPost]
+        /// <summary>
+        /// 修改附加费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int ModifyConsultations(Consultation model)
+        {
+            return bll.ModifyConsultations(model);
+        }
+
+        [RouteAttribute("api/[controller]/FXConsultations")]
+        [HttpGet]
+        /// <summary>
+        /// 修改附加回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public IActionResult FXConsultations(int cid = 0)
+        {
+            return Ok(bll.FXConsultations(cid));
+        }
     }
 }
