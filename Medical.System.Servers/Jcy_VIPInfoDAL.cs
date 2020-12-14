@@ -168,7 +168,10 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int RePrice(VIPInfo vip)
         {
-            string str = $"update VIPInfo set RePrice=RePrice-{vip.RePrice},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}',Id={vip.Id}";
+            string sqls = $"select SvalueMoney from VIPInfo where Id={vip.Id}";
+            var list = DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
+            var TKje = list.SvalueMoney;
+            string str = $"update VIPInfo set RePrice={TKje-vip.RePrice},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>

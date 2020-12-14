@@ -34,9 +34,10 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10)
         {
-            return Ok(bll.GetVIPInfos(stime, etime, id, name, phone, card));
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
+            return Ok(list);
         }
         /// <summary>
         /// 余额充值返填信息
