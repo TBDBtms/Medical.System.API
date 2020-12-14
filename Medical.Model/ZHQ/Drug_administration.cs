@@ -138,5 +138,9 @@ namespace Medical.Model.ZHQ
         /// 创建时间
         /// </summary>
         public DateTime Drugctime { get; set; }
+        /// <summary>
+        /// 库存
+        /// </summary>
+        public int DrugKC { get; set; }
     }
 }

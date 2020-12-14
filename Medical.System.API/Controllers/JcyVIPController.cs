@@ -118,7 +118,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="vip"></param>
         /// <returns></returns>
-        [Route("api/[controller]/ClearIntegrals")]
+        [Route("api/[controller]/ClearIntegral")]
         [HttpPost]
         public IActionResult ClearIntegral([FromForm] VIPInfo vip)
         {
