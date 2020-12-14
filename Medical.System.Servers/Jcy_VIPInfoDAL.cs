@@ -89,10 +89,12 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPInfo(VIPInfo vip)
         {
-            var strs = vip.SvalueMoney + vip.PayMoney+ vip.GiveMoney;//余额
-            var strc = vip.PayMoney + vip.GiveMoney;//积累消费
-            var jf = vip.Integral + (vip.SvalueMoney);//积分
-            string str = $"update VIPInfo set Integral={jf},AmassPrice={strc},SvalueMoney={strs},PayMoney={vip.PayMoney},GiveMoney={vip.GiveMoney},SId={vip.SId} WHERE Id={vip.Id}";
+            string sqls = $"select * from VIPInfo where Id={vip.Id}";
+            var list=DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
+            var money = list.AmassPrice + vip.SvalueMoney;
+            var price = list.SvalueMoney+vip.GiveMoney+vip.PayMoney;
+            var numprice = list.Integral + vip.PayMoney + vip.GiveMoney;
+            string str = $"update VIPInfo set Integral={numprice},AmassPrice={money},SvalueMoney={price},PayMoney={vip.PayMoney},GiveMoney={vip.GiveMoney},SId={vip.SId} WHERE Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -130,7 +132,10 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddIntegral(VIPInfo vip)
         {
-            string str = $"update VIPInfo set Integral=Integral+{vip.Integral},AddRemark='{vip.AddRemark}',Id={vip.Id}";
+            string sqls = $"select Integral from VIPInfo where Id={vip.Id}";
+            var list=DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
+            var integrals = list.Integral;
+            string str = $"update VIPInfo set Integral={integrals+vip.Integral},AddRemark='{vip.AddRemark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -140,7 +145,10 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int JIanIntegral(VIPInfo vip)
         {
-            string str = $"update VIPInfo set Integral=Integral-{vip.Integral},KJRemark='{vip.KJRemark}',Id={vip.Id}";
+            string sqls = $"select * from VIPInfo where Id={vip.Id}";
+            var list = DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
+            var kjnums = list.Integral;
+            string str = $"update VIPInfo set Integral={kjnums-vip.Integral},KJRemark='{vip.KJRemark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -150,7 +158,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int ClearIntegral(VIPInfo vip)
         {
-            string str = $"update VIPInfo set Integral=0,InClearRemark='{vip.InClearRemark}',Id={vip.Id}";
+            string str = $"update VIPInfo set Integral={vip.Integral=0},InClearRemark='{vip.InClearRemark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
