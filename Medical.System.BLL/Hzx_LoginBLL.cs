@@ -19,9 +19,9 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="u"></param>
         /// <returns></returns>
-        public List<Userinfo> Login(string Uiphone, string Upass)
+        public List<Userinfo> Login(string Uname, string Upass)
         {
-            return dal.Login(Uiphone, Upass);
+            return dal.Login(Uname, Upass);
         }
         /// <summary>
         /// 获取所有员工信息
@@ -113,7 +113,18 @@ namespace Medical.System.BLL
         public bool Addquan(Rqinfo r)
         {
             return dal.Addquan(r);
-         
+
+
+
+        } /// <summary>
+          /// 通过用户名修改密码
+          /// </summary>
+          /// <param name="Uname"></param>
+          /// <param name="Upass"></param>
+          /// <returns></returns>
+        public int UpdPass(string Uname, string Upass)
+        {
+            return dal.UpdPass(Uname, Upass);
 
 
         }

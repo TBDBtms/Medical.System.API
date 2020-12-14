@@ -60,7 +60,7 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CostsInfo FXCost(int cid)
+        public CostsInfo FXCost(int cid=0)
         {
             return dal.FXCost(cid);
         }
@@ -83,6 +83,65 @@ namespace Medical.System.BLL
         {
             return dal.VIPZheko(c);
         }
-        
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddCost(CostsInfo c)
+        {
+            return dal.AddCost(c);
+        }
+
+
+
+        /// <summary>
+        /// 诊疗费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <param name="pid">处方类别</param>
+        /// <returns></returns>
+        public List<Consultation> GetConsultations(string name = "")
+        {
+            return dal.GetConsultations(name);   
+        }
+
+        /// <summary>
+        /// 删除诊疗费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelConsultations(int cid)
+        {
+            return dal.DelConsultations(cid);
+        }
+        /// <summary>
+        /// 添加附加费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddConsultations(Consultation c)
+        {
+            //c.CTime = DateTime.Now;
+            return dal.AddConsultations(c);
+        }
+        /// <summary>
+        /// 修改附加费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int ModifyConsultations(Consultation model)
+        {
+            return dal.ModifyConsultations(model);
+        }
+        /// <summary>
+        /// 修改附加回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public Consultation FXConsultations(int cid = 0)
+        {
+            return FXConsultations(cid);
+        }
     }
 }

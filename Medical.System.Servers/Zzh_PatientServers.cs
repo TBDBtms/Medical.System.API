@@ -148,6 +148,26 @@ namespace Medical.System.Servers
             string sql = $"select * from Position";
             return dbcoon.Query<Position>(sql).ToList();
         }
+        /// <summary>
+        /// 修改患者信息
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public int UpdPatient(Patient m)
+        {
+            m.CreateTime = DateTime.Now;
+            string sql = $"update Patient set PatientCode='{m.PatientCode}',PatientName='{m.PatientName}',PatientCard='{m.PatientCard}',PatientAge='{m.PatientAge}',PatientDateBirth='{m.PatientDateBirth}',PatientSex='{m.PatientSex}',PatientPhone='{m.PatientPhone}',Patientpapers='{m.Patientpapers}',PatientSourceId='{m.PatientSourceId}',MemberId='{m.MemberId}',MemberType='{m.MemberType}',EndData='{m.EndData}',Nation='{m.Nation}',MaritalStatus='{m.MaritalStatus}',EducationId='{m.EducationId}',ProvinceId='{m.ProvinceId}',CityId='{m.CityId}',PatientAddress='{m.PatientAddress}',PositionId='{m.PositionId}',WorkUnit='{m.WorkUnit}',Remark='{m.Remark}',CaoPeople='{m.CaoPeople}',CreateTime='{m.CreateTime}' where PatientId='{m.PatientId}'";
+            return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 回显患者信息
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public Patient GetPatient(int patientId=0)
+        {
+            string sql = $"select * from Patient where PatientId='{patientId}'";
+            return dbcoon.Query<Patient>(sql).FirstOrDefault();
+        }
     }
-    
 }

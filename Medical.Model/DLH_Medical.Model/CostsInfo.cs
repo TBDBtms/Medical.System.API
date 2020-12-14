@@ -32,7 +32,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 当前时间
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime CTime { get; set; }
         /// <summary>
         /// 创建人员外键
         /// </summary>
@@ -57,6 +57,6 @@ namespace Medical.Model.DLH_Medical.Model
         public string RecipeName { get; set; }
         #endregion
 
-
+        public string time { get; set; }
     }
 }
