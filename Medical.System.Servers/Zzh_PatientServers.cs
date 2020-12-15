@@ -120,6 +120,28 @@ namespace Medical.System.Servers
             return dbcoon.Execute(sql);
         }
         /// <summary>
+        /// 回显患者来源
+        /// </summary>
+        /// <param name="patientSourceId"></param>
+        /// <returns></returns>
+        public PatientSource ShoPatientSource(int patientSourceId = 0)
+        {
+            string sql = $"select * from PatientSource where PatientSourceId='{patientSourceId}'";
+            return dbcoon.Query<PatientSource>(sql).FirstOrDefault();
+        }
+        /// <summary>
+        /// 编辑患者来源
+        /// </summary>
+        /// <returns></returns>
+        public int UpdPatientSource(PatientSource m)
+        {
+            m.CreateTime = DateTime.Now;
+            m.CreateTime.ToString("yyyy-MM-dd");
+            m.CreatePeople = "111";
+            string sql = $"update PatientSource set PatientSourceName='{m.PatientSourceName}',CreateTime='{m.CreateTime}',CreatePeople='{m.CreatePeople}' where PatientSourceId='{m.PatientSourceId}'";
+            return dbcoon.Execute(sql);
+        }
+        /// <summary>
         /// 删除患者来源
         /// </summary>
         /// <param name="id"></param>
@@ -152,6 +174,28 @@ namespace Medical.System.Servers
             m.CreateTime.ToString("yyyy-MM-dd");
             m.CreatePeople = "111";
             string sql = $"insert into Education values('{m.EducationName}','{m.CreateTime}','{m.CreatePeople}')";
+            return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 回显学历
+        /// </summary>
+        /// <param name="educationId"></param>
+        /// <returns></returns>
+        public Education ShowEducation(int educationId = 0)
+        {
+            string sql = $"select * from Education where EducationId='{educationId}'";
+            return dbcoon.Query<Education>(sql).FirstOrDefault();
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        public int UpdEducation(Education m)
+        {
+            m.CreateTime = DateTime.Now;
+            m.CreateTime.ToString("yyyy-MM-dd");
+            m.CreatePeople = "111";
+            string sql = $"update Education set PatientSourceName='{m.EducationName}',CreateTime='{m.CreateTime}',CreatePeople='{m.CreatePeople} where EducationId='{m.EducationId}'";
             return dbcoon.Execute(sql);
         }
         /// <summary>
@@ -215,6 +259,28 @@ namespace Medical.System.Servers
             m.CreatePeople = "111";
             string sql = $"insert into Position values('{m.PositionName}','{m.CreateTime}','{m.CreatePeople}')";
 
+            return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 回显职业
+        /// </summary>
+        /// <param name="positionId"></param>
+        /// <returns></returns>
+        public Position ShowPosition(int positionId = 0)
+        {
+            string sql = $"select * from Position where PositionId='{positionId}'";
+            return dbcoon.Query<Position>(sql).FirstOrDefault();
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        public int UpdPosition(Position m)
+        {
+            m.CreateTime = DateTime.Now;
+            m.CreateTime.ToString("yyyy-MM-dd");
+            m.CreatePeople = "111";
+            string sql = $"update Position set PositionName='{m.PositionName}',CreateTime='{m.CreateTime}',CreatePeople='{m.CreatePeople}' where PositionId='{m.PositionId}'";
             return dbcoon.Execute(sql);
         }
         /// <summary>
