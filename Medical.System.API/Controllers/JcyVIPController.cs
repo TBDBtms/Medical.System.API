@@ -36,8 +36,9 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10)
         {
-            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
-            return Ok(list);
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            int count = list.Count;
+            return Ok(new {list=list.Skip((pageIndex-1)*pageSize).Take(pageSize),Count=count});
         }
         /// <summary>
         /// 余额充值返填信息

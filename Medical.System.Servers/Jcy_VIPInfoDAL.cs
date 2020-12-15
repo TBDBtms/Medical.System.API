@@ -112,7 +112,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> GetVIPgrade()
         {
-            string str = $"select distinct a.VGradeId,a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId";
+            string str = $"select distinct a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join SValuemage c on a.id=c.Id";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
         /// <summary>
