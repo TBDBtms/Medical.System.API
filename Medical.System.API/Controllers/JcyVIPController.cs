@@ -20,7 +20,6 @@ namespace Medical.System.API.Controllers
         {
             _conn = coon;
             bll = new Jcy_VIPInfoBLL(coon);
-
         }
         /// <summary>
         /// 显示会员信息
@@ -142,7 +141,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("api/[controller]/SetGrade")]
-        [HttpPost]
+        [HttpGet]
         public IActionResult SetGrade()
         {
             return Ok(bll.SetGrade());
@@ -188,6 +187,28 @@ namespace Medical.System.API.Controllers
         public IActionResult GetMemberSet()
         {
             return Ok(bll.GetMembers());
+        }
+        /// <summary>
+        /// 新增会员类型
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddVIPType")]
+        [HttpPost]
+        public IActionResult AddVIPType([FromForm] MemberSet mset)
+        {
+            return Ok(bll.AddVIPType(mset));
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdVIPType")]
+        [HttpPost]
+        public IActionResult UpdVIPType([FromForm] MemberSet mset)
+        {
+            return Ok(bll.UpdVIPType(mset));
         }
     }
 }

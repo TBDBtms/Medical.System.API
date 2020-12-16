@@ -49,6 +49,6 @@ namespace Medical.Model.Jcy_Model
         /// <summary>
         /// 状态
         /// </summary>
-        public int States { get; set; }
+        public bool States { get; set; }
     }
 }

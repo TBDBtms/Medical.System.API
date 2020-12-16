@@ -180,7 +180,8 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> SetGrade()
         {
-            string str = $"select * from VIPInfo a join SetGrade b on a.Id=b.Id where 1=1";
+            string name = "";
+            string str = $"select * from VIPInfo a join SetGrade b on a.Id=b.Id join Patient c on a.Id=c.PatientId where c.PatientName='{name}'";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
         /// <summary>
@@ -253,7 +254,7 @@ namespace Medical.System.Servers
             return dbcoon.Query<Pointmanage>(str).ToList();
         }
         /// <summary>
-        /// 会员设置
+        /// 会员设置显示
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
@@ -265,5 +266,34 @@ namespace Medical.System.Servers
             string str = $"select * from MemberSet a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
             return dbcoon.Query<MemberSet>(str).ToList();
         }
+        /// <summary>
+        /// 新增会员类型
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        public int AddVIPType(MemberSet mset)
+        {
+            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VIPName}','{mset.VIPReset}',{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        public int UpdVIPType(MemberSet mset)
+        {
+            string str = $"update MemberSet set VGradeName={mset.VGradeName},VIPName='{mset.VIPName}',VIPReset='{mset.VIPReset}',MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
+            return dbcoon.Execute(str);
+        }
+        //public int SetVIPWhere(int rid=0,int sid=0,int xfid=0,int czid=0,int sxid=0)
+        //{
+        //    string str = "";
+        //    if (rid==1)
+        //    {
+        //        str += "";
+        //    }
+
+        //}
     }
 }

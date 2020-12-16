@@ -155,5 +155,23 @@ namespace Medical.System.BLL
         {
             return dal.GetMembers();
         }
+        /// <summary>
+        /// 新增会员类型
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        public int AddVIPType(MemberSet mset)
+        {
+            return dal.AddVIPType(mset);
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        public int UpdVIPType(MemberSet mset)
+        {
+            return dal.UpdVIPType(mset);
+        }
     }
 }
