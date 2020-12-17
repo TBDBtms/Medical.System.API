@@ -25,5 +25,12 @@ namespace Medical.Model.DLH_Medical.Model
         /// 医生创建人 自动识别登录医生的姓名
         /// </summary>
         public int Createperson { get; set; }
+
+        public string time { get; set; }
+
+        #region 员工
+        public int Uid { get; set; }
+        public string Uname { get; set; }
+        #endregion
     }
 }
