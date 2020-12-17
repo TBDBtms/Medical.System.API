@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Medical.System.BLL;
 using Medical.Model.ZHQ;
-
+using Medical.System.Servers;
 namespace Medical.System.API.Controllers
 {
   
@@ -27,9 +27,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[Controller]/Getadministration")]
         [HttpGet]
-        public IActionResult Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+        public IActionResult Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10, int bid = 0, int wid = 0)
         {
-            return Ok(bll.Getadministration(tj, name, pageindex, pagesize));
+            return Ok(bll.Getadministration(tj, name, pageindex, pagesize,bid,wid));
         }
         /// <summary>
         /// 添加药品
@@ -53,6 +53,17 @@ namespace Medical.System.API.Controllers
         public IActionResult Getclassification()
         {
             return Ok(bll.Getclassification());
+        }
+        /// <summary>
+        /// 查询品牌表
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("api/[Controller]/GetBrand")]
+        [HttpGet]
+        public IActionResult GetBrand()
+        {
+            return Ok(bll.GetBrand());
         }
         /// <summary>
         /// 查询剂型
@@ -133,5 +144,13 @@ namespace Medical.System.API.Controllers
         {
             return bll.AddPricing(model);
         }
+        [Route("api/[Controller]/addimg")]
+        [HttpGet]
+        public int addimg(string img)
+        {
+            string sql = $"insert into db1215 values('{img}')";
+            return DBhelper.CMD(sql);
+        }
+
     }
 }

@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace Medical.System.Servers
 {
-    public static class DBHelper
+    public static class DBHelper2
     {
         public static string strConn = "server=192.168.0.178;uid=sa;pwd=DLH1661392274;database=D_Clinic_System";
       

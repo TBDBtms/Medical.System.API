@@ -141,7 +141,7 @@ namespace Medical.System.Servers
             {
                 sql.Add($"insert into Rqinfo(Qids,Rids) values({m},{r.Rids})");
             }
-            return DBHelper.ExecuteSqlTran(sql);
+            return DBHelper2.ExecuteSqlTran(sql);
         
         
         }
