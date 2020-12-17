@@ -28,7 +28,7 @@ namespace Medical.Model.HZX_Model
         /// <summary>
         /// 医生外键
         /// </summary>
-        public int uids        { get; set; }
+        public string Yname        { get; set; }
         /// <summary>
         /// 挂号费
         /// </summary>
@@ -85,5 +85,9 @@ namespace Medical.Model.HZX_Model
         /// 留言
         /// </summary>
         public string Hremaek { get; set; }
+        public string Rname { get; set; }
+        public string Kname { get; set; }
+        public string Jname { get; set; }
+        public string Cname { get; set; }
     }
 }
