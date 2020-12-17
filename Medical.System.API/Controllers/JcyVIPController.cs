@@ -161,6 +161,28 @@ namespace Medical.System.API.Controllers
             return Ok(bll.GetSValuemages(id,name,phone,card));
         }
         /// <summary>
+        /// 储值管理的充值
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdCZ")]
+        [HttpPost]
+        public IActionResult UpdCZ([FromForm]SValuemage sva)
+        {
+            return Ok(bll.UpdCZ(sva));
+        }
+        /// <summary>
+        /// 储值余额退款1
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdTK")]
+        [HttpPost]
+        public IActionResult UpdTK([FromForm]SValuemage sva)
+        {
+            return Ok(bll.UpdTK(sva));
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>

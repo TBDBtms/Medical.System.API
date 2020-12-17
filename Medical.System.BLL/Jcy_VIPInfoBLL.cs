@@ -166,6 +166,24 @@ namespace Medical.System.BLL
             return dal.GetMembers();
         }
         /// <summary>
+        /// 储值管理的充值
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdCZ(SValuemage sva)
+        {
+            return dal.UpdCZ(sva);
+        }
+        /// <summary>
+        /// 储值余额退款1
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdTK(SValuemage sva)
+        {
+            return dal.UpdTK(sva);
+        }
+        /// <summary>
         /// 新增会员类型
         /// </summary>
         /// <param name="mset"></param>

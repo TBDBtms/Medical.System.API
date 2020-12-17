@@ -228,12 +228,29 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="sva"></param>
         /// <returns></returns>
-        public int Upd(SValuemage sva)
+        public int UpdCZ(SValuemage sva)
         {
-            string str = $"update SValuemage set PayMoney={sva.PayMoney},GiveMoney={sva.GiveMoney},SId={sva.SId} where id={sva.Id}";
+            string sqls = $"select * from SValuemage where Id={sva.Id}";
+            var list = DBhelper.GetList<SValuemage>(sqls).FirstOrDefault();
+            var money = list.AmassPrice + sva.SvalueMoney;
+            var price = list.SvalueMoney + sva.GiveMoney + sva.PayMoney;
+            var numprice = list.AddGiveMoney + sva.PayMoney + sva.GiveMoney;
+            string str = $"update SValuemage set AddGiveMoney={numprice},AmassPrice={money},SvalueMoney={price},PayMoney={sva.PayMoney},GiveMoney={sva.GiveMoney},SId={sva.SId} WHERE Id={sva.Id}";
             return dbcoon.Execute(str);
         }
-
+        /// <summary>
+        /// 储值余额退款1
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdTK(SValuemage sva)
+        {
+            string sqls = $"select SvalueMoney from SValuemage where Id={sva.Id}";
+            var list = DBhelper.GetList<SValuemage>(sqls).FirstOrDefault();
+            var TKje = list.SvalueMoney;
+            string str = $"update SValuemage set Rprice={TKje - sva.Rprice},RMent='{sva.RMent}',Remark='{sva.Remark}' where Id={sva.Id}";
+            return dbcoon.Execute(str);
+        }
         /// <summary>
         /// 积分管理
         /// </summary>
