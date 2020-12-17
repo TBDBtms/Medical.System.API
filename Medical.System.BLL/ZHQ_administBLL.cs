@@ -15,9 +15,9 @@ namespace Medical.System.BLL
         {
             dal = new ZHQ_administrationDAL(conn);
         }
-        public Page<Drug_administration> Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+        public Page<Drug_administration> Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10, int bid = 0, int wid = 0)
         {
-            return dal.Getadministration(tj,name,pageindex,pagesize);
+            return dal.Getadministration(tj,name,pageindex,pagesize,bid,wid);
         }
         public int Addadministration(Drug_administration model)
         {
@@ -54,6 +54,14 @@ namespace Medical.System.BLL
         public List<Manufacturer> GetManufacturer()
         {
             return dal.GetManufacturer();
+        }
+        /// <summary>
+        /// 查询品牌表
+        /// </summary>
+        /// <returns></returns>
+        public List<Brand> GetBrand()
+        {
+            return dal.GetBrand();
         }
         /// <summary>
         /// 修改药品价格根据Id获取单挑数据

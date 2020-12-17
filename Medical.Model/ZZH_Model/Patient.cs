@@ -48,16 +48,12 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 患者来源外键
         /// </summary>
-        public int PatientSourceId { get; set; }
+        public int PatientSource { get; set; }
         /// <summary>
         /// 会员类型
         /// </summary>
-        public int MemberType { get; set; }
-        /// <summary>
-        /// 会员等级外键
-        /// </summary>
-        public int MemberId { get; set; }
-        public string VGradeName { get; set; }
+        public int MemberTypeId { get; set; }
+        public string MemberTypeName { get; set; }
         /// <summary>
         /// 到期时间
         /// </summary>
@@ -67,13 +63,13 @@ namespace Medical.Model.ZZH_Model
         /// </summary>
         public string Nation { get; set; }
         /// <summary>
-        /// 婚姻外键
-        /// </summary>
+        /// 婚姻
+        /// </summar
         public bool MaritalStatus { get; set; }
         /// <summary>
-        /// 学历外键
+        /// 学历
         /// </summary>
-        public int EducationId { get; set; }
+        public int Education { get; set; }
         /// <summary>
         /// 省外键
         /// </summary>
@@ -89,15 +85,16 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 职位外键
         /// </summary>
-        public int PositionId { get; set; }
-        /// <summary>
-        /// 工作单位
-        /// </summary>
-        public string WorkUnit { get; set; }
+        public int Position { get; set; }
         /// <summary>
         /// 操作人
         /// </summary>
-        public string CaoPeople { get; set; }
+        public int CaoPeopleId { get; set; }
+        public string CaoZuoRenName { get; set; }
+        /// <summary>
+        /// 科室
+        /// </summary>
+        public int Departments { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -106,5 +103,25 @@ namespace Medical.Model.ZZH_Model
         /// 时间
         /// </summary>
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// 家庭关系外键
+        /// </summary>
+        public int FamilyTiesId { get; set; }
+        /// <summary>
+        /// 家庭成员名称
+        /// </summary>
+        public string ReleFamilyName { get; set; }
+        /// <summary>
+        /// 患者家庭成员
+        /// </summary>
+        public bool ReleFamilySex { get; set; }
+        /// <summary>
+        /// 患者家庭成员年龄
+        /// </summary>
+        public int ReleFamilyAge { get; set; }
+        /// <summary>
+        /// 患者家庭成员手机号
+        /// </summary>
+        public string ReleFamilyPhone { get; set; }
     }
 }

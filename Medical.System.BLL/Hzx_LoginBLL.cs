@@ -180,5 +180,32 @@ namespace Medical.System.BLL
 
             return dal.Addrole(r);
         }
+        /// <summary>
+           /// 获取接诊类型
+           /// </summary>
+           /// <returns></returns>
+        public List<JZtype> GetJZtypes()
+        {
+            return dal.GetJZtypes();
+
+
+        }
+        /// <summary>
+        /// 添加挂号信息
+        /// </summary>
+        /// <returns></returns>
+        public int AddGua(X_Guahao g)
+        {
+            return dal.AddGua(g);
+
+        } /// <summary>
+          /// 显示挂号单
+          /// </summary>
+          /// <returns></returns>
+        public List<X_Guahao> GetX_Guahaos()
+        {
+            return dal.GetX_Guahaos();
+
+        }
     }
 }
