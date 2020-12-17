@@ -22,7 +22,7 @@ namespace Medical.System.Servers
         /// 查看所有药品
         /// </summary>
         /// <returns></returns>
-        public Page<Drug_administration> Getadministration(int tj=0,string name="",int pageindex=1,int pagesize=10)
+        public Page<Drug_administration> Getadministration(int tj=0,string name="",int pageindex=1,int pagesize=10,int bid=0,int wid=0)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -41,6 +41,8 @@ namespace Medical.System.Servers
                 name = "";
             }
             SqlParameter[] param = new SqlParameter[] {
+                new SqlParameter() { ParameterName="@BId",DbType=DbType.Int32,Value=bid},
+                new SqlParameter() { ParameterName="@WId",DbType=DbType.Int32,Value=wid},
                 new SqlParameter() { ParameterName="@DId",DbType=DbType.Int32,Value=tj},
                 new SqlParameter() { ParameterName="@Name",DbType=DbType.String,Value=name},
                 new SqlParameter() { ParameterName="@PageIndex",DbType=DbType.Int32,Value=pageindex},
@@ -51,9 +53,9 @@ namespace Medical.System.Servers
 
             Page<Drug_administration> page = new Page<Drug_administration>()
             { 
-                 Countnum = Convert.ToInt32(param[4].Value),
+                 Countnum = Convert.ToInt32(param[6].Value),
                  PageList=list
-            };
+            }; 
             return page;
         }
         private bool IsNumberic(string name="")
@@ -82,7 +84,9 @@ namespace Medical.System.Servers
             model.DrugState = 1;
             model.DrupPDState = 0;
             model.DrugXSNum = 0;
-            return dbconn.Execute("insert into Drug_administration values(@DrugBM, @DrugTXM, @DrugTYM, @DrugPYM, @DrugFL, @DrugGG, @DrugJX, @DrugFP, @DrugWH, @DrugCJ, @DrugBZDW, @DrugBZDWXS, @DrugJBDW, @DrugJLXS, @DrugJLDW, @DrugCGJ, @DrugLSJ, @DrugYF,@DrugDCYL, @DrugPD, @DrugYXQ, @DrugKCSX, @DrugKCXX, @DrugSM,@DrugXSNum,@DrupPDState,@DrugState,@Drugctime)", model);
+            model.DrugKC = 0;
+            model.DrugWH = "99999";
+            return dbconn.Execute("insert into Drug_administration values(@DrugBM, @DrugTXM, @DrugTYM, @DrugPYM, @DrugFL, @DrugGG, @DrugJX, @DrugFP, @DrugWH, @DrugCJ, @DrugBZDW, @DrugBZDWXS, @DrugJBDW, @DrugJLXS, @DrugJLDW, @DrugCGJ, @DrugLSJ, @DrugYF,@DrugDCYL, @DrugPD, @DrugYXQ, @DrugKCSX, @DrugKCXX, @DrugSM,@DrugXSNum,@DrupPDState,@DrugState,@Drugctime,@DrugKC,@DrugBrandId,@ImgUrl)", model);
         }
 
         /// <summary>
@@ -111,6 +115,15 @@ namespace Medical.System.Servers
         {
             string sql = "select * from Invoice1";
             return dbconn.Query<Invoice1>(sql).ToList();
+        }
+        /// <summary>
+        /// 查询品牌表
+        /// </summary>
+        /// <returns></returns>
+        public List<Brand> GetBrand()
+        {
+            string sql = "select * from Brand";
+            return dbconn.Query<Brand>(sql).ToList() ;
         }
         /// <summary>
         /// 查询厂家
