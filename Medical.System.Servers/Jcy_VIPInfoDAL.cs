@@ -98,6 +98,15 @@ namespace Medical.System.Servers
             return dbcoon.Execute(str);
         }
         /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        public List<VIPmoneys> GetVIPmoneys(string name="")
+        {
+            string str = $"select * from VIPmoneys a join SValuemage b on a.Id=b.Id join Patient c on a.id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<List<VIPmoneys>>(str).ToList().FirstOrDefault();
+        }
+        /// <summary>
         /// 下拉会员等级
         /// </summary>
         /// <returns></returns>
@@ -250,6 +259,19 @@ namespace Medical.System.Servers
             var TKje = list.SvalueMoney;
             string str = $"update SValuemage set Rprice={TKje - sva.Rprice},RMent='{sva.RMent}',Remark='{sva.Remark}' where Id={sva.Id}";
             return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        public int AddJL(VIPmoneys vips)
+        {
+            string sqls = $"select * from VIPmoneys where Id={vips.Id}";
+            var list = DBhelper.GetList<VIPmoneys>(sqls).FirstOrDefault();
+            vips.DealTimes = DateTime.Now;
+            vips.SumMoney = list.GiveMoney + list.DealPrice;
+            return dbcoon.Execute("insert into VIPmoneys values(@DealTimes,@DealType,@DealPrice,@Givemoney,@SumMoney,@Mans)", vips);
         }
         /// <summary>
         /// 积分管理

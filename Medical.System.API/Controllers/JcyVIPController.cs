@@ -183,6 +183,27 @@ namespace Medical.System.API.Controllers
             return Ok(bll.UpdTK(sva));
         }
         /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/GetVIPmoneys")]
+        [HttpGet]
+        public IActionResult GetVIPmoneys(string name="")
+        {
+            return Ok(bll.GetVIPmoneys(name));
+        }
+        /// <summary>
+        /// 添加储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddJL")]
+        [HttpPost]
+        public int AddJL([FromForm]VIPmoneys vips)
+        {
+            return bll.AddJL(vips);
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>

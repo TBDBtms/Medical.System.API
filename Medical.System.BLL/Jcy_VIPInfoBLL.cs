@@ -142,6 +142,23 @@ namespace Medical.System.BLL
             return dal.GetSValuemages(id, name, phone, card);
         }
         /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        public List<VIPmoneys> GetVIPmoneys(string name = "")
+        {
+            return dal.GetVIPmoneys(name);
+        }
+        /// <summary>
+        /// 添加储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        public int AddJL(VIPmoneys vips)
+        {
+            return dal.AddJL(vips);
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>
