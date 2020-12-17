@@ -158,5 +158,62 @@ namespace Medical.System.Servers
         
         
         }
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="Uname"></param>
+        /// <param name="Upass"></param>
+        /// <returns></returns>
+        public int zhao(string Uname, string Upass,string Uiphone)
+        {
+            string sql = $"update Userinfo set Upass='{Upass}' where Uname='{Uname}'and Uiphone='{Uiphone}'";
+            return dbcoon.Execute(sql);
+
+
+        }
+        /// <summary>
+        /// /添加科室
+        /// </summary>
+        /// <param name="Kname"></param>
+        /// <returns></returns>
+        public int Addkeshi(string Kname)
+        {
+            string sql = $"insert into Keshi values('{Kname}')";
+            return dbcoon.Execute(sql);
+        
+        }
+        /// <summary>
+        /// 删除科室
+        /// </summary>
+        /// <param name="Kid"></param>
+        /// <returns></returns>
+        public int Delkeshi(int Kid)
+        {
+            string sql = $"delete from Keshi where Kid='{Kid}'";
+            return dbcoon.Execute(sql);
+        
+        }
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="Rid"></param>
+        /// <returns></returns>
+        public int DelRole(int Rid)
+        {
+
+            string sql = $"delete from Roleinfo where Rid='{Rid}'";
+            return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="Rid"></param>
+        /// <returns></returns>
+        public int Addrole(Roleinfo r)
+        {
+
+            string sql = $"insert into Roleinfo values('{r.Rname}')";
+            return dbcoon.Execute(sql);
+        }
     }
 }

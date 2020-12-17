@@ -101,7 +101,7 @@ namespace Medical.System.BLL
         /// <param name="name">费用名称</param>
         /// <param name="pid">处方类别</param>
         /// <returns></returns>
-        public List<Consultation> GetConsultations(string name = "")
+        public List<Consultation> GetConsultations(string name="")
         {
             return dal.GetConsultations(name);   
         }
@@ -141,7 +141,56 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public Consultation FXConsultations(int cid = 0)
         {
-            return FXConsultations(cid);
+            return dal.FXConsultations(cid);
+        }
+
+        //============================================挂号============
+        /// <summary>
+        /// 挂号费设置
+        /// </summary>
+        /// <param name="name">费用名称</param>
+        /// <param name="pid">处方类别</param>
+        /// <returns></returns>
+        public List<Registration> GetRegistrations(string name = "")
+        {
+            return dal.GetRegistrations(name);
+        }
+
+        /// <summary>
+        /// 删除诊疗费用
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public int DelRegistration(int cid)
+        {
+            return dal.DelRegistration(cid);
+        }
+        /// <summary>
+        /// 添加挂号费用
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddRegistration(Registration c)
+        {
+            return dal.AddRegistration(c);
+        }
+        /// <summary>
+        /// 修改挂号费用
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int ModifyRegistration(Registration model)
+        {
+            return dal.ModifyRegistration(model);
+        }
+        /// <summary>
+        /// 修改挂号回显
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public Registration FXRegistration(int cid = 0)
+        {
+            return dal.FXRegistration(cid);
         }
     }
 }

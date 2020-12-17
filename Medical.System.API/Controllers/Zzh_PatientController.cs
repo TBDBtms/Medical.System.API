@@ -66,20 +66,111 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetPatientSource")]
         [HttpGet]
-        public List<PatientSource> GetPatientSource()
+        public List<PatientSource> GetPatientSource(string name)
         {
-            var list= _Zzh_PatientBLL.GetPatientSource();
+            var list= _Zzh_PatientBLL.GetPatientSource(name);
+            return list;
+        }
+        /// <summary>
+        /// 新增患者来源
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/AddPatientSource")]
+        [HttpPost]
+        public int AddPatientSource([FromForm]PatientSource m)
+        {
+            var list = _Zzh_PatientBLL.AddPatientSource(m);
+            return list;
+        }
+        /// <summary>
+        /// 回显患者来源
+        /// </summary>
+        /// <param name="patientSourceId"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/ShowPatientSource")]
+        [HttpGet]
+        public PatientSource ShowPatientSource(int patientSourceId = 0)
+        {
+            var list = _Zzh_PatientBLL.ShowPatientSource(patientSourceId);
+            return list;
+        }
+        /// <summary>
+        /// 编辑患者来源
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdPatientSource")]
+        [HttpPost]
+        public int UpdPatientSource([FromForm]PatientSource m)
+        {
+            var list = _Zzh_PatientBLL.UpdPatientSource(m);
+            return list;
+        }
+        /// <summary>
+        /// 删除患者来源
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/DelPatientSource")]
+        public int DelPatientSource(int id)
+        {
+            var list = _Zzh_PatientBLL.DelPatientSource(id);
             return list;
         }
         /// <summary>
         /// 学历下拉
         /// </summary>
-        /// <returns></returns>、
+        /// <returns></returns>
         [RouteAttribute("api/[controller]/GetEducation")]
         [HttpGet]
-        public List<Education> GetEducation()
+        public List<Education> GetEducation(string name)
         {
-            var list = _Zzh_PatientBLL.GetEducation();
+            var list = _Zzh_PatientBLL.GetEducation(name);
+            return list;
+        }
+        /// <summary>
+        /// 新增学历
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/AddEducation")]
+        [HttpPost]
+        public int AddEducation([FromForm]Education m)
+        {
+            var list = _Zzh_PatientBLL.AddEducation(m);
+            return list;
+        }
+
+        /// <summary>
+        /// 回显学历
+        /// </summary>
+        /// <param name="educationId"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/ShowEducation")]
+        [HttpGet]
+        public Education ShowEducation(int educationId = 0)
+        {
+            var list = _Zzh_PatientBLL.ShowEducation(educationId);
+            return list;
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdEducation")]
+        [HttpPost]
+        public int UpdEducation([FromForm]Education m)
+        {
+            var list = _Zzh_PatientBLL.UpdEducation(m);
+            return list;
+        }
+        /// <summary>
+        /// 删除学历下拉
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/DelEducation")]
+        [HttpPost]
+        public int DelEducation(int id)
+        {
+            var list = _Zzh_PatientBLL.DelEducation(id);
             return list;
         }
         /// <summary>
@@ -121,9 +212,55 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetPosition")]
         [HttpGet]
-        public List<Position> GetPosition()
+        public List<Position> GetPosition(string name)
         {
-            var list = _Zzh_PatientBLL.GetPosition();
+            var list = _Zzh_PatientBLL.GetPosition(name);
+            return list;
+        }
+        /// <summary>
+        /// 新增职业
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/AddPosition")]
+        [HttpPost]
+        public int AddPosition([FromForm]Position m)
+        {
+            var list = _Zzh_PatientBLL.AddPosition(m);
+            return list;
+        }
+
+        /// <summary>
+        /// 回显职业
+        /// </summary>
+        /// <param name="positionId"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/ShowPosition")]
+        [HttpGet]
+        public Position ShowPosition(int positionId = 0)
+        {
+            var list = _Zzh_PatientBLL.ShowPosition(positionId);
+            return list;
+        }
+        /// <summary>
+        /// 编辑学历
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdPosition")]
+        [HttpPost]
+        public int UpdPosition([FromForm]Position m)
+        {
+            var list = _Zzh_PatientBLL.UpdPosition(m);
+            return list;
+        }
+        /// <summary>
+        /// 删除职业下拉
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/DelPosition")]
+        [HttpPost]
+        public int DelPosition(int id)
+        {
+            var list = _Zzh_PatientBLL.DelPosition(id);
             return list;
         }
         /// <summary>

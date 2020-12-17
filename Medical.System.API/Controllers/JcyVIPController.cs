@@ -20,7 +20,6 @@ namespace Medical.System.API.Controllers
         {
             _conn = coon;
             bll = new Jcy_VIPInfoBLL(coon);
-
         }
         /// <summary>
         /// 显示会员信息
@@ -34,9 +33,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10)
         {
-            return Ok(bll.GetVIPInfos(stime, etime, id, name, phone, card));
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            int count = list.Count;
+            return Ok(new {list=list.Skip((pageIndex-1)*pageSize).Take(pageSize),Count=count});
         }
         /// <summary>
         /// 余额充值返填信息
@@ -118,7 +119,7 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <param name="vip"></param>
         /// <returns></returns>
-        [Route("api/[controller]/ClearIntegrals")]
+        [Route("api/[controller]/ClearIntegral")]
         [HttpPost]
         public IActionResult ClearIntegral([FromForm] VIPInfo vip)
         {
@@ -140,10 +141,10 @@ namespace Medical.System.API.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("api/[controller]/SetGrade")]
-        [HttpPost]
-        public IActionResult SetGrade()
+        [HttpGet]
+        public IActionResult SetGrade(string name="")
         {
-            return Ok(bll.SetGrade());
+            return Ok(bll.SetGrade(name));
         }
         /// <summary>
         /// 储值管理
@@ -186,6 +187,39 @@ namespace Medical.System.API.Controllers
         public IActionResult GetMemberSet()
         {
             return Ok(bll.GetMembers());
+        }
+        /// <summary>
+        /// 新增会员类型
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddVIPType")]
+        [HttpPost]
+        public IActionResult AddVIPType([FromForm] MemberSet mset)
+        {
+            return Ok(bll.AddVIPType(mset));
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="mset"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdVIPType")]
+        [HttpPost]
+        public IActionResult UpdVIPType([FromForm] MemberSet mset)
+        {
+            return Ok(bll.UpdVIPType(mset));
+        }
+        /// <summary>
+        /// 添加会员等级变动记录
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddGrade")]
+        [HttpPost]
+        public IActionResult AddGrade([FromForm] SetGrade grade)
+        {
+            return Ok(bll.AddGrade(grade));
         }
     }
 }
