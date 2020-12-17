@@ -191,7 +191,71 @@ namespace Medical.System.API.Controllers
             return list;
 
         }
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="Uname"></param>
+        /// <param name="Upass"></param>
+        /// 
+        /// <returns></returns>
+       [RouteAttribute("api/[controller]/zhao")]
+        [HttpGet]
+        public int zhao(string Uname="", string Upass="", string Uiphone="")
+        {
 
+            return bll.zhao(Uname, Upass, Uiphone);
+
+        }
+        /// <summary>
+        /// /添加科室
+        /// </summary>
+        /// <param name="Kname"></param>
+        /// <returns></returns>
+        /// 
+        [RouteAttribute("api/[controller]/Addkeshi")]
+        [HttpGet]
+        public int Addkeshi(string Kname="")
+        {
+            return bll.Addkeshi(Kname);
+
+        }
+        /// <summary>
+        /// 删除科室
+        /// </summary>
+        /// <param name="Kid"></param>
+        /// <returns></returns>
+        ///      
+       [RouteAttribute("api/[controller]/Delkeshi")]
+        [HttpPost]
+        public int Delkeshi(int Kid)
+        {
+            return bll.Delkeshi(Kid);
+
+        }
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="Rid"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/DelRole")]
+        [HttpPost]
+        public int DelRole(int Rid)
+        {
+
+            return bll.DelRole(Rid);
+        }
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="Rname"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/Addrole")]
+        [HttpPost]
+        public int Addrole([FromForm]Roleinfo r)
+        {
+
+            return bll.Addrole(r);
+        }
 
     }
 }

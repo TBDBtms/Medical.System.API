@@ -59,6 +59,7 @@ namespace Medical.Model.HZX_Model
         /// 市下拉
         /// </summary>
         public string Cname { get; set; }
+        public string Kname { get; set; }
 
     }
 }

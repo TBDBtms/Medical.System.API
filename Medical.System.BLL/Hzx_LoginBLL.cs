@@ -128,5 +128,57 @@ namespace Medical.System.BLL
 
 
         }
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="Uname"></param>
+        /// <param name="Upass"></param>
+        /// <returns></returns>
+        public int zhao(string Uname, string Upass, string Uiphone)
+        {
+
+            return dal.zhao(Uname, Upass, Uiphone);
+
+        }
+        /// <summary>
+        /// /添加科室
+        /// </summary>
+        /// <param name="Kname"></param>
+        /// <returns></returns>
+        public int Addkeshi(string Kname)
+        {
+            return dal.Addkeshi(Kname);
+
+        }
+        /// <summary>
+        /// 删除科室
+        /// </summary>
+        /// <param name="Kid"></param>
+        /// <returns></returns>
+        public int Delkeshi(int Kid)
+        {
+            return dal.Delkeshi(Kid);
+
+        }
+        /// <summary>
+        /// 删除角色
+        /// </summary>
+        /// <param name="Rid"></param>
+        /// <returns></returns>
+        public int DelRole(int Rid)
+        {
+
+            return dal.DelRole(Rid);
+        }
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="Rname"></param>
+        /// <returns></returns>
+        public int Addrole(Roleinfo r)
+        {
+
+            return dal.Addrole(r);
+        }
     }
 }
