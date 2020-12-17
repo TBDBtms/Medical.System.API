@@ -115,9 +115,19 @@ namespace Medical.System.BLL
         ///会员等级变更记录
         /// </summary>
         /// <returns></returns>
-        public List<VIPInfo> SetGrade()
+        public List<VIPInfo> SetGrade(string name = "")
         {
-            return dal.SetGrade();
+            return dal.SetGrade(name);
+
+        }
+        /// <summary>
+        /// 添加会员等级变动记录
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
+        public int AddGrade(SetGrade grade)
+        {
+            return dal.AddGrade(grade);
         }
         /// <summary>
         /// 储值管理
@@ -129,7 +139,7 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public List<SValuemage> GetSValuemages(int id, string name = "", string phone = "", string card = "")
         {
-            return dal.GetSValuemages(id,name,phone,card);
+            return dal.GetSValuemages(id, name, phone, card);
         }
         /// <summary>
         /// 积分管理

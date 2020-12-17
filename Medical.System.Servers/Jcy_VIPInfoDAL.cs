@@ -112,7 +112,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> GetVIPgrade()
         {
-            string str = $"select distinct a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join SValuemage c on a.id=c.Id";
+            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join SValuemage c on a.id=c.Id";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
         /// <summary>
@@ -122,7 +122,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPgrade(VIPInfo vip)
         {
-            string str = $"update VIPInfo set EndTime={vip.EndTime},VGradeId={vip.VGradeId},Id={vip.Id}";
+            string str = $"update VIPInfo set EndTime={vip.EndTime},VGradeName={vip.VGradeName},VIPName={vip.VIPName},Discount={vip.Discount} Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -178,11 +178,21 @@ namespace Medical.System.Servers
         ///会员等级变更记录
         /// </summary>
         /// <returns></returns>
-        public List<VIPInfo> SetGrade()
+        public List<VIPInfo> SetGrade(string name = "")
         {
-            string name = "";
             string str = $"select * from VIPInfo a join SetGrade b on a.Id=b.Id join Patient c on a.Id=c.PatientId where c.PatientName='{name}'";
             return dbcoon.Query<VIPInfo>(str).ToList();
+        }
+        /// <summary>
+        /// 添加会员等级变动记录
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
+        public int AddGrade(SetGrade grade)
+        {
+            var strs=grade.ChTime = DateTime.Now;
+            string str = $"insert into SetGrade values('{grade.VIPCard}','{grade.VIPName}',{strs},'{grade.ChType}','{grade.Operator}')";
+            return dbcoon.Execute(str);
         }
         /// <summary>
         /// 储值管理

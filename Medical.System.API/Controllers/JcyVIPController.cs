@@ -142,9 +142,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/SetGrade")]
         [HttpGet]
-        public IActionResult SetGrade()
+        public IActionResult SetGrade(string name="")
         {
-            return Ok(bll.SetGrade());
+            return Ok(bll.SetGrade(name));
         }
         /// <summary>
         /// 储值管理
@@ -209,6 +209,17 @@ namespace Medical.System.API.Controllers
         public IActionResult UpdVIPType([FromForm] MemberSet mset)
         {
             return Ok(bll.UpdVIPType(mset));
+        }
+        /// <summary>
+        /// 添加会员等级变动记录
+        /// </summary>
+        /// <param name="grade"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddGrade")]
+        [HttpPost]
+        public IActionResult AddGrade([FromForm] SetGrade grade)
+        {
+            return Ok(bll.AddGrade(grade));
         }
     }
 }
