@@ -56,10 +56,11 @@ namespace Medical.System.Servers
         {
             string sql = $"select * from MemberType";
             return dbcoon.Query<MemberType>(sql).ToList();
-        }        /// <summary>
-                 /// 家庭关系
-                 /// </summary>
-                 /// <returns></returns>
+        }        
+        /// <summary>
+        /// 家庭关系
+        /// </summary>
+        /// <returns></returns>
         public List<FamilyTies> GetFamilyTies()
         {
             string sql = $"select * from FamilyTies";

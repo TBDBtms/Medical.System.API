@@ -17,5 +17,6 @@ namespace Medical.System.Servers
             _conn = conn;
             dbcoon = new SqlConnection(conn.Value.Conn);
         }
+
     }
 }
