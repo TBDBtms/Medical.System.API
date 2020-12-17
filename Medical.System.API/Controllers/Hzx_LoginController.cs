@@ -168,7 +168,7 @@ namespace Medical.System.API.Controllers
         /// <param name="Uiphone"></param>
         /// <param name="Upass"></param>
         /// <returns></returns>
-        [RouteAttribute("api/[controller]/DelUserinfo")]
+        [RouteAttribute("api/[controller]/DelUserinfo")] 
         [HttpPost]
         public int DelUserinfo(int Uid)
         {
@@ -256,6 +256,40 @@ namespace Medical.System.API.Controllers
 
             return bll.Addrole(r);
         }
+        /// <summary>
+        /// 获取接诊类型
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetJZtypes")]
+        [HttpGet]
+        public List<JZtype> GetJZtypes()
+        {
+            return bll.GetJZtypes();
 
+
+        }
+        /// <summary>
+        /// 添加挂号信息
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/AddGua")]
+        [HttpPost]
+        public int AddGua([FromForm]X_Guahao g)
+        {
+            return bll.AddGua(g);
+
+        }
+        /// <summary>
+        /// 显示挂号单
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetX_Guahaos")]
+        [HttpGet]
+        public List<X_Guahao> GetX_Guahaos()
+        {
+            return bll.GetX_Guahaos();
+
+        }
     }
 }
+
