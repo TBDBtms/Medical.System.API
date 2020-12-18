@@ -142,6 +142,18 @@ namespace Medical.System.BLL
             return dal.GetSValuemages(id, name, phone, card);
         }
         /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public MemberSet GetShowMembers(int id)
+        {
+            return dal.GetShowMembers(id);
+        }
+        /// <summary>
         /// 充值/退款记录
         /// </summary>
         /// <returns></returns>
@@ -169,6 +181,22 @@ namespace Medical.System.BLL
         public List<Pointmanage> GetPointmanages(int id, string name = "", string phone = "", string card = "")
         {
             return dal.GetPointmanages(id, name, phone, card);
+        }
+        /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public List<PointInfo> GetJFBD(string name = "")
+        {
+            return dal.GetJFBD(name);
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public int AddJF(PointInfo point)
+        {
+            return dal.AddJF(point);
         }
         /// <summary>
         /// 会员设置
