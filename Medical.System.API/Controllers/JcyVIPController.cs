@@ -40,6 +40,20 @@ namespace Medical.System.API.Controllers
             return Ok(new {list=list.Skip((pageIndex-1)*pageSize).Take(pageSize),Count=count});
         }
         /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetShowMembers")]
+        [HttpGet]
+        public IActionResult GetShowMembers(int id)
+        {
+            return Ok(bll.GetShowMembers(id));
+        }
+        /// <summary>
         /// 余额充值返填信息
         /// </summary>
         /// <param name="id"></param>
@@ -172,7 +186,7 @@ namespace Medical.System.API.Controllers
             return Ok(bll.UpdCZ(sva));
         }
         /// <summary>
-        /// 储值余额退款1
+        /// 储值余额退款
         /// </summary>
         /// <param name="sva"></param>
         /// <returns></returns>
@@ -181,6 +195,27 @@ namespace Medical.System.API.Controllers
         public IActionResult UpdTK([FromForm]SValuemage sva)
         {
             return Ok(bll.UpdTK(sva));
+        }
+        /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/GetVIPmoneys")]
+        [HttpGet]
+        public IActionResult GetVIPmoneys(string name="")
+        {
+            return Ok(bll.GetVIPmoneys(name));
+        }
+        /// <summary>
+        /// 添加储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddJL")]
+        [HttpPost]
+        public int AddJL([FromForm]VIPmoneys vips)
+        {
+            return bll.AddJL(vips);
         }
         /// <summary>
         /// 积分管理
@@ -195,6 +230,26 @@ namespace Medical.System.API.Controllers
         public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "")
         {
             return Ok(bll.GetPointmanages(id, name, phone, card));
+        }
+        /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/GetJFBD")]
+        [HttpGet]
+        public IActionResult GetJFBD(string name = "")
+        {
+            return Ok(bll.GetJFBD(name));
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/AddJF")]
+        [HttpPost]
+        public IActionResult AddJF([FromForm]PointInfo point)
+        {
+            return Ok(bll.AddJF(point));
         }
         /// <summary>
         /// 会员设置

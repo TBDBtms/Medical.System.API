@@ -98,6 +98,15 @@ namespace Medical.System.Servers
             return dbcoon.Execute(str);
         }
         /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        public List<VIPmoneys> GetVIPmoneys(string name="")
+        {
+            string str = $"select * from VIPmoneys a join SValuemage b on a.Id=b.Id join Patient c on a.id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<List<VIPmoneys>>(str).ToList().FirstOrDefault();
+        }
+        /// <summary>
         /// 下拉会员等级
         /// </summary>
         /// <returns></returns>
@@ -252,6 +261,19 @@ namespace Medical.System.Servers
             return dbcoon.Execute(str);
         }
         /// <summary>
+        /// 储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        public int AddJL(VIPmoneys vips)
+        {
+            string sqls = $"select * from VIPmoneys where Id={vips.Id}";
+            var list = DBhelper.GetList<VIPmoneys>(sqls).FirstOrDefault();
+            vips.DealTimes = DateTime.Now;
+            vips.SumMoney = list.GiveMoney + list.DealPrice;
+            return dbcoon.Execute("insert into VIPmoneys values(@DealTimes,@DealType,@DealPrice,@Givemoney,@SumMoney,@Mans)", vips);
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>
@@ -281,6 +303,24 @@ namespace Medical.System.Servers
             return dbcoon.Query<Pointmanage>(str).ToList();
         }
         /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public List<PointInfo> GetJFBD(string name="")
+        {
+            string str = $"select * from PointInfo a join VIPInfo b on a.Id=b.Id join Patient c on a.Id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<PointInfo>(str).ToList();
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public int AddJF(PointInfo point)
+        {
+            string str = $"insert into PointInfo values('{point.NewTimes=DateTime.Now}','{point.ChangeCZ}',{point.Num},'{point.Man}','{point.Remark}')";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
         /// 会员设置显示
         /// </summary>
         /// <param name="id"></param>
@@ -294,13 +334,43 @@ namespace Medical.System.Servers
             return dbcoon.Query<MemberSet>(str).ToList();
         }
         /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public MemberSet GetShowMembers(int id)
+        {
+            try
+            {
+                string str = $"select * from MemberSet where Id={id}";
+                var list= dbcoon.Query<MemberSet>(str).ToList();
+                if (list.Count()>0) 
+                {
+                    return list.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+        /// <summary>
         /// 新增会员类型
         /// </summary>
         /// <param name="mset"></param>
         /// <returns></returns>
         public int AddVIPType(MemberSet mset)
         {
-            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VIPName}','{mset.VIPReset}',{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
+            string str = $"insert into MemberSet values({mset.VGradeName},'{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
             return dbcoon.Execute(str);
         }
         /// <summary>
