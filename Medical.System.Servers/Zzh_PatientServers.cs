@@ -29,7 +29,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<Patient> GetPatient(string name = "", int id = 0)
         {
-            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId where 1=1";
+            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId join PatientState f on a.PatientStateId=f.PatientStateId where 1=1";
             if (!string.IsNullOrEmpty(name))
             {
                 var t = IsNumberic(name);
@@ -97,8 +97,17 @@ namespace Medical.System.Servers
             m.CreateTime = DateTime.Now;
             Random r = new Random();
             m.PatientCode = (r.Next(0, 10000)).ToString();
-            string sql = $"insert into Patient values('{m.PatientCode}','{m.PatientName}','{m.PatientCard}','{m.PatientAge}','{m.PatientDateBirth}','{m.PatientSex}','{m.PatientPhone}','{m.Patientpapers}','{m.PatientSource}','{m.MemberTypeId}','{m.EndData}','{m.Nation}','{m.MaritalStatus}','{m.Education}','{m.ProvinceId}','{m.CityId}','{m.PatientAddress}','{m.Position}','{m.Remark}','{m.Departments}','{m.CaoPeopleId}','{m.CreateTime}','{m.FamilyTiesId}','{m.ReleFamilyName}','{m.ReleFamilySex}','{m.ReleFamilyAge}','{m.ReleFamilyPhone}')";
+            string sql = $"insert into Patient values('{m.PatientCode}','{m.PatientName}','{m.PatientCard}','{m.PatientAge}','{m.PatientDateBirth}','{m.PatientSex}','{m.PatientPhone}','{m.Patientpapers}','{m.PatientSource}','{m.MemberTypeId}','{m.EndData}','{m.Nation}','{m.MaritalStatus}','{m.Education}','{m.ProvinceId}','{m.CityId}','{m.PatientAddress}','{m.Position}','{m.Remark}','{m.Departments}','{m.CaoPeopleId}','{m.CreateTime}','{m.FamilyTiesId}','{m.ReleFamilyName}','{m.ReleFamilySex}','{m.ReleFamilyAge}','{m.ReleFamilyPhone}','{m.PatientStateId}')";
             return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 患者状态
+        /// </summary>
+        /// <returns></returns>
+        public List<PatientState> GetPatientState()
+        {
+            string sql = $"select * from PatientState";
+            return dbcoon.Query<PatientState>(sql).ToList();
         }
         /// <summary>
         /// 操作人
@@ -146,7 +155,7 @@ namespace Medical.System.Servers
             Random r = new Random();
             m.PatientCode = (r.Next(0, 10000)).ToString();
             m.CreateTime = DateTime.Now;
-            string sql = $"update Patient set PatientCode='{m.PatientCode}',PatientName='{m.PatientName}',PatientCard='{m.PatientCard}',PatientAge='{m.PatientAge}',PatientDateBirth='{m.PatientDateBirth}',PatientSex='{m.PatientSex}',PatientPhone='{m.PatientPhone}',Patientpapers='{m.Patientpapers}',PatientSource='{m.PatientSource}',MemberTypeId='{m.MemberTypeId}',EndData='{m.EndData}',Nation='{m.Nation}',MaritalStatus='{m.MaritalStatus}',Education='{m.Education}',ProvinceId='{m.ProvinceId}',CityId='{m.CityId}',PatientAddress='{m.PatientAddress}',Position='{m.Position}',CaoPeopleId='{m.CaoPeopleId}',Departments='{m.Departments}',Remark='{m.Remark}',CreateTime='{m.CreateTime}',FamilyTiesId='{m.FamilyTiesId}',ReleFamilyName='{m.ReleFamilyName}',ReleFamilySex='{m.ReleFamilySex}',ReleFamilyAge='{m.ReleFamilyAge}',ReleFamilyPhone='{m.ReleFamilyPhone}' where PatientId='{m.PatientId}'";
+            string sql = $"update Patient set PatientCode='{m.PatientCode}',PatientName='{m.PatientName}',PatientCard='{m.PatientCard}',PatientAge='{m.PatientAge}',PatientDateBirth='{m.PatientDateBirth}',PatientSex='{m.PatientSex}',PatientPhone='{m.PatientPhone}',Patientpapers='{m.Patientpapers}',PatientSource='{m.PatientSource}',MemberTypeId='{m.MemberTypeId}',EndData='{m.EndData}',Nation='{m.Nation}',MaritalStatus='{m.MaritalStatus}',Education='{m.Education}',ProvinceId='{m.ProvinceId}',CityId='{m.CityId}',PatientAddress='{m.PatientAddress}',Position='{m.Position}',CaoPeopleId='{m.CaoPeopleId}',Departments='{m.Departments}',Remark='{m.Remark}',CreateTime='{m.CreateTime}',FamilyTiesId='{m.FamilyTiesId}',ReleFamilyName='{m.ReleFamilyName}',ReleFamilySex='{m.ReleFamilySex}',ReleFamilyAge='{m.ReleFamilyAge}',ReleFamilyPhone='{m.ReleFamilyPhone}',PatientStateId='{m.PatientStateId}' where PatientId='{m.PatientId}'";
             return dbcoon.Execute(sql);
         }
         /// <summary>

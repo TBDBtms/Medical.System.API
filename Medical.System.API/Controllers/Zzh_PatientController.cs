@@ -37,6 +37,17 @@ namespace Medical.System.API.Controllers
             return list;
         }
         /// <summary>
+        /// 患者状态
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetPatientState")]
+        [HttpGet]
+        public List<PatientState> GetPatientState()
+        {
+            var list = _Zzh_PatientBLL.GetPatientState();
+            return list;
+        }
+        /// <summary>
         /// 操作人
         /// </summary>
         /// <returns></returns>
