@@ -103,8 +103,9 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPmoneys> GetVIPmoneys(string name="")
         {
+            
             string str = $"select * from VIPmoneys a join SValuemage b on a.Id=b.Id join Patient c on a.id=c.PatientId where c.PatientName='{name}'";
-            return dbcoon.Query<List<VIPmoneys>>(str).ToList().FirstOrDefault();
+            return dbcoon.Query<VIPmoneys>(str).ToList();
         }
         /// <summary>
         /// 下拉会员等级
@@ -370,7 +371,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddVIPType(MemberSet mset)
         {
-            string str = $"insert into MemberSet values({mset.VGradeName},'{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
+            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VGradeName}','{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -380,7 +381,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPType(MemberSet mset)
         {
-            string str = $"update MemberSet set VGradeName={mset.VGradeName},VIPName='{mset.VIPName}',VIPReset='{mset.VIPReset}',MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
+            string str = $"update MemberSet set VGradeName='{mset.VGradeName}',VIPName='{mset.VIPName}',VIPReset={mset.VIPReset},MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
             return dbcoon.Execute(str);
         }
         //public int SetVIPWhere(int rid=0,int sid=0,int xfid=0,int czid=0,int sxid=0)

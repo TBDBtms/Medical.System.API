@@ -204,6 +204,7 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public IActionResult GetVIPmoneys(string name="")
         {
+            
             return Ok(bll.GetVIPmoneys(name));
         }
         /// <summary>
