@@ -44,6 +44,14 @@ namespace Medical.System.BLL
             return _Zzh_PatientServers.GetFamilyTies();
         }
         /// <summary>
+        /// 患者状态
+        /// </summary>
+        /// <returns></returns>
+        public List<PatientState> GetPatientState()
+        {
+            return _Zzh_PatientServers.GetPatientState();
+        }
+        /// <summary>
         /// 操作人
         /// </summary>
         /// <returns></returns>

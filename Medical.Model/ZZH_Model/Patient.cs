@@ -92,10 +92,6 @@ namespace Medical.Model.ZZH_Model
         public int CaoPeopleId { get; set; }
         public string CaoZuoRenName { get; set; }
         /// <summary>
-        /// 科室
-        /// </summary>
-        public int Departments { get; set; }
-        /// <summary>
         /// 备注
         /// </summary>
         public string Remark { get; set; }
@@ -123,5 +119,12 @@ namespace Medical.Model.ZZH_Model
         /// 患者家庭成员手机号
         /// </summary>
         public string ReleFamilyPhone { get; set; }
+        /// <summary>
+        /// 患者状态
+        /// </summary>
+        public int PatientStateId { get; set; }
+        public string PatientStateName { get; set; }
+        public int Departments { get; set; }
+
     }
 }

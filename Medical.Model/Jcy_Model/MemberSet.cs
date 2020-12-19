@@ -33,7 +33,7 @@ namespace Medical.Model.Jcy_Model
         /// <summary>
         /// 折扣
         /// </summary>
-        public string VIPReset { get; set; }
+        public float VIPReset { get; set; }
         /// <summary>
         /// 最低积分
         /// </summary>
@@ -49,6 +49,6 @@ namespace Medical.Model.Jcy_Model
         /// <summary>
         /// 状态
         /// </summary>
-        public bool States { get; set; }
+        public int States { get; set; }
     }
 }
