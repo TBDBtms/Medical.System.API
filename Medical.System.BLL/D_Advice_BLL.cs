@@ -1,22 +1,24 @@
-﻿using Medical.Model;
-using Medical.Model.DLH_Medical.Model;
-using Medical.Model.ZHQ;
-using Medical.System.Servers;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Options;
+using Medical.Model;
+using Medical.System.Servers;
+using Medical.Model.ZHQ;
+using Medical.Model.DLH_Medical.Model;
 
 namespace Medical.System.BLL
 {
-    public class D_Settings
+    public class D_Advice_BLL
     {
         public IOptions<ConnectionStrings> _conn;
-        D_SettinGInfo dal;
-        public D_Settings(IOptions<ConnectionStrings> conn)
+
+        D_Advice dal;
+
+        public D_Advice_BLL(IOptions<ConnectionStrings> conn)
         {
             _conn = conn;
-            dal = new D_SettinGInfo(conn);
+            dal = new D_Advice(conn);
         }
 
 
@@ -25,45 +27,46 @@ namespace Medical.System.BLL
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Page<CaseInfo> GetCaseInfos(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+
+        public Page<Advice> GetAdvice(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
         {
-            return dal.GetCaseInfos(tj, name, pageindex, pagesize);
+            return dal.GetAdvice(tj, name, pageindex, pagesize);
         }
         /// <summary>
         /// 添加诊断信息
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CassAdd(CaseInfo c)
+        public int AdviceAdd(Advice c)
         {
-            return dal.CassAdd(c);
+            return dal.AdviceAdd(c);
         }
         /// <summary>
         /// 修改诊断信息
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CaseModify(CaseInfo c)
+        public int AdviceModify(Advice c)
         {
-            return dal.CaseModify(c);
+            return dal.AdviceModify(c);
         }
         /// <summary>
         /// 回显
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CaseInfo GetCase(int cid=0)
+        public Advice GetAdvices(int cid = 0)
         {
-            return dal.GetCase(cid);
+            return dal.GetAdvices(cid);
         }
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public int DeleteCase(int cid)
+        public int DeleteAdvice(int cid)
         {
-            return dal.DeleteCase(cid);
+            return dal.DeleteAdvice(cid);
         }
     }
 }

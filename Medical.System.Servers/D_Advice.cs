@@ -10,15 +10,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-
 namespace Medical.System.Servers
 {
-    public class D_SettinGInfo
+    public class D_Advice
     {
         public IOptions<ConnectionStrings> _conn;
 
         IDbConnection dbconn;
-        public D_SettinGInfo(IOptions<ConnectionStrings> conn)
+        public D_Advice(IOptions<ConnectionStrings> conn)
         {
             _conn = conn;
             dbconn = new SqlConnection(_conn.Value.Conn);
@@ -28,17 +27,8 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        //public List<CaseInfo> GetCaseInfos(string name="")
-        //{
-        //    string sql = $"select * from CaseInfo c join Userinfo u on c.Createperson=u.uid where 1=1";
-        //    if (!string.IsNullOrEmpty(name))
-        //    {
-        //        sql += $" and CaseName={name}";
-        //    }
-        //    var list = dbconn.Query<CaseInfo>(sql).ToList();
-        //    return list;
-        //}
-        public Page<CaseInfo> GetCaseInfos(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+        
+        public Page<Advice> GetAdvice(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -59,13 +49,13 @@ namespace Medical.System.Servers
             SqlParameter[] param = new SqlParameter[] {
                 new SqlParameter() { ParameterName="@DId",DbType=DbType.Int32,Value=tj},
                 new SqlParameter() { ParameterName="@Name",DbType=DbType.String,Value=name},
-                new SqlParameter() { ParameterName="@PageIndex",DbType=DbType.Int32,Value=pageindex},
-                new SqlParameter() { ParameterName="@PageSize",DbType=DbType.Int32,Value=pagesize},
+                new SqlParameter() { ParameterName="@pageIndex",DbType=DbType.Int32,Value=pageindex},
+                new SqlParameter() { ParameterName="@pageSize",DbType=DbType.Int32,Value=pagesize},
                 new SqlParameter() { ParameterName="@AllCount",DbType=DbType.Int32,Direction= ParameterDirection.Output},
             };
-            List<CaseInfo> list = DBhelper.GetDataTable_Proc<CaseInfo>("Proc_CaseInfo", param);
+            List<Advice> list = DBhelper.GetDataTable_Proc<Advice>("Proc_Advice", param);
 
-            Page<CaseInfo> page = new Page<CaseInfo>()
+            Page<Advice> page = new Page<Advice>()
             {
                 Countnum = Convert.ToInt32(param[4].Value),
                 PageList = list
@@ -90,9 +80,9 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CassAdd(CaseInfo c)
+        public int AdviceAdd(Advice c)
         {
-            string sql = $"insert into CaseInfo values('{c.CaseName}','{c.CaseTable}',{c.Createperson})";
+            string sql = $"insert into Advice values('{c.AdviceName}','{c.AdviceTable}',{c.Createperson})";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -100,9 +90,9 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CaseModify(CaseInfo c)
+        public int AdviceModify(Advice c)
         {
-            string sql = $"update CaseInfo set CaseName='{c.CaseName}',CaseTable='{c.CaseTable}',Createperson={c.Createperson} where CaseId={c.CaseId}";
+            string sql = $"update Advice set CaseName='{c.AdviceName}',CaseTable='{c.AdviceTable}',Createperson={c.Createperson} where AdviceId={c.AdviceId}";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -110,22 +100,22 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CaseInfo GetCase(int cid=0)
+        public Advice GetAdvices(int cid = 0)
         {
-            string sql = $"select * from CaseInfo c join Userinfo u on c.Createperson=u.Uid where CaseId={cid}";
-            return dbconn.Query<CaseInfo>(sql).FirstOrDefault();
+            string sql = $"select * from Advice c join Userinfo u on c.Createperson=u.Uid where  AdviceId={cid}";
+            return dbconn.Query<Advice>(sql).FirstOrDefault();
         }
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public int DeleteCase(int cid)
+        public int DeleteAdvice(int cid)
         {
-            string sql = $"delete from CaseInfo where CaseId={cid}";
+            string sql = $"delete from Advice where AdviceId={cid}";
             return dbconn.Execute(sql);
         }
 
-       
+
     }
 }
