@@ -30,31 +30,63 @@ namespace Medical.System.Servers
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id=0,string name="",string phone="",string card="")
+        public Pages<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int pd = 0, int id = 0, string name = "", string phone = "", string card = "",int PageIndex=0,int PageSize = 0,int AllCount = 0)
         {
-            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.Id=c.PatientId where 1=1";
-            if (stime!=null && etime!=null)
-            {
-                str += $" and a.StartTime Between {stime} and {etime}";
-            }
-            if (id>0)
-            {
-                str += $" and b.VGradeId={id}";
-            }
             if (!string.IsNullOrEmpty(name))
             {
-                str += $" and c.PatientName='{name}'";
+                var t = IsNumberic(name);
+                if (t == true)
+                {
+                    pd = 1;
+                }
+                if (t == false)
+                {
+                    pd = 2;
+                }
+                else if (name.Length == 11)
+                {
+                    pd = 3;
+                }
+
             }
-            if (!string.IsNullOrEmpty(phone))
+            else
             {
-                str += $" and a.Phone='{phone}'";
+                name = "";
             }
-            if (!string.IsNullOrEmpty(card))
+            SqlParameter[] parm = new SqlParameter[]
             {
-                str += $" and a.Card='{card}'";
-            }
-            return dbcoon.Query<VIPInfo>(str).ToList();
+                new SqlParameter(){ParameterName="@Stime",DbType=DbType.DateTime,Value=stime},
+                new SqlParameter(){ParameterName="@Etime",DbType=DbType.DateTime,Value=etime},
+                new SqlParameter(){ParameterName="@Id",DbType=DbType.Int32,Value=id},
+                new SqlParameter(){ParameterName="@Phone",DbType=DbType.String,Value=phone},
+                new SqlParameter(){ParameterName="@Card",DbType=DbType.String,Value=card},
+                new SqlParameter(){ParameterName="@Name",DbType=DbType.String,Value=name},
+                new SqlParameter(){ParameterName="@PageIndex",DbType=DbType.Int32,Value=PageIndex},
+                new SqlParameter(){ParameterName="@PageSize",DbType=DbType.Int32,Value=PageSize},
+                new SqlParameter(){ParameterName="@AllCount",DbType=DbType.Int32,Direction= ParameterDirection.Output}
+            };
+            List<VIPInfo> list = DBhelper.GetDataTable_Proc<VIPInfo>("P_VIPInfo", parm);
+
+            Pages<VIPInfo> page = new Pages<VIPInfo>()
+            {
+                Countnum = Convert.ToInt32(parm[8].Value),
+                PageList = list
+            };
+            return page;
         }
+        private bool IsNumberic(string name = "")
+        {
+            try
+            {
+                int pdcx = Convert.ToInt32(name);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 余额充值返填信息
         /// </summary>

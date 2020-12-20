@@ -33,11 +33,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime,int bd=0, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10,int AllCount=0)
         {
-            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
-            int count = list.Count;
-            return Ok(new {list=list.Skip((pageIndex-1)*pageSize).Take(pageSize),Count=count});
+            return Ok(bll.GetVIPInfos(stime,etime,bd,id,name,phone,card, pageIndex,pageSize,AllCount));
         }
         /// <summary>
         /// 会员设置返填
@@ -204,7 +202,6 @@ namespace Medical.System.API.Controllers
         [HttpGet]
         public IActionResult GetVIPmoneys(string name="")
         {
-            
             return Ok(bll.GetVIPmoneys(name));
         }
         /// <summary>
