@@ -13,79 +13,77 @@ using System.Threading.Tasks;
 namespace Medical.System.API.Controllers
 {
     [ApiController]
-    public class DLH_CaseController : ControllerBase
+    public class DLH_AdviceController : ControllerBase
     {
-        D_Settings bll;
+        D_Advice_BLL bll;
         public IOptions<ConnectionStrings> _conn;
-        public DLH_CaseController(IOptions<ConnectionStrings> coon)
+        public DLH_AdviceController(IOptions<ConnectionStrings> conn)
         {
-            _conn = coon;
-            bll = new D_Settings(coon);
+            _conn = conn;
+            bll = new D_Advice_BLL(conn);
         }
-
+        [Route("api/[controller]/GetAdvice")]
         [HttpGet]
-        [RouteAttribute("api/[controller]/GetCaseInfos")]
         /// <summary>
         /// 显示诊断信息
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Page<CaseInfo> GetCaseInfos(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
+
+        public Page<Advice> GetAdvice(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
         {
-            var list = bll.GetCaseInfos(tj, name, pageindex, pagesize);
+            var list = bll.GetAdvice(tj, name, pageindex, pagesize);
             foreach (var item in list.PageList)
             {
-                item.time = item.CaseTable.ToString("yyyy-MM-dd");
+                item.time = item.AdviceTable.ToString("yyyy-MM-dd");
             }
+
             return list;
         }
         [HttpPost]
-        [Route("api/[controller]/CassAdd")]
+        [Route("api/[controller]/AdviceAdd")]
         /// <summary>
         /// 添加诊断信息
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CassAdd([FromForm]CaseInfo c)
+        public IActionResult AdviceAdd([FromForm] Advice c)
         {
-            var list = bll.CassAdd(c);
-            return list;
+            return Ok(bll.AdviceAdd(c));
         }
         [HttpPost]
-        [Route("api/[controller]/CaseModify")]
+        [Route("api/[controller]/AdviceModify")]
         /// <summary>
         /// 修改诊断信息
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public int CaseModify([FromForm]CaseInfo c)
+        public IActionResult AdviceModify([FromForm] Advice c)
         {
-            var list = bll.CaseModify(c);
-            return list;
+            return Ok(bll.AdviceModify(c));
         }
         [HttpGet]
-        [Route("api/[controller]/GetCase")]
+        [Route("api/[controller]/GetAdvices")]
         /// <summary>
         /// 回显
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public CaseInfo GetCase(int cid=0)
+        public Advice GetAdvices(int cid = 0)
         {
-            var list = bll.GetCase(cid);
-            return list;
+            return bll.GetAdvices(cid);
         }
         [HttpPost]
-        [Route("api/[controller]/DeleteCase")]
+        [Route("api/[controller]/DeleteAdvice")]
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="cid"></param>
         /// <returns></returns>
-        public int DeleteCase(int cid)
+        public IActionResult DeleteAdvice(int cid)
         {
-            var list = bll.DeleteCase(cid);
-            return list;
+            return Ok(bll.DeleteAdvice(cid));
         }
+
     }
 }
