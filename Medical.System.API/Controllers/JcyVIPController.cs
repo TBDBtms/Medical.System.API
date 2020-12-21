@@ -296,5 +296,16 @@ namespace Medical.System.API.Controllers
         {
             return Ok(bll.AddGrade(grade));
         }
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdVipwhere")]
+        [HttpPost]
+        public IActionResult UpdVipwhere([FromForm]SetFunc funcs)
+        {
+            return Ok(bll.UpdVipwhere(funcs));
+        }
     }
 }

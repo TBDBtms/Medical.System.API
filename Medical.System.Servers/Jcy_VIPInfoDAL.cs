@@ -416,14 +416,15 @@ namespace Medical.System.Servers
             string str = $"update MemberSet set VGradeName='{mset.VGradeName}',VIPName='{mset.VIPName}',VIPReset={mset.VIPReset},MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
             return dbcoon.Execute(str);
         }
-        //public int SetVIPWhere(int rid=0,int sid=0,int xfid=0,int czid=0,int sxid=0)
-        //{
-        //    string str = "";
-        //    if (rid==1)
-        //    {
-        //        str += "";
-        //    }
-
-        //}
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        public int UpdVipwhere(SetFunc funcs)
+        {
+            string str = $"UPDATE SetFunc set RsestId={funcs.RsestId},Rupgrade={funcs.Rupgrade},XId={funcs.XId},CId={funcs.CId},Uppers={funcs.Uppers} where Id={funcs.Id}";
+            return dbcoon.Execute(str);
+        }
     }
 }

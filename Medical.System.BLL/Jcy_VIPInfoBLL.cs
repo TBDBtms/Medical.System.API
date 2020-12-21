@@ -246,5 +246,14 @@ namespace Medical.System.BLL
         {
             return dal.UpdVIPType(mset);
         }
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        public int UpdVipwhere(SetFunc funcs)
+        {
+            return dal.UpdVipwhere(funcs);
+        }
     }
 }
