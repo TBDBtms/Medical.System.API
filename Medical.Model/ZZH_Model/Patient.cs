@@ -18,6 +18,10 @@ namespace Medical.Model.ZZH_Model
         /// </summary>
         public string PatientCode { get; set; }
         /// <summary>
+        /// 患者图片
+        /// </summary>
+        public string PatientImg { get; set; }
+        /// <summary>
         /// 患者姓名
         /// </summary>
         public string PatientName { get; set; }
@@ -124,7 +128,9 @@ namespace Medical.Model.ZZH_Model
         /// </summary>
         public int PatientStateId { get; set; }
         public string PatientStateName { get; set; }
-        public int Departments { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public string aaa { get; set; }
 
     }
 }
