@@ -255,5 +255,14 @@ namespace Medical.System.BLL
         {
             return dal.UpdVipwhere(funcs);
         }
+        /// <summary>
+        /// 支付方式
+        /// </summary>
+        /// <param name="sets"></param>
+        /// <returns></returns>
+        public int UpdZF(SetPayment sets)
+        {
+            return dal.UpdZF(sets);
+        }
     }
 }

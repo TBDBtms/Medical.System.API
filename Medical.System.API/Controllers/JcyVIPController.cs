@@ -307,5 +307,15 @@ namespace Medical.System.API.Controllers
         {
             return Ok(bll.UpdVipwhere(funcs));
         }
+        /// <summary>
+        /// 设置支付方式
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdZF")]
+        [HttpPost]
+        public IActionResult UpdZF(SetPayment sets)
+        {
+            return Ok(bll.UpdZF(sets));
+        }
     }
 }

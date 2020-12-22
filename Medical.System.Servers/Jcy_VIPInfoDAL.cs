@@ -426,5 +426,44 @@ namespace Medical.System.Servers
             string str = $"UPDATE SetFunc set RsestId={funcs.RsestId},Rupgrade={funcs.Rupgrade},XId={funcs.XId},CId={funcs.CId},Uppers={funcs.Uppers} where Id={funcs.Id}";
             return dbcoon.Execute(str);
         }
+        /// <summary>
+        /// 支付方式
+        /// </summary>
+        /// <param name="sets"></param>
+        /// <returns></returns>
+        public int UpdZF(SetPayment sets)
+        {
+            string str = $"update SetPayment set CashId={sets.CashId},AlipayId={sets.AlipayId},WeChatId={sets.WeChatId},BankcardId={sets.BankcardId},ClubCardId={sets.ClubCardId},Suspends={sets.Suspends} where SId=1";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 供应商管理
+        /// </summary>
+        /// <param name="gid"></param>
+        /// <returns></returns>
+        public List<SupplierInfo> GetSupplierInfos(int gid=0)
+        {
+            string str = $"select * from SupplierInfo";
+            return dbcoon.Query<SupplierInfo>(str).ToList();
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <returns></returns>
+        public int UpdSupplier(SupplierInfo supper)
+        {
+            string str = $"update SupplierInfo set SupGIS='{supper.SupGIS}',SupName='{supper.SupName}',LinkMan='{supper.LinkMan}',LinkPhone='{supper.LinkPhone}',CTimes={supper.CTimes},CMan='{supper.CMan}',SupState={supper.SupState},Remark='{supper.Remark}'";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int Del(int id)
+        {
+            string str = $"delete from SupplierInfo where Id={id}";
+            return dbcoon.Execute(str);
+        }
     }
 }
