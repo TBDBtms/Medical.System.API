@@ -198,12 +198,12 @@ namespace Medical.System.API.Controllers
         /// <param name="Upass"></param>
         /// 
         /// <returns></returns>
-       [RouteAttribute("api/[controller]/zhao")]
-        [HttpGet]
-        public int zhao(string Uname="", string Upass="", string Uiphone="")
+         [RouteAttribute("api/[controller]/zhao")]
+        [HttpPost]
+        public int zhao([FromForm]Userinfo u)
         {
+            return bll.zhao(u);
 
-            return bll.zhao(Uname, Upass, Uiphone);
 
         }
         /// <summary>
@@ -285,9 +285,87 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetX_Guahaos")]
         [HttpGet]
-        public List<X_Guahao> GetX_Guahaos()
+        public List<X_Guahao> GetX_Guahaos(int kid=0,string yname="")
         {
-            return bll.GetX_Guahaos();
+            
+            var list= bll.GetX_Guahaos();
+            if (kid > 0)
+            {
+                list = list.Where(m => m.ksids == kid).ToList();
+
+            }
+            if (!string.IsNullOrEmpty(yname))
+            {
+                list = list.Where(m => m.Yname.Contains(yname)).ToList();
+            }
+            return list;
+
+        }
+        //退号
+        [RouteAttribute("api/[controller]/Delhao")]
+        [HttpPost]
+        public int Delhao(int gid)
+        {
+            return bll.Delhao(gid);
+
+        }
+        /// <summary>
+        /// 获取单条挂号信息
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetX_Guahaosdan")]
+        [HttpGet]
+        public X_Guahao GetX_Guahaosdan(int Gid)
+        {
+            return bll.GetX_Guahaosdan(Gid);
+
+        }
+        /// <summary>
+        /// 修改挂号信息
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdGua")]
+        [HttpPost]
+        public int UpdGua([FromForm]X_Guahao g)
+        {
+            return bll.UpdGua(g);
+        }
+        /// <summary>
+        //修改状态
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/Updissale")]
+        [HttpPost]
+        public int Updissale(int Gid)
+        {
+            return bll.Updissale(Gid);
+
+
+        }
+        /// <summary>
+        /// 添加处方
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/AddJzhospital")]
+        [HttpPost]
+        public int AddJzhospital([FromForm]Chufang c)
+        {
+            return bll.AddJzhospital(c);
+
+        }
+        /// <summary>
+        /// 显示病例
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetChufangs")]
+        [HttpGet]
+        public List<Chufang> GetChufangs()
+        {
+            return bll.GetChufangs();
 
         }
     }

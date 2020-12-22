@@ -134,10 +134,10 @@ namespace Medical.System.BLL
         /// <param name="Uname"></param>
         /// <param name="Upass"></param>
         /// <returns></returns>
-        public int zhao(string Uname, string Upass, string Uiphone)
+        public int zhao(Userinfo u)
         {
+            return dal.zhao(u);
 
-            return dal.zhao(Uname, Upass, Uiphone);
 
         }
         /// <summary>
@@ -205,6 +205,60 @@ namespace Medical.System.BLL
         public List<X_Guahao> GetX_Guahaos()
         {
             return dal.GetX_Guahaos();
+
+        }   //退号
+        public int Delhao(int gid)
+        {
+            return dal.Delhao(gid);
+
+        }
+        /// <summary>
+        /// 获取单条挂号信息
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        public X_Guahao GetX_Guahaosdan(int Gid)
+        {
+            return dal.GetX_Guahaosdan(Gid);
+
+        }
+        /// <summary>
+        /// 修改挂号信息
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public int UpdGua(X_Guahao g)
+        {
+            return dal.UpdGua(g);
+        }
+        /// <summary>
+        //修改状态
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        public int Updissale(int Gid)
+        {
+            return dal.Updissale(Gid);
+
+
+        }
+        /// <summary>
+        /// 添加处方
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddJzhospital(Chufang c)
+        {
+            return dal.AddJzhospital(c);
+
+        }
+        /// <summary>
+        /// 显示病例
+        /// </summary>
+        /// <returns></returns>
+        public List<Chufang> GetChufangs()
+        {
+            return dal.GetChufangs();
 
         }
     }

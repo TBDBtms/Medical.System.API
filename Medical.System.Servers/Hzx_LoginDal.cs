@@ -165,9 +165,9 @@ namespace Medical.System.Servers
         /// <param name="Uname"></param>
         /// <param name="Upass"></param>
         /// <returns></returns>
-        public int zhao(string Uname, string Upass,string Uiphone)
+        public int zhao(Userinfo u)
         {
-            string sql = $"update Userinfo set Upass='{Upass}' where Uname='{Uname}'and Uiphone='{Uiphone}'";
+            string sql = $"update Userinfo set Upass='{u.Upass}' where Uname='{u.Uname}'and Uiphone='{u.Uiphone}'";
             return dbcoon.Execute(sql);
 
 
@@ -219,7 +219,7 @@ namespace Medical.System.Servers
         /// <summary>
         /// 获取接诊类型
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>·
         public List<JZtype> GetJZtypes()
         {
             string sql = $"select * from JZtype ";
@@ -231,9 +231,20 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddGua(X_Guahao g)
         {
-            string sql = $"insert into  X_Guahao values('{g.Gno}','{g.ksids}','{g.Jids}','{g.Yname}','{g.Gmoney}','{g.Zlmoney}','{g.Gtime}','{g.Gpelete}','{g.Hname}','{g.Hkahao}','{g.Hage}','{g.Hcreatetime}','{g.Hsex}','{g.Hiphone}','{g.Hsfz}','{g.Hcids}','{g.Haddress}','{g.Hremaek}')";
+            string sql = $"insert into  X_Guahao values('{g.Gno}','{g.ksids}','{g.Jids}','{g.Yname}','{g.Gmoney}','{g.Zlmoney}','{g.Gtime}','{g.Gpelete}','{g.Hname}','{g.Hkahao}','{g.Hage}','{g.Hcreatetime}','{g.Hsex}','{g.Hiphone}','{g.Hsfz}','{g.Hcids}','{0}','{g.Haddress}','{g.Hremaek}')";
             return dbcoon.Execute(sql);
         
+        }
+        /// <summary>
+        /// 修改挂号信息
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public int UpdGua(X_Guahao g)
+        {
+            string sql = $"update X_Guahao set Gno='{g.Gno}',ksids='{g.ksids}',Jids='{g.Jids}',Yname='{g.Yname}',Gmoney='{g.Gmoney}',Zlmoney='{g.Zlmoney}',Gtime='{g.Gtime}',Gpelete='{g.Gpelete}',Hname='{g.Hname}',Hkahao='{g.Hkahao}',Hage='{g.Hage}',Hcreatetime='{g.Hcreatetime}',Hsex='{g.Hsex}',Hiphone='{g.Hiphone}',Hsfz='{g.Hsfz}',Hcids='{g.Hcids}',Haddress='{g.Haddress}',Hremaek='{g.Hremaek}'where Gid={g.Gid}";
+            return dbcoon.Execute(sql);
+
         }
         /// <summary>
         /// 显示挂号单
@@ -241,8 +252,59 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<X_Guahao> GetX_Guahaos()
         {
-            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids  join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids";
+            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids";
             return dbcoon.Query<X_Guahao>(sql).ToList();
+        
+        }
+        //退号
+        public int Delhao(int gid)
+        {
+            string sql = $"delete from X_Guahao where Gid='{gid}'";
+            return dbcoon.Execute(sql);
+        
+        }
+        /// <summary>
+        /// 获取单条挂号信息
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        public X_Guahao GetX_Guahaosdan(int Gid)
+        {
+            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids  join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids where Gid={Gid}";
+            return dbcoon.Query<X_Guahao>(sql).FirstOrDefault();
+        
+        }
+        /// <summary>
+        //修改状态
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        public int Updissale(int Gid)
+        {
+            string sql = $"update X_Guahao set Xissale=Xissale-1 where Gid={Gid}";
+            return dbcoon.Execute(sql);
+        
+        
+        }
+        /// <summary>
+        /// 添加处方
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public int AddJzhospital(Chufang c)
+        {
+            string sql = $"insert into Chufang values('{c.Hname}','{c.Hkahao}','{c.Hage}','{c.Hcreatetime}','{c.Hsex}','{c.Hiphone}','{c.Hsfz}','{c.Jztid}','{c.ccids}','{c.Haddress}','{c.Zduan}','{c.Yizhu}')";
+            return dbcoon.Execute(sql);
+        
+        }
+        /// <summary>
+        /// 显示病例
+        /// </summary>
+        /// <returns></returns>
+        public List<Chufang> GetChufangs() 
+        {
+            string sql = $"select * from Chufang ch join JZtype jz on jz.Jid=ch.Jztid join County co on co.Cid=ch.ccids join Market m on m.Mid=co.mids";
+            return dbcoon.Query<Chufang>(sql).ToList();
         
         }
     }
