@@ -25,7 +25,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddRKSQ(RKSQ model)
         {
-            int row = dbconn.Execute("insert into RKSQ values(@RKSQYPName,@RKSQImg,@RKSQNum,@RKSQTime,@RKSQName,@RKSQCGJ,@RKSQLSJ,@RKSQDesc,@RKSQState,@RKSQLX)", model);
+            int row = dbconn.Execute("insert into RKSQ values(@RKSQYPName,@RKSQImg,@RKSQNum,@RKSQTime,@RKSQName,@RKSQCGJ,@RKSQLSJ,@RKSQDesc,@RKSQState,@RKSQLX,@tid)", model);
             return row;
         }
         /// <summary>
@@ -53,6 +53,63 @@ namespace Medical.System.Servers
         {
             int row = dbconn.Execute($"update RKSQ set RKSQState={tgstate} where RKSQId={id}");
             return row;
+        }
+        /// <summary>
+        /// 添加入库信息进行入库
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int AddRKB(int id)
+        {
+            string sql = $"insert into RKB(RKSQYPName,RKSQImg,RKSQNum,RKSQTime,RKSQName,RKSQCGJ,RKSQLSJ,RKSQDesc,RKSQState,RKSQLX,pid)select RKSQYPName,RKSQImg,RKSQNum,RKSQTime,RKSQName,RKSQCGJ,RKSQLSJ,RKSQDesc,RKSQState,RKSQLX,tid from RKSQ where RKSQId={id}";
+
+            int row= dbconn.Execute(sql);
+            if (row > 0)
+            {
+                int row1 = dbconn.Execute($"update RKSQ set RKSQState=4 where RKSQId={id}");
+                if (row1 > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        /// <summary>
+        /// 查询入库信息表
+        /// </summary>
+        /// <returns></returns>
+        public List<RKB> GetRKB()
+        {
+            string sql = "select * from RKB";
+            return dbconn.Query<RKB>(sql).ToList();
+        }
+        /// <summary>
+        /// 入库拒绝
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int RKJU(int id)
+        {
+            string sql = $"update RKSQ set RKSQState=10 where RKSQId={id}";
+            return dbconn.Execute(sql);
+        }
+        /// <summary>
+        /// 加库存
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int JiaNum(int num,int id)
+        {
+            string sql = $"update Drug_administration set DrugKC=DrugKC+{num} where DrugId={id}";
+            return dbconn.Execute(sql);
         }
     }
 }

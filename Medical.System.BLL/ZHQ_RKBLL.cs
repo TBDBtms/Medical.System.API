@@ -42,5 +42,41 @@ namespace Medical.System.BLL
         {
             return dal.UpdState(id, tgstate);
         }
+        /// <summary>
+        /// 添加入库信息进行入库
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int AddRKB(int id)
+        {
+            return dal.AddRKB(id);
+        }
+        /// <summary>
+        /// 查询入库信息表
+        /// </summary>
+        /// <returns></returns>
+        public List<RKB> GetRKB()
+        {
+            return dal.GetRKB();
+        }
+        /// <summary>
+        /// 入库拒绝
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int RKJU(int id)
+        {
+            return dal.RKJU(id);
+        }
+        /// <summary>
+        /// 加库存
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int JiaNum(int num, int id)
+        {
+            return dal.JiaNum(num, id);
+        }
     }
 }

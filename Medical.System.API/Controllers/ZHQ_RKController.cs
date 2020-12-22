@@ -57,5 +57,53 @@ namespace Medical.System.API.Controllers
         {
             return bll.UpdState(id, tgstate);
         }
+        /// <summary>
+        /// 添加入库信息进行入库
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/AddRKB")]
+        public int AddRKB(int id)
+        {
+            return bll.AddRKB(id);
+        }
+        /// <summary>
+        /// 查询入库信息表
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/GetRKB")]
+        public List<RKB> GetRKB()
+        {
+            return bll.GetRKB();
+        }
+        /// <summary>
+        /// 入库拒绝
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/RKJU")]
+        public int RKJU(int id)
+        {
+            return bll.RKJU(id);
+        }
+        /// <summary>
+        /// 加库存
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/JiaNum")]
+        public int JiaNum(int num, int id)
+        {
+            return bll.JiaNum(num, id);
+        }
     }
 }
