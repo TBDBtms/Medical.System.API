@@ -27,9 +27,9 @@ namespace Medical.System.Servers
         /// <param name="pname"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        public List<Patient> GetPatient(DateTime? sdate, DateTime? edate,string name = "", int id = 0, int pid = 0)
+        public List<Patient> GetPatient(DateTime? sdate, DateTime? edate,string name = "", int id = 0)
         {
-            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId join PatientState f on a.PatientStateId=f.PatientStateId join Department e on a.DepartmentId=e.DepartmentId where 1=1";
+            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId join Department e on a.DepartmentId=e.DepartmentId where 1=1";
             if (!string.IsNullOrEmpty(name))
             {
                 var t = IsNumberic(name);
@@ -45,10 +45,6 @@ namespace Medical.System.Servers
             if (sdate != null&&edate!=null)
             {
                 sql += $" and CreateTime Between '{sdate}' and '{edate}'";
-            }
-            if (pid>0)
-            {
-                sql += $" and f.PatientStateId={pid}";
             }
             if (id > 0)
             {
@@ -124,15 +120,6 @@ namespace Medical.System.Servers
             return dbcoon.Execute(sql);
         }
         /// <summary>
-        /// 患者状态
-        /// </summary>
-        /// <returns></returns>
-        public List<PatientState> GetPatientState()
-        {
-            string sql = $"select * from PatientState";
-            return dbcoon.Query<PatientState>(sql).ToList();
-        }
-        /// <summary>
         /// 操作人
         /// </summary>
         /// <returns></returns>
@@ -196,6 +183,16 @@ namespace Medical.System.Servers
         {
             string sql = $"select * from Patient where PatientId='{patientId}'";
             return dbcoon.Query<Patient>(sql).FirstOrDefault();
+        }
+        /// <summary>
+        //修改状态
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        public int Updaaa(int Aid)
+        {
+            string sql = $"update Patient set PatientStateId=PatientStateId-1 where PatientId={Aid}";
+            return dbcoon.Execute(sql);
         }
     }
 }
