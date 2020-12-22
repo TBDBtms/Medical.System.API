@@ -144,13 +144,7 @@ namespace Medical.System.API.Controllers
         {
             return bll.AddPricing(model);
         }
-        [Route("api/[Controller]/addimg")]
-        [HttpGet]
-        public int addimg(string img)
-        {
-            string sql = $"insert into db1215 values('{img}')";
-            return DBhelper.CMD(sql);
-        }
+   
 
     }
 }

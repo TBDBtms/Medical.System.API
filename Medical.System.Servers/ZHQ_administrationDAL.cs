@@ -70,8 +70,8 @@ namespace Medical.System.Servers
                 return false;
             }
         }
-        //DrugId, DrugBM, DrugTXM, DrugTYM, DrugPYM, DrugFL, DrugGG, DrugJX, DrugFP, DrugWH, DrugCJ, 
-        //DrugBZDW, DrugBZDWXS, DrugJBDW, DrugJLXS, DrugJLDW, DrugCGJ, DrugLSJ, DrugYF, DrugDCYL, DrugPD, 
+        //DrugId, DrugBM, DrugTXM, DrugTYM, DrugPYM, DrugFL, DrugGG, DrugJX, DrugFP, DrugWH, DrugCJ,
+        //DrugBZDW, DrugBZDWXS, DrugJBDW, DrugJLXS, DrugJLDW, DrugCGJ, DrugLSJ, DrugYF, DrugDCYL, DrugPD,
         //DrugYXQ, DrugKCSX, DrugKCXX, DrugSM, DrugXSNum, DrupPDState, DrugState
         /// <summary>
         /// 添加药品
@@ -86,7 +86,8 @@ namespace Medical.System.Servers
             model.DrugXSNum = 0;
             model.DrugKC = 0;
             model.DrugWH = "99999";
-            return dbconn.Execute("insert into Drug_administration values(@DrugBM, @DrugTXM, @DrugTYM, @DrugPYM, @DrugFL, @DrugGG, @DrugJX, @DrugFP, @DrugWH, @DrugCJ, @DrugBZDW, @DrugBZDWXS, @DrugJBDW, @DrugJLXS, @DrugJLDW, @DrugCGJ, @DrugLSJ, @DrugYF,@DrugDCYL, @DrugPD, @DrugYXQ, @DrugKCSX, @DrugKCXX, @DrugSM,@DrugXSNum,@DrupPDState,@DrugState,@Drugctime,@DrugKC,@DrugBrandId,@ImgUrl)", model);
+            model.DrugJSKC = 0;
+            return dbconn.Execute("insert into Drug_administration values(@DrugBM, @DrugTXM, @DrugTYM, @DrugPYM, @DrugFL, @DrugGG, @DrugJX, @DrugFP, @DrugWH, @DrugCJ, @DrugBZDW, @DrugBZDWXS, @DrugJBDW, @DrugJLXS, @DrugJLDW, @DrugCGJ, @DrugLSJ, @DrugYF,@DrugDCYL, @DrugPD, @DrugYXQ, @DrugKCSX, @DrugKCXX, @DrugSM,@DrugXSNum,@DrupPDState,@DrugState,@Drugctime,@DrugKC,@DrugBrandId,@ImgUrl,@DrugJSKC)", model);
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public Drug_administration GetFirstPricing(int id=0)
         {
-            string sql = $"select * from Drug_administration where DrugId={id}";
+            string sql = $"select * from Drug_administration a join Drug_classification b on a.DrugFL=b.DrugClassId join Dosage_form c on a.DrugJX=c.Dosage_formId join Invoice1 d on a.DrugFP=d.InvoiceId join Manufacturer e on a.DrugCJ=e.ManufacturerId join Brand p on a.DrugBrandId=p.BrandId where a.DrugId={id}";
             return dbconn.Query<Drug_administration>(sql).ToList().FirstOrDefault();
         }
         /// <summary>
@@ -201,5 +202,6 @@ namespace Medical.System.Servers
             model.PricingTime = DateTime.Now;
             return dbconn.Execute("insert into Pricing values(@PricingBH, @PricingName, @PricingGG, @PricingKC,@PricingCGJ, @PricingLSJ, @PricingXLSJ, @PricingTime, @PricingRName)", model);
         }
+     
     }
 }

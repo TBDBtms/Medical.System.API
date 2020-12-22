@@ -149,5 +149,8 @@ namespace Medical.Model.ZHQ
         public int DrugBrandId { get; set; }
         public string BrandName { get; set; }  //品牌名称
         public string ImgUrl { get; set; }  //药品图片路径
+
+        public int DrugJSKC { get; set; }  //架上库存
+
     }
 }
