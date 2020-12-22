@@ -30,31 +30,63 @@ namespace Medical.System.Servers
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id=0,string name="",string phone="",string card="")
+        public Pages<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int pd = 0, int id = 0, string name = "", string phone = "", string card = "",int PageIndex=0,int PageSize = 0,int AllCount = 0)
         {
-            string str = $"select * from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.Id=c.PatientId where 1=1";
-            if (stime!=null && etime!=null)
-            {
-                str += $" and a.StartTime Between {stime} and {etime}";
-            }
-            if (id>0)
-            {
-                str += $" and b.VGradeId={id}";
-            }
             if (!string.IsNullOrEmpty(name))
             {
-                str += $" and c.PatientName='{name}'";
+                var t = IsNumberic(name);
+                if (t == true)
+                {
+                    pd = 1;
+                }
+                if (t == false)
+                {
+                    pd = 2;
+                }
+                else if (name.Length == 11)
+                {
+                    pd = 3;
+                }
+
             }
-            if (!string.IsNullOrEmpty(phone))
+            else
             {
-                str += $" and a.Phone='{phone}'";
+                name = "";
             }
-            if (!string.IsNullOrEmpty(card))
+            SqlParameter[] parm = new SqlParameter[]
             {
-                str += $" and a.Card='{card}'";
-            }
-            return dbcoon.Query<VIPInfo>(str).ToList();
+                new SqlParameter(){ParameterName="@Stime",DbType=DbType.DateTime,Value=stime},
+                new SqlParameter(){ParameterName="@Etime",DbType=DbType.DateTime,Value=etime},
+                new SqlParameter(){ParameterName="@Id",DbType=DbType.Int32,Value=id},
+                new SqlParameter(){ParameterName="@Phone",DbType=DbType.String,Value=phone},
+                new SqlParameter(){ParameterName="@Card",DbType=DbType.String,Value=card},
+                new SqlParameter(){ParameterName="@Name",DbType=DbType.String,Value=name},
+                new SqlParameter(){ParameterName="@PageIndex",DbType=DbType.Int32,Value=PageIndex},
+                new SqlParameter(){ParameterName="@PageSize",DbType=DbType.Int32,Value=PageSize},
+                new SqlParameter(){ParameterName="@AllCount",DbType=DbType.Int32,Direction= ParameterDirection.Output}
+            };
+            List<VIPInfo> list = DBhelper.GetDataTable_Proc<VIPInfo>("P_VIPInfo", parm);
+
+            Pages<VIPInfo> page = new Pages<VIPInfo>()
+            {
+                Countnum = Convert.ToInt32(parm[8].Value),
+                PageList = list
+            };
+            return page;
         }
+        private bool IsNumberic(string name = "")
+        {
+            try
+            {
+                int pdcx = Convert.ToInt32(name);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 余额充值返填信息
         /// </summary>
@@ -96,6 +128,16 @@ namespace Medical.System.Servers
             var numprice = list.Integral + vip.PayMoney + vip.GiveMoney;
             string str = $"update VIPInfo set Integral={numprice},AmassPrice={money},SvalueMoney={price},PayMoney={vip.PayMoney},GiveMoney={vip.GiveMoney},SId={vip.SId} WHERE Id={vip.Id}";
             return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        public List<VIPmoneys> GetVIPmoneys(string name="")
+        {
+            
+            string str = $"select * from VIPmoneys a join SValuemage b on a.Id=b.Id join Patient c on a.id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<VIPmoneys>(str).ToList();
         }
         /// <summary>
         /// 下拉会员等级
@@ -228,12 +270,42 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="sva"></param>
         /// <returns></returns>
-        public int Upd(SValuemage sva)
+        public int UpdCZ(SValuemage sva)
         {
-            string str = $"update SValuemage set PayMoney={sva.PayMoney},GiveMoney={sva.GiveMoney},SId={sva.SId} where id={sva.Id}";
+            string sqls = $"select * from SValuemage where Id={sva.Id}";
+            var list = DBhelper.GetList<SValuemage>(sqls).FirstOrDefault();
+            var money = list.AmassPrice + sva.SvalueMoney;
+            var price = list.SvalueMoney + sva.GiveMoney + sva.PayMoney;
+            var numprice = list.AddGiveMoney + sva.PayMoney + sva.GiveMoney;
+            string str = $"update SValuemage set AddGiveMoney={numprice},AmassPrice={money},SvalueMoney={price},PayMoney={sva.PayMoney},GiveMoney={sva.GiveMoney},SId={sva.SId} WHERE Id={sva.Id}";
             return dbcoon.Execute(str);
         }
-
+        /// <summary>
+        /// 储值余额退款1
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdTK(SValuemage sva)
+        {
+            string sqls = $"select SvalueMoney from SValuemage where Id={sva.Id}";
+            var list = DBhelper.GetList<SValuemage>(sqls).FirstOrDefault();
+            var TKje = list.SvalueMoney;
+            string str = $"update SValuemage set Rprice={TKje - sva.Rprice},RMent='{sva.RMent}',Remark='{sva.Remark}' where Id={sva.Id}";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        public int AddJL(VIPmoneys vips)
+        {
+            string sqls = $"select * from VIPmoneys where Id={vips.Id}";
+            var list = DBhelper.GetList<VIPmoneys>(sqls).FirstOrDefault();
+            vips.DealTimes = DateTime.Now;
+            vips.SumMoney = list.GiveMoney + list.DealPrice;
+            return dbcoon.Execute("insert into VIPmoneys values(@DealTimes,@DealType,@DealPrice,@Givemoney,@SumMoney,@Mans)", vips);
+        }
         /// <summary>
         /// 积分管理
         /// </summary>
@@ -264,6 +336,24 @@ namespace Medical.System.Servers
             return dbcoon.Query<Pointmanage>(str).ToList();
         }
         /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public List<PointInfo> GetJFBD(string name="")
+        {
+            string str = $"select * from PointInfo a join VIPInfo b on a.Id=b.Id join Patient c on a.Id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<PointInfo>(str).ToList();
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public int AddJF(PointInfo point)
+        {
+            string str = $"insert into PointInfo values('{point.NewTimes=DateTime.Now}','{point.ChangeCZ}',{point.Num},'{point.Man}','{point.Remark}')";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
         /// 会员设置显示
         /// </summary>
         /// <param name="id"></param>
@@ -277,13 +367,43 @@ namespace Medical.System.Servers
             return dbcoon.Query<MemberSet>(str).ToList();
         }
         /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public MemberSet GetShowMembers(int id)
+        {
+            try
+            {
+                string str = $"select * from MemberSet where Id={id}";
+                var list= dbcoon.Query<MemberSet>(str).ToList();
+                if (list.Count()>0) 
+                {
+                    return list.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+        /// <summary>
         /// 新增会员类型
         /// </summary>
         /// <param name="mset"></param>
         /// <returns></returns>
         public int AddVIPType(MemberSet mset)
         {
-            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VIPName}','{mset.VIPReset}',{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
+            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VGradeName}','{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -293,17 +413,18 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPType(MemberSet mset)
         {
-            string str = $"update MemberSet set VGradeName={mset.VGradeName},VIPName='{mset.VIPName}',VIPReset='{mset.VIPReset}',MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
+            string str = $"update MemberSet set VGradeName='{mset.VGradeName}',VIPName='{mset.VIPName}',VIPReset={mset.VIPReset},MinIntegral={mset.MinIntegral},Upgrade={mset.Upgrade},Remark='{mset.Remark}',States={mset.States} where Id={mset.Id}";
             return dbcoon.Execute(str);
         }
-        //public int SetVIPWhere(int rid=0,int sid=0,int xfid=0,int czid=0,int sxid=0)
-        //{
-        //    string str = "";
-        //    if (rid==1)
-        //    {
-        //        str += "";
-        //    }
-
-        //}
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        public int UpdVipwhere(SetFunc funcs)
+        {
+            string str = $"UPDATE SetFunc set RsestId={funcs.RsestId},Rupgrade={funcs.Rupgrade},XId={funcs.XId},CId={funcs.CId},Uppers={funcs.Uppers} where Id={funcs.Id}";
+            return dbcoon.Execute(str);
+        }
     }
 }

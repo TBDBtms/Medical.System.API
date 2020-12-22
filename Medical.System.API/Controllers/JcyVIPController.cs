@@ -33,11 +33,23 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime,int bd=0, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10,int AllCount=0)
         {
-            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
-            int count = list.Count;
-            return Ok(new {list=list.Skip((pageIndex-1)*pageSize).Take(pageSize),Count=count});
+            return Ok(bll.GetVIPInfos(stime,etime,bd,id,name,phone,card, pageIndex,pageSize,AllCount));
+        }
+        /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetShowMembers")]
+        [HttpGet]
+        public IActionResult GetShowMembers(int id)
+        {
+            return Ok(bll.GetShowMembers(id));
         }
         /// <summary>
         /// 余额充值返填信息
@@ -161,6 +173,49 @@ namespace Medical.System.API.Controllers
             return Ok(bll.GetSValuemages(id,name,phone,card));
         }
         /// <summary>
+        /// 储值管理的充值
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdCZ")]
+        [HttpPost]
+        public IActionResult UpdCZ([FromForm]SValuemage sva)
+        {
+            return Ok(bll.UpdCZ(sva));
+        }
+        /// <summary>
+        /// 储值余额退款
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdTK")]
+        [HttpPost]
+        public IActionResult UpdTK([FromForm]SValuemage sva)
+        {
+            return Ok(bll.UpdTK(sva));
+        }
+        /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/GetVIPmoneys")]
+        [HttpGet]
+        public IActionResult GetVIPmoneys(string name="")
+        {
+            return Ok(bll.GetVIPmoneys(name));
+        }
+        /// <summary>
+        /// 添加储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/AddJL")]
+        [HttpPost]
+        public int AddJL([FromForm]VIPmoneys vips)
+        {
+            return bll.AddJL(vips);
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>
@@ -173,6 +228,26 @@ namespace Medical.System.API.Controllers
         public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "")
         {
             return Ok(bll.GetPointmanages(id, name, phone, card));
+        }
+        /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/GetJFBD")]
+        [HttpGet]
+        public IActionResult GetJFBD(string name = "")
+        {
+            return Ok(bll.GetJFBD(name));
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/AddJF")]
+        [HttpPost]
+        public IActionResult AddJF([FromForm]PointInfo point)
+        {
+            return Ok(bll.AddJF(point));
         }
         /// <summary>
         /// 会员设置
@@ -220,6 +295,17 @@ namespace Medical.System.API.Controllers
         public IActionResult AddGrade([FromForm] SetGrade grade)
         {
             return Ok(bll.AddGrade(grade));
+        }
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdVipwhere")]
+        [HttpPost]
+        public IActionResult UpdVipwhere([FromForm]SetFunc funcs)
+        {
+            return Ok(bll.UpdVipwhere(funcs));
         }
     }
 }

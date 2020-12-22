@@ -140,6 +140,7 @@ namespace Medical.System.Servers
             foreach (var m in list)
             {
                 sql.Add($"insert into Rqinfo(Qids,Rids) values({m},{r.Rids})");
+
             }
             return DBHelper2.ExecuteSqlTran(sql);
         
@@ -214,6 +215,35 @@ namespace Medical.System.Servers
 
             string sql = $"insert into Roleinfo values('{r.Rname}')";
             return dbcoon.Execute(sql);
+        }
+        /// <summary>
+        /// 获取接诊类型
+        /// </summary>
+        /// <returns></returns>
+        public List<JZtype> GetJZtypes()
+        {
+            string sql = $"select * from JZtype ";
+            return dbcoon.Query<JZtype>(sql).ToList();
+        }
+        /// <summary>
+        /// 添加挂号信息
+        /// </summary>
+        /// <returns></returns>
+        public int AddGua(X_Guahao g)
+        {
+            string sql = $"insert into  X_Guahao values('{g.Gno}','{g.ksids}','{g.Jids}','{g.Yname}','{g.Gmoney}','{g.Zlmoney}','{g.Gtime}','{g.Gpelete}','{g.Hname}','{g.Hkahao}','{g.Hage}','{g.Hcreatetime}','{g.Hsex}','{g.Hiphone}','{g.Hsfz}','{g.Hcids}','{g.Haddress}','{g.Hremaek}')";
+            return dbcoon.Execute(sql);
+        
+        }
+        /// <summary>
+        /// 显示挂号单
+        /// </summary>
+        /// <returns></returns>
+        public List<X_Guahao> GetX_Guahaos()
+        {
+            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids  join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids";
+            return dbcoon.Query<X_Guahao>(sql).ToList();
+        
         }
     }
 }

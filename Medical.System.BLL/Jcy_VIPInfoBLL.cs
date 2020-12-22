@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
+        public Pages<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int pd = 0, int id = 0, string name = "", string phone = "", string card = "", int PageIndex = 0, int PageSize = 0, int AllCount = 0)
         {
-            return dal.GetVIPInfos(stime, etime, id, name, phone, card);
+            return dal.GetVIPInfos(stime, etime, pd,id,name, phone, card,PageIndex,PageSize,AllCount);
         }
         /// <summary>
         /// 余额充值返填信息
@@ -142,6 +142,35 @@ namespace Medical.System.BLL
             return dal.GetSValuemages(id, name, phone, card);
         }
         /// <summary>
+        /// 会员设置返填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public MemberSet GetShowMembers(int id)
+        {
+            return dal.GetShowMembers(id);
+        }
+        /// <summary>
+        /// 充值/退款记录
+        /// </summary>
+        /// <returns></returns>
+        public List<VIPmoneys> GetVIPmoneys(string name = "")
+        {
+            return dal.GetVIPmoneys(name);
+        }
+        /// <summary>
+        /// 添加储值-充值退款记录
+        /// </summary>
+        /// <param name="vips"></param>
+        /// <returns></returns>
+        public int AddJL(VIPmoneys vips)
+        {
+            return dal.AddJL(vips);
+        }
+        /// <summary>
         /// 积分管理
         /// </summary>
         /// <param name="id"></param>
@@ -154,6 +183,22 @@ namespace Medical.System.BLL
             return dal.GetPointmanages(id, name, phone, card);
         }
         /// <summary>
+        /// 积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public List<PointInfo> GetJFBD(string name = "")
+        {
+            return dal.GetJFBD(name);
+        }
+        /// <summary>
+        /// 添加积分变动记录
+        /// </summary>
+        /// <returns></returns>
+        public int AddJF(PointInfo point)
+        {
+            return dal.AddJF(point);
+        }
+        /// <summary>
         /// 会员设置
         /// </summary>
         /// <param name="id"></param>
@@ -164,6 +209,24 @@ namespace Medical.System.BLL
         public List<MemberSet> GetMembers()
         {
             return dal.GetMembers();
+        }
+        /// <summary>
+        /// 储值管理的充值
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdCZ(SValuemage sva)
+        {
+            return dal.UpdCZ(sva);
+        }
+        /// <summary>
+        /// 储值余额退款1
+        /// </summary>
+        /// <param name="sva"></param>
+        /// <returns></returns>
+        public int UpdTK(SValuemage sva)
+        {
+            return dal.UpdTK(sva);
         }
         /// <summary>
         /// 新增会员类型
@@ -182,6 +245,15 @@ namespace Medical.System.BLL
         public int UpdVIPType(MemberSet mset)
         {
             return dal.UpdVIPType(mset);
+        }
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        public int UpdVipwhere(SetFunc funcs)
+        {
+            return dal.UpdVipwhere(funcs);
         }
     }
 }
