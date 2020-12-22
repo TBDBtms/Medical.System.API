@@ -126,8 +126,7 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 患者状态
         /// </summary>
-        public int PatientStateId { get; set; }
-        public string PatientStateName { get; set; }
+        public bool PatientStateId { get; set; }
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
         public string aaa { get; set; }

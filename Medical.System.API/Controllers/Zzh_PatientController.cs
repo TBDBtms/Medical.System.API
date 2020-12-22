@@ -24,9 +24,9 @@ namespace Medical.System.API.Controllers
         }
         [RouteAttribute("api/[controller]/GetPatients")]
         [HttpGet]
-        public List<Patient> GetPatients(DateTime? sdate, DateTime? edate, string name = "", int id = 0, int pid = 0)
+        public List<Patient> GetPatients(DateTime? sdate, DateTime? edate, string name = "", int id = 0)
         {
-            var list = _Zzh_PatientBLL.GetPatient(sdate,edate,name,id,pid);
+            var list = _Zzh_PatientBLL.GetPatient(sdate,edate,name,id);
 
             return list;
         }
@@ -35,17 +35,6 @@ namespace Medical.System.API.Controllers
         public List<MemberType> GetMemberType()
         {
             var list = _Zzh_PatientBLL.GetMemberType();
-            return list;
-        }
-        /// <summary>
-        /// 患者状态
-        /// </summary>
-        /// <returns></returns>
-        [RouteAttribute("api/[controller]/GetPatientState")]
-        [HttpGet]
-        public List<PatientState> GetPatientState()
-        {
-            var list = _Zzh_PatientBLL.GetPatientState();
             return list;
         }
         /// <summary>
@@ -172,6 +161,18 @@ namespace Medical.System.API.Controllers
         public Patient ShowPatient(int patientId=0)
         {
             var list= _Zzh_PatientBLL.ShowPatient(patientId);
+            return list;
+        }
+        /// <summary>
+        //修改状态
+        /// </summary>
+        /// <param name="Gid"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/Updaaa")]
+        [HttpPost]
+        public int Updaaa(int Aid)
+        {
+            var list = _Zzh_PatientBLL.Updaaa(Aid);
             return list;
         }
     }
