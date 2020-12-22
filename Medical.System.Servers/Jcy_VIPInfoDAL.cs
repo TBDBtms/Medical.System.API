@@ -451,12 +451,38 @@ namespace Medical.System.Servers
             return dbcoon.Query<SupplierInfo>(str).ToList();
         }
         /// <summary>
+        /// 回显
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SupplierInfo FindById(int id)
+        {
+            try
+            {
+                string str = $"select * from SupplierInfo where Id={id}";
+                var list= DBhelper.GetList<SupplierInfo>(str).ToList();
+                if (str.Count()>0)
+                {
+                    return list.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <returns></returns>
         public int UpdSupplier(SupplierInfo supper)
         {
-            string str = $"update SupplierInfo set SupGIS='{supper.SupGIS}',SupName='{supper.SupName}',LinkMan='{supper.LinkMan}',LinkPhone='{supper.LinkPhone}',CTimes='{supper.CTimes}',CMan='{supper.CMan}',SupState={supper.SupState},Remark='{supper.Remark}'";
+            string str = $"update SupplierInfo set SupGIS='{supper.SupGIS}',SupName='{supper.SupName}',LinkMan='{supper.LinkMan}',LinkPhone='{supper.LinkPhone}',CTimes='{supper.CTimes=DateTime.Now}',CMan='{supper.CMan}',SupState={supper.SupState},Remark='{supper.Remark}' where Id={supper.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -476,7 +502,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int Add(SupplierInfo supper)
         {
-            string str = $"insert into SupplierInfo values('{supper.SupGIS}','{supper.SupName}','{supper.LinkMan}','{supper.LinkPhone}','{supper.CTimes}','{supper.CMan}',{supper.SupState},'{supper.Remark}')";
+            string str = $"insert into SupplierInfo values('{supper.SupGIS}','{supper.SupName}','{supper.LinkMan}','{supper.LinkPhone}','{supper.CTimes=DateTime.Now}','{supper.CMan}',{supper.SupState},'{supper.Remark}')";
             return dbcoon.Execute(str);
         }
     }

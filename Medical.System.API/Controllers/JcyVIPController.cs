@@ -329,12 +329,23 @@ namespace Medical.System.API.Controllers
             return Ok(bll.GetSupplierInfos(name));
         }
         /// <summary>
+        /// 回显
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/FindById")]
+        [HttpGet]
+        public IActionResult FindById(int id)
+        {
+            return Ok(bll.FindById(id));
+        }
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <returns></returns>
         [Route("api/[controller]/UpdSupplier")]
         [HttpPost]
-        public IActionResult UpdSupplier(SupplierInfo supper)
+        public IActionResult UpdSupplier([FromForm]SupplierInfo supper)
         {
             return Ok(bll.UpdSupplier(supper));
         }
@@ -356,7 +367,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/Add")]
         [HttpPost]
-        public IActionResult Add(SupplierInfo supper)
+        public IActionResult Add([FromForm]SupplierInfo supper)
         {
             return Ok(bll.Add(supper));
         }
