@@ -274,6 +274,15 @@ namespace Medical.System.BLL
             return dal.GetSupplierInfos(name);
         }
         /// <summary>
+        /// 回显
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SupplierInfo FindById(int id)
+        {
+            return dal.FindById(id);
+        }
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <returns></returns>
