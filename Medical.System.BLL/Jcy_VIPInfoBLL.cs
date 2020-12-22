@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
+        public Pages<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int pd = 0, int id = 0, string name = "", string phone = "", string card = "", int PageIndex = 0, int PageSize = 0, int AllCount = 0)
         {
-            return dal.GetVIPInfos(stime, etime, id, name, phone, card);
+            return dal.GetVIPInfos(stime, etime, pd,id,name, phone, card,PageIndex,PageSize,AllCount);
         }
         /// <summary>
         /// 余额充值返填信息
@@ -245,6 +245,15 @@ namespace Medical.System.BLL
         public int UpdVIPType(MemberSet mset)
         {
             return dal.UpdVIPType(mset);
+        }
+        /// <summary>
+        /// 设置会员条件
+        /// </summary>
+        /// <param name="funcs"></param>
+        /// <returns></returns>
+        public int UpdVipwhere(SetFunc funcs)
+        {
+            return dal.UpdVipwhere(funcs);
         }
     }
 }

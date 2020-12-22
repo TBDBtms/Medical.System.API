@@ -23,9 +23,9 @@ namespace Medical.System.BLL
         /// 患者管理显示界面
         /// </summary>
         /// <returns></returns>
-        public List<Patient> GetPatient(string name = "", int id = 0)
+        public List<Patient> GetPatient(DateTime? sdate, DateTime? edate, string name = "", int id = 0, int pid = 0)
         {
-            return _Zzh_PatientServers.GetPatient(name,id);
+            return _Zzh_PatientServers.GetPatient(sdate,edate,name,id,pid);
         }
         /// <summary>
         /// 会员等级下拉
@@ -34,6 +34,14 @@ namespace Medical.System.BLL
         public List<MemberType> GetMemberType()
         {
             return _Zzh_PatientServers.GetMemberType();
+        }
+        /// <summary>
+        /// 科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Department> GetDepartment()
+        {
+            return _Zzh_PatientServers.GetDepartment();
         }
         /// <summary>
         /// 家庭关系
@@ -108,6 +116,10 @@ namespace Medical.System.BLL
         public int UpdPatient(Patient m)
         {
             return _Zzh_PatientServers.UpdPatient(m);
+        }
+        public int UpdPat(Patient m)
+        {
+            return _Zzh_PatientServers.UpdPat(m);
         }
         /// <summary>
         /// 回显患者信息

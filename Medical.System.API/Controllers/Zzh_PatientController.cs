@@ -24,9 +24,10 @@ namespace Medical.System.API.Controllers
         }
         [RouteAttribute("api/[controller]/GetPatients")]
         [HttpGet]
-        public List<Patient> GetPatients(string name = "", int id = 0)
+        public List<Patient> GetPatients(DateTime? sdate, DateTime? edate, string name = "", int id = 0, int pid = 0)
         {
-            var list = _Zzh_PatientBLL.GetPatient(name,id);
+            var list = _Zzh_PatientBLL.GetPatient(sdate,edate,name,id,pid);
+
             return list;
         }
         [RouteAttribute("api/[controller]/GetMemberType")]
@@ -56,6 +57,17 @@ namespace Medical.System.API.Controllers
         public List<CaoZuoRen> GetCaoZuoRen()
         {
             var list = _Zzh_PatientBLL.GetCaoZuoRen();
+            return list;
+        }
+        /// <summary>
+        /// 科室
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetDepartment")]
+        [HttpGet]
+        public List<Department> GetDepartment()
+        {
+            var list = _Zzh_PatientBLL.GetDepartment();
             return list;
         }
         /// <summary>
@@ -136,6 +148,18 @@ namespace Medical.System.API.Controllers
         public int UpdPatient([FromForm]Patient m)
         {
             var list = _Zzh_PatientBLL.UpdPatient(m);
+            return list;
+        }
+        /// <summary>
+        /// 修改患者会员
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/UpdPat")]
+        [HttpPost]
+        public int UpdPat([FromForm]Patient m)
+        {
+            var list = _Zzh_PatientBLL.UpdPat(m);
             return list;
         }
         /// <summary>
