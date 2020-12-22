@@ -382,6 +382,40 @@ namespace Medical.System.API.Controllers
 
 
         }
+        //插入登录记录
+        [RouteAttribute("api/[controller]/AddJlu")]
+        [HttpPost]
+        public int AddJlu([FromForm]Jlu j)
+        {
+            return bll.AddJlu(j);
+
+
+        }
+        /// <summary>
+        /// 登入记录
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetJlus")]
+        [HttpGet]
+        public IActionResult GetJlus(int pageindex = 1, int pagesize = 2)
+        {
+            var list=bll.GetJlus();
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
+        }
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="Jid"></param>
+        /// <returns></returns>
+        /// 
+        [RouteAttribute("api/[controller]/Deljlu")]
+        [HttpPost]
+        public int Deljlu(int Jid)
+        {
+            return bll.Deljlu(Jid);
+
+        }
     }
 }
 

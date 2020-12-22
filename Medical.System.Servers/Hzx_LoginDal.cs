@@ -307,5 +307,33 @@ namespace Medical.System.Servers
             return dbcoon.Query<Chufang>(sql).ToList();
         
         }
+        //插入登录记录
+        public int AddJlu(Jlu j) 
+        {
+            string sql = $"insert into Jlu values('{j.Uname}','{DateTime.Now}','{j.Zwei}')";
+            return dbcoon.Execute(sql);
+        
+        
+        }
+        /// <summary>
+        /// 登入记录
+        /// </summary>
+        /// <returns></returns>
+        public List<Jlu> GetJlus() 
+        {
+            string sql = $"select * from Jlu";
+            return dbcoon.Query<Jlu>(sql).ToList();
+        }
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="Jid"></param>
+        /// <returns></returns>
+        public int Deljlu(int Jid) 
+        {
+            string sql = $"delete from Jlu where Jluid={Jid} ";
+            return dbcoon.Execute(sql);
+        
+        }
     }
 }
