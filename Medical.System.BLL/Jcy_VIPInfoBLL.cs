@@ -264,5 +264,31 @@ namespace Medical.System.BLL
         {
             return dal.UpdZF(sets);
         }
+        /// <summary>
+        /// 供应商管理
+        /// </summary>
+        /// <param name="gid"></param>
+        /// <returns></returns>
+        public List<SupplierInfo> GetSupplierInfos(string name = "")
+        {
+            return dal.GetSupplierInfos(name);
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <returns></returns>
+        public int UpdSupplier(SupplierInfo supper)
+        {
+            return dal.UpdSupplier(supper);
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int Del(int id)
+        {
+            return dal.Del(id);
+        }
     }
 }

@@ -317,5 +317,37 @@ namespace Medical.System.API.Controllers
         {
             return Ok(bll.UpdZF(sets));
         }
+        /// <summary>
+        /// 供应商管理
+        /// </summary>
+        /// <param name="gid"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/GetSupplierInfos")]
+        [HttpGet]
+        public IActionResult GetSupplierInfos(string name = "")
+        {
+            return Ok(bll.GetSupplierInfos(name));
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/[controller]/UpdSupplier")]
+        [HttpPost]
+        public IActionResult UpdSupplier(SupplierInfo supper)
+        {
+            return Ok(bll.UpdSupplier(supper));
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/Del")]
+        [HttpPost]
+        public IActionResult Del(int id)
+        {
+            return Ok(bll.Del(id));
+        }
     }
 }

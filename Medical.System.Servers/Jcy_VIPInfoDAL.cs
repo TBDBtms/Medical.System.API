@@ -441,9 +441,13 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="gid"></param>
         /// <returns></returns>
-        public List<SupplierInfo> GetSupplierInfos(int gid=0)
+        public List<SupplierInfo> GetSupplierInfos(string name="")
         {
-            string str = $"select * from SupplierInfo";
+            string str = $"select * from SupplierInfo where 1=1";
+            if (!string.IsNullOrEmpty(name))
+            {
+                str += $" and SupName like '%"+name+"%'";
+            }
             return dbcoon.Query<SupplierInfo>(str).ToList();
         }
         /// <summary>
