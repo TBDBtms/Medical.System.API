@@ -27,9 +27,9 @@ namespace Medical.System.Servers
         /// <param name="pname"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        public List<Patient> GetPatient(string name = "", int id = 0)
+        public List<Patient> GetPatient(DateTime? sdate, DateTime? edate,string name = "", int id = 0, int pid = 0)
         {
-            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId join PatientState f on a.PatientStateId=f.PatientStateId where 1=1";
+            string sql = $"select * from Patient a join MemberType b on a.MemberTypeId=b.MemberTypeId join CaoZuoRen c on a.CaoPeopleId=c.CaoZuoRenId join PatientState f on a.PatientStateId=f.PatientStateId join Department e on a.DepartmentId=e.DepartmentId where 1=1";
             if (!string.IsNullOrEmpty(name))
             {
                 var t = IsNumberic(name);
@@ -42,11 +42,24 @@ namespace Medical.System.Servers
                     sql += $" and PatientName like '%{name}%'";
                 }
             }
+            if (sdate != null&&edate!=null)
+            {
+                sql += $" and CreateTime Between '{sdate}' and '{edate}'";
+            }
+            if (pid>0)
+            {
+                sql += $" and f.PatientStateId={pid}";
+            }
             if (id > 0)
             {
                 sql += $" and b.MemberTypeId={id}";
             }
-            return dbcoon.Query<Patient>(sql).ToList();
+            var a= dbcoon.Query<Patient>(sql).ToList();
+            foreach (var item in a)
+            {
+                item.aaa = item.CreateTime.ToString().Split('T')[0];
+            }
+            return a;
         }
         /// <summary>
         /// 会员等级下拉
@@ -56,6 +69,15 @@ namespace Medical.System.Servers
         {
             string sql = $"select * from MemberType";
             return dbcoon.Query<MemberType>(sql).ToList();
+        }
+        /// <summary>
+        /// 科室
+        /// </summary>
+        /// <returns></returns>
+        public List<Department> GetDepartment()
+        {
+            string sql = $"select * from Department";
+            return dbcoon.Query<Department>(sql).ToList();
         }        
         /// <summary>
         /// 家庭关系
@@ -97,7 +119,8 @@ namespace Medical.System.Servers
             m.CreateTime = DateTime.Now;
             Random r = new Random();
             m.PatientCode = (r.Next(0, 10000)).ToString();
-            string sql = $"insert into Patient values('{m.PatientCode}','{m.PatientName}','{m.PatientCard}','{m.PatientAge}','{m.PatientDateBirth}','{m.PatientSex}','{m.PatientPhone}','{m.Patientpapers}','{m.PatientSource}','{m.MemberTypeId}','{m.EndData}','{m.Nation}','{m.MaritalStatus}','{m.Education}','{m.ProvinceId}','{m.CityId}','{m.PatientAddress}','{m.Position}','{m.Remark}','{m.Departments}','{m.CaoPeopleId}','{m.CreateTime}','{m.FamilyTiesId}','{m.ReleFamilyName}','{m.ReleFamilySex}','{m.ReleFamilyAge}','{m.ReleFamilyPhone}','{m.PatientStateId}')";
+            m.PatientImg = "~/Zzhimg/QQ图片20201218101515 (1).png";
+            string sql = $"insert into Patient values('{m.PatientCode}','{m.PatientImg}','{m.PatientName}','{m.PatientCard}','{m.PatientAge}','{m.PatientDateBirth}','{m.PatientSex}','{m.PatientPhone}','{m.Patientpapers}','{m.PatientSource}','{m.MemberTypeId}','{m.EndData}','{m.Nation}','{m.MaritalStatus}','{m.Education}','{m.ProvinceId}','{m.CityId}','{m.PatientAddress}','{m.Position}','{m.Remark}','{m.DepartmentId}','{m.CaoPeopleId}','{m.CreateTime}','{m.FamilyTiesId}','{m.ReleFamilyName}','{m.ReleFamilySex}','{m.ReleFamilyAge}','{m.ReleFamilyPhone}','{m.PatientStateId}')";
             return dbcoon.Execute(sql);
         }
         /// <summary>
@@ -155,7 +178,13 @@ namespace Medical.System.Servers
             Random r = new Random();
             m.PatientCode = (r.Next(0, 10000)).ToString();
             m.CreateTime = DateTime.Now;
-            string sql = $"update Patient set PatientCode='{m.PatientCode}',PatientName='{m.PatientName}',PatientCard='{m.PatientCard}',PatientAge='{m.PatientAge}',PatientDateBirth='{m.PatientDateBirth}',PatientSex='{m.PatientSex}',PatientPhone='{m.PatientPhone}',Patientpapers='{m.Patientpapers}',PatientSource='{m.PatientSource}',MemberTypeId='{m.MemberTypeId}',EndData='{m.EndData}',Nation='{m.Nation}',MaritalStatus='{m.MaritalStatus}',Education='{m.Education}',ProvinceId='{m.ProvinceId}',CityId='{m.CityId}',PatientAddress='{m.PatientAddress}',Position='{m.Position}',CaoPeopleId='{m.CaoPeopleId}',Departments='{m.Departments}',Remark='{m.Remark}',CreateTime='{m.CreateTime}',FamilyTiesId='{m.FamilyTiesId}',ReleFamilyName='{m.ReleFamilyName}',ReleFamilySex='{m.ReleFamilySex}',ReleFamilyAge='{m.ReleFamilyAge}',ReleFamilyPhone='{m.ReleFamilyPhone}',PatientStateId='{m.PatientStateId}' where PatientId='{m.PatientId}'";
+            m.PatientImg = "~/Zzhimg/QQ图片20201218101515 (1).png";
+            string sql =$"update Patient set PatientCode='{m.PatientCode}',PatientImg='{m.PatientImg}',PatientName='{m.PatientName}',PatientCard='{m.PatientCard}',PatientAge='{m.PatientAge}',PatientDateBirth='{m.PatientDateBirth}',PatientSex='{m.PatientSex}',PatientPhone='{m.PatientPhone}',Patientpapers='{m.Patientpapers}',PatientSource='{m.PatientSource}',MemberTypeId='{m.MemberTypeId}',EndData='{m.EndData}',Nation='{m.Nation}',MaritalStatus='{m.MaritalStatus}',Education='{m.Education}',ProvinceId='{m.ProvinceId}',CityId='{m.CityId}',PatientAddress='{m.PatientAddress}',Position='{m.Position}',CaoPeopleId='{m.CaoPeopleId}',DepartmentId='{m.DepartmentId}',Remark='{m.Remark}',CreateTime='{m.CreateTime}',FamilyTiesId='{m.FamilyTiesId}',ReleFamilyName='{m.ReleFamilyName}',ReleFamilySex='{m.ReleFamilySex}',ReleFamilyAge='{m.ReleFamilyAge}',ReleFamilyPhone='{m.ReleFamilyPhone}',PatientStateId='{m.PatientStateId}' where PatientId='{m.PatientId}'";
+            return dbcoon.Execute(sql);
+        }
+        public int UpdPat(Patient m)
+        {
+            string sql = $"update Patient set MemberTypeId='{m.MemberTypeId}',EndData='{m.EndData}' where PatientId='{m.PatientId}'";
             return dbcoon.Execute(sql);
         }
         /// <summary>
