@@ -74,6 +74,10 @@ namespace Medical.Model.HZX_Model
         /// </summary>
         public string Hsfz        { get; set; }
         /// <summary>
+        /// 状态
+        /// </summary>
+        public bool Xissale { get; set; }
+        /// <summary>
         /// 患者家乡id外键
         /// </summary>
         public int Hcids       { get; set; }
