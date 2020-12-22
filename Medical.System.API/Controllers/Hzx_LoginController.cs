@@ -49,7 +49,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetUserinfos")]
         [HttpGet]
-        public List<Userinfo> GetUserinfos(int Ukeids=0,string Uname="")
+        public IActionResult  GetUserinfos(int Ukeids=0,string Uname="",int pageindex=1,int pagesize=10)
         {
             var list = bll.GetUserinfos();
             if (Ukeids>0)
@@ -60,7 +60,8 @@ namespace Medical.System.API.Controllers
             {
                 list = list.Where(m => m.Uname.Contains(Uname)).ToList();
             }
-            return list;
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 角色下拉
