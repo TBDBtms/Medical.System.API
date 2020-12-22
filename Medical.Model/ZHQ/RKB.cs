@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Medical.Model.ZHQ
 {
-   public class RKSQ
+   public class RKB
     {
         //	RKSQId int primary key identity,
         public int RKSQId { get; set; }
@@ -29,6 +29,7 @@ namespace Medical.Model.ZHQ
         //RKSQLX varchar(50),--申请药品的类型
         public string RKSQLX { get; set; }
         public string gtime { get; set; }
-        public int tid { get; set; }
+        public int pid { get; set; }
+
     }
 }
