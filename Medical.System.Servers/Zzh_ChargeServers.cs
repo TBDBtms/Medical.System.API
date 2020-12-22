@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Medical.Model;
-using Medical.Model.DLH_Medical.Model;
+using Medical.Model.ZZH_Model;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -21,13 +21,13 @@ namespace Medical.System.Servers
             dbcoon = new SqlConnection(conn.Value.Conn);
         }
         /// <summary>
-        /// 
+        /// 门诊日志
         /// </summary>
         /// <returns></returns>
-        public List<Charge> GetCharge()
+        public List<Outpatientlog> GetOutpatientlog()
         {
-            string strsql = $"select * from Charge";
-            return dbcoon.Query<Charge>(strsql).ToList();
+            string strsql = $"select * from Outpatientlog";
+            return dbcoon.Query<Outpatientlog>(strsql).ToList();
         }
     }
 }
