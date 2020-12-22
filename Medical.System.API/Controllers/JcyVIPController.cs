@@ -345,9 +345,20 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/Del")]
         [HttpPost]
-        public IActionResult Del(int id)
+        public IActionResult Del([FromForm]int id)
         {
             return Ok(bll.Del(id));
+        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="supper"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/Add")]
+        [HttpPost]
+        public IActionResult Add(SupplierInfo supper)
+        {
+            return Ok(bll.Add(supper));
         }
     }
 }

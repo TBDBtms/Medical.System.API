@@ -290,5 +290,14 @@ namespace Medical.System.BLL
         {
             return dal.Del(id);
         }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="supper"></param>
+        /// <returns></returns>
+        public int Add(SupplierInfo supper)
+        {
+            return dal.Add(supper);
+        }
     }
 }

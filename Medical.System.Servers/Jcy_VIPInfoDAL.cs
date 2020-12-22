@@ -456,7 +456,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdSupplier(SupplierInfo supper)
         {
-            string str = $"update SupplierInfo set SupGIS='{supper.SupGIS}',SupName='{supper.SupName}',LinkMan='{supper.LinkMan}',LinkPhone='{supper.LinkPhone}',CTimes={supper.CTimes},CMan='{supper.CMan}',SupState={supper.SupState},Remark='{supper.Remark}'";
+            string str = $"update SupplierInfo set SupGIS='{supper.SupGIS}',SupName='{supper.SupName}',LinkMan='{supper.LinkMan}',LinkPhone='{supper.LinkPhone}',CTimes='{supper.CTimes}',CMan='{supper.CMan}',SupState={supper.SupState},Remark='{supper.Remark}'";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -467,6 +467,16 @@ namespace Medical.System.Servers
         public int Del(int id)
         {
             string str = $"delete from SupplierInfo where Id={id}";
+            return dbcoon.Execute(str);
+        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="supper"></param>
+        /// <returns></returns>
+        public int Add(SupplierInfo supper)
+        {
+            string str = $"insert into SupplierInfo values('{supper.SupGIS}','{supper.SupName}','{supper.LinkMan}','{supper.LinkPhone}','{supper.CTimes}','{supper.CMan}',{supper.SupState},'{supper.Remark}')";
             return dbcoon.Execute(str);
         }
     }
