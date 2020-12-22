@@ -28,16 +28,6 @@ namespace Medical.System.Servers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        //public List<CaseInfo> GetCaseInfos(string name="")
-        //{
-        //    string sql = $"select * from CaseInfo c join Userinfo u on c.Createperson=u.uid where 1=1";
-        //    if (!string.IsNullOrEmpty(name))
-        //    {
-        //        sql += $" and CaseName={name}";
-        //    }
-        //    var list = dbconn.Query<CaseInfo>(sql).ToList();
-        //    return list;
-        //}
         public Page<CaseInfo> GetCaseInfos(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10)
         {
             if (!string.IsNullOrEmpty(name))
@@ -124,8 +114,6 @@ namespace Medical.System.Servers
         {
             string sql = $"delete from CaseInfo where CaseId={cid}";
             return dbconn.Execute(sql);
-        }
-
-       
+        }       
     }
 }
