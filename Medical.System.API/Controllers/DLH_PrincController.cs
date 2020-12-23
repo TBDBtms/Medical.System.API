@@ -39,14 +39,16 @@ namespace Medical.System.API.Controllers
         //    }
         //    return list;
         //}
-        public List<sb> GetDate()
+        public IActionResult GetDate(int pageIndex = 1, int pageSize = 10)
         {
-            var list = bll.GetDate();
+            var list = bll.GetDate(pageIndex,pageSize);
             foreach (var item in list)
             {
                 item.time = item.CaseTable.ToString("yyyy-MM-dd");
             }
-            return list;
+
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageIndex - 1) * pageSize).Take(pageSize), Count = count });
         }
         
 
