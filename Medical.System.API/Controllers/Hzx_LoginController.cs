@@ -49,7 +49,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetUserinfos")]
         [HttpGet]
-        public List<Userinfo> GetUserinfos(int Ukeids=0,string Uname="")
+        public IActionResult  GetUserinfos(int Ukeids=0,string Uname="",int pageindex=1,int pagesize=10)
         {
             var list = bll.GetUserinfos();
             if (Ukeids>0)
@@ -60,7 +60,8 @@ namespace Medical.System.API.Controllers
             {
                 list = list.Where(m => m.Uname.Contains(Uname)).ToList();
             }
-            return list;
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 角色下拉
@@ -285,7 +286,7 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetX_Guahaos")]
         [HttpGet]
-        public List<X_Guahao> GetX_Guahaos(int kid=0,string yname="")
+        public IActionResult GetX_Guahaos(int kid=0,string yname="",int pageindex=1,int pagesize=2)
         {
             
             var list= bll.GetX_Guahaos();
@@ -298,7 +299,9 @@ namespace Medical.System.API.Controllers
             {
                 list = list.Where(m => m.Yname.Contains(yname)).ToList();
             }
-            return list;
+
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
 
         }
         //退号
@@ -363,9 +366,54 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [RouteAttribute("api/[controller]/GetChufangs")]
         [HttpGet]
-        public List<Chufang> GetChufangs()
+        public IActionResult GetChufangs(int Jztid=0, string Hname="",int pageindex=1,int pagesize=2)
         {
-            return bll.GetChufangs();
+            var list= bll.GetChufangs();
+            if (Jztid>0)
+            {
+                list = list.Where(m => m.Jztid == Jztid).ToList();
+            }
+            if (!string.IsNullOrEmpty(Hname))
+            {
+                list = list.Where(m => m.Hname.Contains(Hname)).ToList();
+            }
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
+
+
+        }
+        //插入登录记录
+        [RouteAttribute("api/[controller]/AddJlu")]
+        [HttpPost]
+        public int AddJlu([FromForm]Jlu j)
+        {
+            return bll.AddJlu(j);
+
+
+        }
+        /// <summary>
+        /// 登入记录
+        /// </summary>
+        /// <returns></returns>
+        [RouteAttribute("api/[controller]/GetJlus")]
+        [HttpGet]
+        public IActionResult GetJlus(int pageindex = 1, int pagesize = 2)
+        {
+            var list=bll.GetJlus();
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
+        }
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="Jid"></param>
+        /// <returns></returns>
+        /// 
+        [RouteAttribute("api/[controller]/Deljlu")]
+        [HttpPost]
+        public int Deljlu(int Jid)
+        {
+            return bll.Deljlu(Jid);
 
         }
     }

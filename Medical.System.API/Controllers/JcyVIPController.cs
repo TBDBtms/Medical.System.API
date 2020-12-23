@@ -30,12 +30,14 @@ namespace Medical.System.API.Controllers
         /// <param name="name"></param>
         /// <param name="phone"></param>
         /// <param name="card"></param>
-        /// <returns></returns>
+        /// <returns></returns>11
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime,int bd=0, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10,int AllCount=0)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetVIPInfos(stime,etime,bd,id,name,phone,card, pageIndex,pageSize,AllCount));
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            int count = list.Count;
+            return Ok(new {list=list.Skip((pageindex-1)*pagesize).Take(pagesize),Count=count});
         }
         /// <summary>
         /// 会员设置返填
@@ -329,12 +331,23 @@ namespace Medical.System.API.Controllers
             return Ok(bll.GetSupplierInfos(name));
         }
         /// <summary>
+        /// 回显
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/FindById")]
+        [HttpGet]
+        public IActionResult FindById(int id)
+        {
+            return Ok(bll.FindById(id));
+        }
+        /// <summary>
         /// 编辑
         /// </summary>
         /// <returns></returns>
         [Route("api/[controller]/UpdSupplier")]
         [HttpPost]
-        public IActionResult UpdSupplier(SupplierInfo supper)
+        public IActionResult UpdSupplier([FromForm]SupplierInfo supper)
         {
             return Ok(bll.UpdSupplier(supper));
         }
@@ -345,9 +358,20 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/Del")]
         [HttpPost]
-        public IActionResult Del(int id)
+        public IActionResult Del([FromForm]int id)
         {
             return Ok(bll.Del(id));
+        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="supper"></param>
+        /// <returns></returns>
+        [Route("api/[controller]/Add")]
+        [HttpPost]
+        public IActionResult Add([FromForm]SupplierInfo supper)
+        {
+            return Ok(bll.Add(supper));
         }
     }
 }
