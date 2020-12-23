@@ -84,12 +84,12 @@ namespace Medical.System.Servers
             if (day>0)
             {
                 string sql = $"insert into Principleaction (PastName,PastTable,Createperson) select CaseName,CaseTable,Createperson from CaseInfo select * from Principleaction join Userinfo on Principleaction.Createperson=Userinfo.Uid delete from CaseInfo";
-                return dbconn.Query<sb>(sql).Skip((pageIndex-1)*pageSize).Take(pageIndex*pageSize).ToList();
+                return dbconn.Query<sb>(sql).ToList();
             }
             else
             {
                 string sql = "select * from Principleaction join Userinfo on Principleaction.Createperson=Userinfo.Uid";
-                return dbconn.Query<sb>(sql).Skip((pageIndex - 1) * pageSize).Take(pageIndex * pageSize).ToList();
+                return dbconn.Query<sb>(sql).ToList();
             }
         }
 
