@@ -180,8 +180,8 @@ namespace Medical.System.Servers
         {
             string sqls = $"select SvalueMoney from VIPInfo where Id={vip.Id}";
             var list = DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
-            var TKje = list.SvalueMoney;
-            string str = $"update VIPInfo set RePrice={TKje-vip.RePrice},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}' where Id={vip.Id}";
+            var TKje = list.SvalueMoney-vip.RePrice;
+            string str = $"update VIPInfo set SvalueMoney={TKje},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
