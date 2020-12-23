@@ -22,12 +22,5 @@ namespace Medical.System.API.Controllers
             _conn = conn;
             _Zzh_ChargeBLL = new Zzh_ChargeBLL(conn);
         }
-        
-        [HttpGet]
-        public List<Outpatientlog> GetCharge()
-        {
-            var list = _Zzh_ChargeBLL.GetOutpatientlog();
-            return list;
-        }
     }
 }
