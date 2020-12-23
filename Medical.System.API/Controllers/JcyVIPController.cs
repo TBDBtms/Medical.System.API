@@ -332,9 +332,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetSupplierInfos")]
         [HttpGet]
-        public IActionResult GetSupplierInfos(string name = "")
+        public IActionResult GetSupplierInfos(string name = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetSupplierInfos(name));
+            var list = bll.GetSupplierInfos(name);
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 回显
