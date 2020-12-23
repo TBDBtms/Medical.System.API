@@ -22,9 +22,6 @@ namespace Medical.System.BLL
         /// 门诊日志
         /// </summary>
         /// <returns></returns>
-        public List<Outpatientlog> GetOutpatientlog()
-        {
-            return _Zzh_ChargeServers.GetOutpatientlog();
-        }
+       
     }
 }
