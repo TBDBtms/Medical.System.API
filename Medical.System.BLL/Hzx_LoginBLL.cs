@@ -260,6 +260,32 @@ namespace Medical.System.BLL
         {
             return dal.GetChufangs();
 
+
+        }
+        //插入登录记录
+        public int AddJlu(Jlu j)
+        {
+            return dal.AddJlu(j);
+
+
+        }
+        /// <summary>
+        /// 登入记录
+        /// </summary>
+        /// <returns></returns>
+        public List<Jlu> GetJlus()
+        {
+            return dal.GetJlus();
+        }
+        /// <summary>
+        /// 删除记录
+        /// </summary>
+        /// <param name="Jid"></param>
+        /// <returns></returns>
+        public int Deljlu(int Jid)
+        {
+            return dal.Deljlu(Jid);
+
         }
     }
 }
