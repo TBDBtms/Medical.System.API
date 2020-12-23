@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public Pages<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int pd = 0, int id = 0, string name = "", string phone = "", string card = "", int PageIndex = 0, int PageSize = 0, int AllCount = 0)
+        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
         {
-            return dal.GetVIPInfos(stime, etime, pd,id,name, phone, card,PageIndex,PageSize,AllCount);
+            return dal.GetVIPInfos(stime, etime,id,name);
         }
         /// <summary>
         /// 余额充值返填信息

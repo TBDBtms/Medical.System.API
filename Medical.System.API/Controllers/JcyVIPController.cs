@@ -30,12 +30,14 @@ namespace Medical.System.API.Controllers
         /// <param name="name"></param>
         /// <param name="phone"></param>
         /// <param name="card"></param>
-        /// <returns></returns>
+        /// <returns></returns>11
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime,int bd=0, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10,int AllCount=0)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetVIPInfos(stime,etime,bd,id,name,phone,card, pageIndex,pageSize,AllCount));
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            int count = list.Count;
+            return Ok(new {list=list.Skip((pageindex-1)*pagesize).Take(pagesize),Count=count});
         }
         /// <summary>
         /// 会员设置返填
