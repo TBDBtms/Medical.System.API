@@ -32,7 +32,7 @@ namespace Medical.System.Servers
         /// 查询申请信息表
         /// </summary>
         /// <returns></returns>
-        public List<RKSQ> GetRKSQ()
+        public List<RKSQ> GetRKSQ(string name,int pageindex,int pagesize)
         {
             string sql = "select * from RKSQ";
             var list= dbconn.Query<RKSQ>(sql).ToList();
@@ -40,7 +40,6 @@ namespace Medical.System.Servers
             {
                 item.gtime = item.RKSQTime.ToString("yyyy-MM-dd");
             }
-
             return list;
         }
         /// <summary>

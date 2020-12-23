@@ -41,7 +41,7 @@ namespace Medical.System.API.Controllers
         //}
         public IActionResult GetDate(int pageIndex = 1, int pageSize = 10)
         {
-            var list = bll.GetDate();
+            var list = bll.GetDate(pageIndex,pageSize);
             foreach (var item in list)
             {
                 item.time = item.CaseTable.ToString("yyyy-MM-dd");

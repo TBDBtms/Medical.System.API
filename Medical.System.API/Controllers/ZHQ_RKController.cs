@@ -39,10 +39,11 @@ namespace Medical.System.API.Controllers
         /// 
         [HttpGet]
         [Route("api/[controller]/GetRKSQ")]
-        public IActionResult GetRKSQ()
+        public IActionResult GetRKSQ(string name="",int pageindex=1,int pagesize=10)
         {
-            var list= Ok(bll.GetRKSQ());
-            return list;
+            var list= bll.GetRKSQ(name,pageindex,pagesize);
+            int Count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = Count });
         }
         /// <summary>
         /// 修改申批状态
