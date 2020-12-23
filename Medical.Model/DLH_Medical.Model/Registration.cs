@@ -20,7 +20,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 金额
         /// </summary>
-        public double MoneyInfn { get; set; }
+        public double MoneyInfns { get; set; }
         /// <summary>
         /// 成本价
         /// </summary>
