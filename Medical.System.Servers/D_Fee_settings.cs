@@ -213,7 +213,7 @@ namespace Medical.System.Servers
         public int AddRegistration(Registration c)
         {
             //c.CTime = DateTime.Now;
-            string sql = $"insert into Registration values('{c.Registra}','{c.MoneyInfn}', '{c.Cost}','{c.GHTime}','{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
+            string sql = $"insert into Registration values('{c.Registra}','{c.MoneyInfnses}', '{c.Cost}','{c.GHTime}','{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -223,7 +223,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int ModifyRegistration(Registration model)
         {
-            string sql = $"Update Registration set Registra='{model.Registra}',MoneyInfn={model.MoneyInfn},Cost={model.Cost},GHTime='{model.GHTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
+            string sql = $"Update Registration set Registra='{model.Registra}',MoneyInfn={model.MoneyInfnses},Cost={model.Cost},GHTime='{model.GHTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceIds}";
             return dbconn.Execute(sql);
         }
         /// <summary>
