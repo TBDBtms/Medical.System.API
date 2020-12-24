@@ -30,12 +30,14 @@ namespace Medical.System.API.Controllers
         /// <param name="name"></param>
         /// <param name="phone"></param>
         /// <param name="card"></param>
-        /// <returns></returns>
+        /// <returns></returns>11
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime,int bd=0, int id = 0, string name = "", string phone = "", string card = "",int pageIndex=1,int pageSize=10,int AllCount=0)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetVIPInfos(stime,etime,bd,id,name,phone,card, pageIndex,pageSize,AllCount));
+            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            int count = list.Count;
+            return Ok(new {list=list.Skip((pageindex-1)*pagesize).Take(pagesize),Count=count});
         }
         /// <summary>
         /// 会员设置返填
@@ -168,9 +170,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetCZ")]
         [HttpGet]
-        public IActionResult GetCZ(int id=0,string name="",string phone="",string card="")
+        public IActionResult GetCZ(int id=0,string name="",string phone="",string card="",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetSValuemages(id,name,phone,card));
+            var list = bll.GetSValuemages(id, name, phone, card);
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 储值管理的充值
@@ -225,9 +229,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetJF")]
         [HttpGet]
-        public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "")
+        public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetPointmanages(id, name, phone, card));
+            var list = bll.GetPointmanages(id, name, phone, card);
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 积分变动记录
@@ -259,9 +265,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetMemberSet")]
         [HttpGet]
-        public IActionResult GetMemberSet()
+        public IActionResult GetMemberSet(int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetMembers());
+            var list = bll.GetMembers();
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 新增会员类型
@@ -324,9 +332,11 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetSupplierInfos")]
         [HttpGet]
-        public IActionResult GetSupplierInfos(string name = "")
+        public IActionResult GetSupplierInfos(string name = "",int pageindex=1,int pagesize=10)
         {
-            return Ok(bll.GetSupplierInfos(name));
+            var list = bll.GetSupplierInfos(name);
+            int count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
         /// <summary>
         /// 回显

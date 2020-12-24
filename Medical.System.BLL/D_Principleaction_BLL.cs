@@ -29,7 +29,7 @@ namespace Medical.System.BLL
         //{
         //    return dal.GetPage(tj, name, pageindex, pagesize);
         //}
-        public List<sb> GetDate()
+        public List<sb> GetDate(int pageIndex = 1, int pageSize = 10)
         {
             return dal.GetDate();
         }

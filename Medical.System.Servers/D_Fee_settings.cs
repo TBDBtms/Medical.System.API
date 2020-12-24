@@ -223,7 +223,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int ModifyRegistration(Registration model)
         {
-            string sql = $"Update Registration set Registra='{model.Registra}',MoneyInfn={model.MoneyInfnses},Cost={model.Cost},GHTime='{model.GHTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceIds}";
+            string sql = $"Update Registration set Registra='{model.Registra}',MoneyInfn={model.MoneyInfn},Cost={model.Cost},GHTime='{model.GHTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
             return dbconn.Execute(sql);
         }
         /// <summary>

@@ -21,13 +21,13 @@ namespace Medical.System.Servers
             dbcoon = new SqlConnection(conn.Value.Conn);
         }
         /// <summary>
-        /// 门诊日志
+        /// 患者年龄统计
         /// </summary>
         /// <returns></returns>
-        public List<Outpatientlog> GetOutpatientlog()
+        public List<Patient> GetPatient()
         {
-            string strsql = $"select * from Outpatientlog";
-            return dbcoon.Query<Outpatientlog>(strsql).ToList();
+            string strsql = $"select * from Patient";
+            return dbcoon.Query<Patient>(strsql).ToList();
         }
     }
 }
