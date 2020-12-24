@@ -113,7 +113,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPgrade> GetVIPgrades()
         {
-            string str = $"select * from VIPgrade";
+            string str = $"select top 6 * from VIPgrade";
             return dbcoon.Query<VIPgrade>(str).ToList();
         }
         /// <summary>
