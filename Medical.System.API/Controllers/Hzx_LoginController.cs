@@ -1,4 +1,5 @@
 ﻿using Medical.Model;
+using Medical.Model.DLH_Medical.Model;
 using Medical.Model.HZX_Model;
 using Medical.System.BLL;
 using Microsoft.AspNetCore.Http;
@@ -400,6 +401,7 @@ namespace Medical.System.API.Controllers
         public IActionResult GetJlus(int pageindex = 1, int pagesize = 2)
         {
             var list=bll.GetJlus();
+            list = list.OrderByDescending(m => m.CzTime).ToList();
             int count = list.Count;
             return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
@@ -414,6 +416,22 @@ namespace Medical.System.API.Controllers
         public int Deljlu(int Jid)
         {
             return bll.Deljlu(Jid);
+
+        }
+        //挂号表下拉
+        [RouteAttribute("api/[controller]/GetRegistrations")]
+        [HttpGet]
+        public List<Registration> GetRegistrations()
+        {
+            return bll.GetRegistrations();
+
+        }
+        //诊疗费下拉
+        [RouteAttribute("api/[controller]/GetConsultations")]
+        [HttpGet]
+        public List<Consultation> GetConsultations()
+        {
+            return bll.GetConsultations();
 
         }
     }

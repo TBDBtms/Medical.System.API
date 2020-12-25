@@ -27,9 +27,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[Controller]/Getadministration")]
         [HttpGet]
-        public IActionResult Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10, int bid = 0, int wid = 0)
+        public IActionResult Getadministration(int tj = 0, string name = "", int pageindex = 1, int pagesize = 10,int pp=0,int fl=0,int jx=0)
         {
-            return Ok(bll.Getadministration(tj, name, pageindex, pagesize,bid,wid));
+            return Ok(bll.Getadministration(tj, name, pageindex, pagesize,pp,fl,jx));
         }
         /// <summary>
         /// 添加药品

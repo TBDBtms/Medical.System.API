@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Medical.Model.HZX_Model;
+using Medical.Model.DLH_Medical.Model;
+
 namespace Medical.System.BLL
 {
   public  class Hzx_LoginBLL
@@ -285,6 +287,20 @@ namespace Medical.System.BLL
         public int Deljlu(int Jid)
         {
             return dal.Deljlu(Jid);
+
+        }
+        //挂号表下拉
+
+        public List<Registration> GetRegistrations()
+        {
+            return dal.GetRegistrations();
+
+        }
+        //诊疗费下拉
+
+        public List<Consultation> GetConsultations()
+        {
+            return dal.GetConsultations();
 
         }
     }
