@@ -31,7 +31,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<D_Charge_Statistics> GetD_Charge_Statistics(string name="",int pageindex=1,int pagesize=10)
         {
-            string sql = $"select * from waijian w join CostsInfo c on w.GuaId=c.SequenceIdes join Consultation t on w.Fujia=t.SequenceId join X_Guahao x on w.ZhenId = x.Gid join VIPInfo v on w.GuaZId=v.Id join SetVIPGrade s on w.HuanId=s.Id join Userinfo u on w.YaoId=u.Uid join Patient p on w.UseId=p.PatientId join Drug_administration d on w.VipId=d.DrugId join Registration r on w.SetId=r.SequenceIds join Keshi k on w.keshiId=k.Kid where p.PatientName like '%{name}%'";
+             string sql = $"select * from waijian w join CostsInfo c on w.GuaId=c.SequenceIdes join Consultation t on w.Fujia=t.SequenceId join X_Guahao x on w.ZhenId = x.Gid join VIPInfo v on w.GuaZId=v.Id join SetVIPGrade s on w.HuanId=s.Id join Userinfo u on w.YaoId=u.Uid join Patient p on w.UseId=p.PatientId join Drug_administration d on w.VipId=d.DrugId join Registration r on w.SetId=r.SequenceIds join Keshi k on w.keshiId=k.Kid where p.PatientName like '%{name}%'";
             return dbconn.Query<D_Charge_Statistics>(sql).ToList();
         }
         
