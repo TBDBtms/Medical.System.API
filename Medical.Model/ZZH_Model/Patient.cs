@@ -56,7 +56,7 @@ namespace Medical.Model.ZZH_Model
         /// <summary>
         /// 会员类型
         /// </summary>
-        public int MemberTypeId { get; set; }
+        public int MemberId { get; set; }
         public string MemberTypeName { get; set; }
         /// <summary>
         /// 到期时间
@@ -127,9 +127,10 @@ namespace Medical.Model.ZZH_Model
         /// 患者状态
         /// </summary>
         public bool PatientStateId { get; set; }
-        public int DepartmentId { get; set; }
+        public int DId { get; set; }
         public string DepartmentName { get; set; }
         public string aaa { get; set; }
+        public DateTime a { get; set; }
 
     }
 }

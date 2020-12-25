@@ -70,7 +70,7 @@ namespace Medical.System.Servers
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     //5.实例化DT
                     var dt = new DataTable();
-                    //6.填充数据
+                    //6.填充数据   
                     adapter.Fill(dt);
                     //7.返回dt
                     string list = JsonConvert.SerializeObject(dt);
