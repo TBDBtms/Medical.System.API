@@ -33,9 +33,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>11
         [Route("api/[controller]/GetVIPInfos")]
         [HttpGet]
-        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
+        public IActionResult GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", int flag = 0, int pageindex=1,int pagesize=10)
         {
-            var list = bll.GetVIPInfos(stime, etime, id, name, phone, card);
+            var list = bll.GetVIPInfos(stime, etime, id, name, flag);
             int count = list.Count;
             return Ok(new {list=list.Skip((pageindex-1)*pagesize).Take(pagesize),Count=count});
         }
@@ -170,9 +170,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetCZ")]
         [HttpGet]
-        public IActionResult GetCZ(int id=0,string name="",string phone="",string card="",int pageindex=1,int pagesize=10)
+        public IActionResult GetCZ(int id=0,string name="",string phone="",string card="",int flag=0,int pageindex=1,int pagesize=10)
         {
-            var list = bll.GetSValuemages(id, name, phone, card);
+            var list = bll.GetSValuemages(id, name, phone, card,flag);
             int count = list.Count;
             return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
@@ -229,9 +229,9 @@ namespace Medical.System.API.Controllers
         /// <returns></returns>
         [Route("api/[controller]/GetJF")]
         [HttpGet]
-        public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "",int pageindex=1,int pagesize=10)
+        public IActionResult GetJF(int id = 0, string name = "", string phone = "", string card = "",int flag=0,int pageindex=1,int pagesize=10)
         {
-            var list = bll.GetPointmanages(id, name, phone, card);
+            var list = bll.GetPointmanages(id, name, phone, card,flag);
             int count = list.Count;
             return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = count });
         }
