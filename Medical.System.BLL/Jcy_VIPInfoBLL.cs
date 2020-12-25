@@ -30,7 +30,7 @@ namespace Medical.System.BLL
         /// <returns></returns>
         public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
         {
-            return dal.GetVIPInfos(stime, etime,id,name);
+            return dal.GetVIPInfos(stime, etime,id,name,phone,card);
         }
         /// <summary>
         /// 余额充值返填信息

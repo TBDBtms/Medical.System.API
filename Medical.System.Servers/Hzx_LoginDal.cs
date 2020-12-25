@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Medical.Model;
+using Medical.Model.DLH_Medical.Model;
 using Medical.Model.HZX_Model;
 using Microsoft.Extensions.Options;
 using System;
@@ -231,7 +232,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddGua(X_Guahao g)
         {
-            string sql = $"insert into  X_Guahao values('{g.Gno}','{g.ksids}','{g.Jids}','{g.Yname}','{g.Gmoney}','{g.Zlmoney}','{g.Gtime}','{g.Gpelete}','{g.Hname}','{g.Hkahao}','{g.Hage}','{g.Hcreatetime}','{g.Hsex}','{g.Hiphone}','{g.Hsfz}','{g.Hcids}','{0}','{g.Haddress}','{g.Hremaek}')";
+            string sql = $"insert into  X_Guahao values('{g.Gno}','{g.ksids}','{g.Jids}','{g.Yname}','{g.Seid}','{g.ZlId}','{g.Gtime}','{g.Gpelete}','{g.Hname}','{g.Hkahao}','{g.Hage}','{g.Hcreatetime}','{g.Hsex}','{g.Hiphone}','{g.Hsfz}','{g.Hcids}','{0}','{g.Haddress}','{g.Hremaek}')";
             return dbcoon.Execute(sql);
         
         }
@@ -242,7 +243,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdGua(X_Guahao g)
         {
-            string sql = $"update X_Guahao set Gno='{g.Gno}',ksids='{g.ksids}',Jids='{g.Jids}',Yname='{g.Yname}',Gmoney='{g.Gmoney}',Zlmoney='{g.Zlmoney}',Gtime='{g.Gtime}',Gpelete='{g.Gpelete}',Hname='{g.Hname}',Hkahao='{g.Hkahao}',Hage='{g.Hage}',Hcreatetime='{g.Hcreatetime}',Hsex='{g.Hsex}',Hiphone='{g.Hiphone}',Hsfz='{g.Hsfz}',Hcids='{g.Hcids}',Haddress='{g.Haddress}',Hremaek='{g.Hremaek}'where Gid={g.Gid}";
+            string sql = $"update X_Guahao set Gno='{g.Gno}',ksids='{g.ksids}',Jids='{g.Jids}',Yname='{g.Yname}',Gmoney='{g.Seid}',Zlmoney='{g.ZlId}',Gtime='{g.Gtime}',Gpelete='{g.Gpelete}',Hname='{g.Hname}',Hkahao='{g.Hkahao}',Hage='{g.Hage}',Hcreatetime='{g.Hcreatetime}',Hsex='{g.Hsex}',Hiphone='{g.Hiphone}',Hsfz='{g.Hsfz}',Hcids='{g.Hcids}',Haddress='{g.Haddress}',Hremaek='{g.Hremaek}'where Gid={g.Gid}";
             return dbcoon.Execute(sql);
 
         }
@@ -252,7 +253,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<X_Guahao> GetX_Guahaos()
         {
-            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids";
+            string sql = $"select * from X_Guahao x join Keshi k on k.Kid=x.ksids  join JZtype ty on ty.Jid=x.Jids join County c on c.Cid=x.Hcids join Market m on m.Mid=c.mids join Consultation con on con.SequenceId=x.Seid join  Registration re on re.SequenceIds=x.ZlId";
             return dbcoon.Query<X_Guahao>(sql).ToList();
         
         }
@@ -334,6 +335,22 @@ namespace Medical.System.Servers
             string sql = $"delete from Jlu where Jluid={Jid} ";
             return dbcoon.Execute(sql);
         
+        }
+        //挂号表下拉
+
+        public List<Registration> GetRegistrations()
+        {
+            string sql = "select * from Registration";
+            return dbcoon.Query<Registration>(sql).ToList();
+        
+        }
+        //诊疗费下拉
+
+        public List<Consultation>  GetConsultations()
+        {
+            string sql = "select * from Consultation";
+            return dbcoon.Query<Consultation>(sql).ToList();
+
         }
     }
 }

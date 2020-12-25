@@ -47,11 +47,11 @@ namespace Medical.System.Servers
             }
             if (!string.IsNullOrEmpty(phone))
             {
-                str += $" and a.Phone={phone}";
+                str += $" and a.Phone='{phone}'";
             }
             if (!string.IsNullOrEmpty(card))
             {
-                str += $" a.IdCard={card}";
+                str += $" and a.IdCard='{card}'";
             }
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
@@ -113,7 +113,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPgrade> GetVIPgrades()
         {
-            string str = $"select * from VIPgrade";
+            string str = $"select top 6 * from VIPgrade";
             return dbcoon.Query<VIPgrade>(str).ToList();
         }
         /// <summary>
@@ -132,7 +132,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPgrade(VIPInfo vip)
         {
-            string str = $"update VIPInfo set EndTime={vip.EndTime},VGradeName={vip.VGradeName},VIPName={vip.VIPName},Discount={vip.Discount} Id={vip.Id}";
+            string str = $"update VIPInfo set EndTime='{vip.EndTime}',VGradeId='{vip.VGradeId}',VIPName='{vip.VIPName}',Discount={vip.Discount} where sid={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -180,8 +180,8 @@ namespace Medical.System.Servers
         {
             string sqls = $"select SvalueMoney from VIPInfo where Id={vip.Id}";
             var list = DBhelper.GetList<VIPInfo>(sqls).FirstOrDefault();
-            var TKje = list.SvalueMoney;
-            string str = $"update VIPInfo set RePrice={TKje-vip.RePrice},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}' where Id={vip.Id}";
+            var TKje = list.SvalueMoney-vip.RePrice;
+            string str = $"update VIPInfo set SvalueMoney={TKje},ReTypeId={vip.ReTypeId},Remark='{vip.Remark}' where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>

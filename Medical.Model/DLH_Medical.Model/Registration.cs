@@ -12,7 +12,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 主键
         /// </summary>
-        public int SequenceId { get; set; }
+        public int SequenceIds { get; set; }
         /// <summary>
         /// 挂号费名称
         /// </summary>
@@ -20,7 +20,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 金额
         /// </summary>
-        public double MoneyInfn { get; set; }
+        public double MoneyInfnses { get; set; }
         /// <summary>
         /// 成本价
         /// </summary>

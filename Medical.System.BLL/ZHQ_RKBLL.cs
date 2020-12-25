@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// 查询申请信息表
         /// </summary>
         /// <returns></returns>
-        public List<RKSQ> GetRKSQ()
+        public List<RKSQ> GetRKSQ(string name, int pageindex=1,int pagesize=10)
         {
-            return dal.GetRKSQ();
+            return dal.GetRKSQ(name,pageindex,pagesize);
         }
         /// <summary>
         /// 修改申批状态
@@ -74,9 +74,27 @@ namespace Medical.System.BLL
         /// <param name="num"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int JiaNum(int num, int id)
+        public int JiaNum(int num, int id,int rid)
         {
-            return dal.JiaNum(num, id);
+            return dal.JiaNum(num, id,rid);
+        }
+        /// <summary>
+        /// 删除入库申请记录单挑删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelRKSQ(int id)
+        {
+            return dal.DelRKSQ(id);
+        }
+        /// <summary>
+        /// 删除入库通过表单挑数据删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int DelRKB(int id)
+        {
+            return dal.DelRKB(id);
         }
     }
 }

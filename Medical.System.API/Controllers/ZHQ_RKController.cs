@@ -39,10 +39,11 @@ namespace Medical.System.API.Controllers
         /// 
         [HttpGet]
         [Route("api/[controller]/GetRKSQ")]
-        public IActionResult GetRKSQ()
+        public IActionResult GetRKSQ(string name="",int pageindex=1,int pagesize=10)
         {
-            var list= Ok(bll.GetRKSQ());
-            return list;
+            var list= bll.GetRKSQ(name,pageindex,pagesize);
+            int Count = list.Count;
+            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = Count });
         }
         /// <summary>
         /// 修改申批状态
@@ -101,9 +102,33 @@ namespace Medical.System.API.Controllers
         /// 
         [HttpGet]
         [Route("api/[controller]/JiaNum")]
-        public int JiaNum(int num, int id)
+        public int JiaNum(int num, int id,int rid)
         {
-            return bll.JiaNum(num, id);
+            return bll.JiaNum(num, id,rid);
+        }
+        /// <summary>
+        /// 删除入库申请记录单挑删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/DelRKSQ")]
+        public int DelRKSQ(int id)
+        {
+            return bll.DelRKSQ(id);
+        }
+        /// <summary>
+        /// 删除入库通过表单挑数据删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("api/[controller]/DelRKB")]
+        public int DelRKB(int id)
+        {
+            return bll.DelRKB(id);
         }
     }
 }

@@ -32,11 +32,11 @@ namespace Medical.Model.HZX_Model
         /// <summary>
         /// 挂号费
         /// </summary>
-        public string Gmoney      { get; set; }
+        public int Seid { get; set; }
         /// <summary>
         /// 诊疗费
         /// </summary>
-        public string Zlmoney     { get; set; }
+        public int ZlId { get; set; }
         /// <summary>
         /// 挂号日期
         /// </summary>
@@ -93,5 +93,8 @@ namespace Medical.Model.HZX_Model
         public string Kname { get; set; }
         public string Jname { get; set; }
         public string Cname { get; set; }
+        public double MoneyInfn { get; set; }
+        public double MoneyInfnses { get; set; }
+
     }
 }
