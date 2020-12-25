@@ -22,13 +22,12 @@ namespace Medical.System.API.Controllers
             _conn = conn;
             _Zzh_PatientBLL = new Zzh_PatientBLL(conn);
         }
-        [RouteAttribute("api/[controller]/GetPatients")]
+        [Route("api/[controller]/GetPatient")]
         [HttpGet]
-        public List<Patient> GetPatients(DateTime? sdate, DateTime? edate, string name = "", int id = 0)
+        public IActionResult GetPatient(DateTime? sdate=null, DateTime? edate=null, string name = "", int id = 0, int tj = 0, int pageindex = 1, int pagesize = 10)
         {
-            var list = _Zzh_PatientBLL.GetPatient(sdate,edate,name,id);
-
-            return list;
+            var list = _Zzh_PatientBLL.GetPatient(sdate,edate,name,id,tj,pageindex,pagesize);
+            return Ok(list);
         }
         [RouteAttribute("api/[controller]/GetMemberType")]
         [HttpGet]
