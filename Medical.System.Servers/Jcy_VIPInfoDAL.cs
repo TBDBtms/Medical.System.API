@@ -36,7 +36,7 @@ namespace Medical.System.Servers
 
             if (stime != null && etime != null)
             {
-                str += $" and a.stime between '{stime}' and '{stime}'";
+                str += $" and a.StartTime between '{stime}' and '{stime}'";
             }
             if (id > 0)
             {
