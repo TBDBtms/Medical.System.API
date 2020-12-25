@@ -28,6 +28,7 @@ namespace Medical.Model.ZHQ
         public int CKSQState { get; set; }
         //CKSQLX varchar(50),--申请药品的类型
         public string CKSQLX { get; set; }
-
+        public int tid { get; set; }//记录Id
+        public string gtime { get; set; }
     }
 }
