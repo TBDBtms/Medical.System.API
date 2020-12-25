@@ -132,7 +132,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPgrade(VIPInfo vip)
         {
-            string str = $"update VIPInfo set EndTime='{vip.EndTime}',VGradeName='{vip.VGradeName}',VIPName='{vip.VIPName}',Discount={vip.Discount} where Id={vip.Id}";
+            string str = $"update VIPInfo set EndTime='{vip.EndTime}',VGradeId='{vip.VGradeId}',VIPName='{vip.VIPName}',Discount={vip.Discount} where sid={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>

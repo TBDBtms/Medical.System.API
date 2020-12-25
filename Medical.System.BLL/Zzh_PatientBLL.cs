@@ -23,9 +23,9 @@ namespace Medical.System.BLL
         /// 患者管理显示界面
         /// </summary>
         /// <returns></returns>
-        public List<Patient> GetPatient(DateTime? sdate, DateTime? edate, string name = "", int id = 0)
+        public Pagess<Patient> GetPatient(DateTime? sdate=null, DateTime? edate=null, string name = "", int id = 0, int tj = 0, int pageindex = 1, int pagesize = 10)
         {
-            return _Zzh_PatientServers.GetPatient(sdate,edate,name,id);
+            return _Zzh_PatientServers.GetPatient(sdate,edate,name,id, tj, pageindex, pagesize);
         }
         /// <summary>
         /// 会员等级下拉

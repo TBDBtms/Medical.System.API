@@ -22,7 +22,7 @@ namespace Medical.System.Servers
         /// 查看所有药品
         /// </summary>
         /// <returns></returns>
-        public Page<Drug_administration> Getadministration(int tj=0,string name="",int pageindex=1,int pagesize=10,int bid=0,int wid=0)
+        public Page<Drug_administration> Getadministration(int tj=0,string name="",int pageindex=1,int pagesize=10, int pp = 0, int fl = 0, int jx = 0)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -41,8 +41,9 @@ namespace Medical.System.Servers
                 name = "";
             }
             SqlParameter[] param = new SqlParameter[] {
-                new SqlParameter() { ParameterName="@BId",DbType=DbType.Int32,Value=bid},
-                new SqlParameter() { ParameterName="@WId",DbType=DbType.Int32,Value=wid},
+                new SqlParameter() { ParameterName="@PP",DbType=DbType.Int32,Value=pp},
+                new SqlParameter() { ParameterName="@JX",DbType=DbType.Int32,Value=jx},
+                new SqlParameter() { ParameterName="@FL",DbType=DbType.Int32,Value=fl},
                 new SqlParameter() { ParameterName="@DId",DbType=DbType.Int32,Value=tj},
                 new SqlParameter() { ParameterName="@Name",DbType=DbType.String,Value=name},
                 new SqlParameter() { ParameterName="@PageIndex",DbType=DbType.Int32,Value=pageindex},
@@ -53,7 +54,7 @@ namespace Medical.System.Servers
 
             Page<Drug_administration> page = new Page<Drug_administration>()
             { 
-                 Countnum = Convert.ToInt32(param[6].Value),
+                 Countnum = Convert.ToInt32(param[7].Value),
                  PageList=list
             }; 
             return page;
