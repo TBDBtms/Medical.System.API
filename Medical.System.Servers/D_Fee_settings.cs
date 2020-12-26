@@ -43,7 +43,7 @@ namespace Medical.System.Servers
             string sql = "select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId join Userinfo u on c.CreatepersonKey=u.Uid where 1=1 ";
             if (!string.IsNullOrEmpty(name))
             {
-                sql += $" and c.Additional='{name}'";
+                sql += $" and c.Additionals='{name}'";
             }
             if (pid>0)
             {
@@ -68,7 +68,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int ModifyCost(CostsInfo model)
         {
-            string sql = $"Update CostsInfo set Additional='{model.Additional}',RecipeKey={model.RecipeKey},MoneyInfn={model.MoneyInfn},Cost={model.Cost},CTime='{model.CTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceId={model.SequenceId}";
+            string sql = $"Update CostsInfo set Additionals='{model.Additionals}',RecipeKey={model.RecipeKey},MoneyInfns={model.MoneyInfns},Cost={model.Cost},CTime='{model.CTime}',CreatepersonKey={model.CreatepersonKey},Vip='{model.Vip}',CState='{model.CState}' where SequenceIdes={model.SequenceIdes}";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -78,7 +78,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public CostsInfo FXCost(int cid=0)
         {
-            string sql = $"select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId where c.SequenceId={cid}";
+            string sql = $"select * from CostsInfo c join PrescriptionInfo p on c.RecipeKey=p.RecipeId where c.SequenceIdes={cid}";
 
             return dbconn.Query<CostsInfo>(sql).FirstOrDefault();
         }
@@ -89,7 +89,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int FYStart(CostsInfo c)
         {
-            string sql = $"update CostsInfo set CState=CState-1 where SequenceId={c.SequenceId}";
+            string sql = $"update CostsInfo set CState=CState-1 where SequenceIdes={c.SequenceIdes}";
             return dbconn.Execute(sql);
         }
 
@@ -100,7 +100,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int VIPZheko(CostsInfo c)
         {
-            string sql = $"update CostsInfo set Vip=Vip-1 where SequenceId={c.SequenceId}";
+            string sql = $"update CostsInfo set Vip=Vip-1 where SequenceIdes={c.SequenceIdes}";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -111,7 +111,7 @@ namespace Medical.System.Servers
         public int AddCost(CostsInfo c)
         {
             //c.CTime = DateTime.Now;
-            string sql = $"insert into CostsInfo values('{c.Additional}','{c.RecipeKey}', '{c.MoneyInfn}', '{c.Cost}','{c.CTime}' ,'{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
+            string sql = $"insert into CostsInfo values('{c.Additionals}','{c.RecipeKey}', '{c.MoneyInfns}', '{c.Cost}','{c.CTime}' ,'{c.CreatepersonKey}','{c.Vip}','{c.CState}')";
             return dbconn.Execute(sql);
         }
 
@@ -202,7 +202,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int DelRegistration(int cid)
         {
-            var sql = $"delete from Registration where SequenceId={cid}";
+            var sql = $"delete from Registration where SequenceIds={cid}";
             return dbconn.Execute(sql);
         }
         /// <summary>
@@ -233,7 +233,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public Registration FXRegistration(int cid = 0)
         {
-            string sql = $"select * from Registration r join Userinfo u on r.CreatepersonKey=u.Uid where r.SequenceId={cid}";
+            string sql = $"select * from Registration r join Userinfo u on r.CreatepersonKey=u.Uid where r.SequenceIds={cid}";
 
             return dbconn.Query<Registration>(sql).FirstOrDefault();
         }

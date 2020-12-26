@@ -12,11 +12,11 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 主键
         /// </summary>
-        public int SequenceId { get; set; }
+        public int SequenceIdes { get; set; }
         /// <summary>
         /// 附加费用名称
         /// </summary>
-        public string Additional { get; set; }
+        public string Additionals { get; set; }
         /// <summary>
         /// 处方类别key
         /// </summary>
@@ -24,7 +24,7 @@ namespace Medical.Model.DLH_Medical.Model
         /// <summary>
         /// 金额
         /// </summary>
-        public double MoneyInfn { get; set; }
+        public double MoneyInfns { get; set; }
         /// <summary>
         /// 成本价
         /// </summary>

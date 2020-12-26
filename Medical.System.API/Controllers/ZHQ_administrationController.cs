@@ -21,7 +21,6 @@ namespace Medical.System.API.Controllers
             bll = new ZHQ_administBLL(conn);
         }
         /// <summary>
-        /// 显示药品
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
