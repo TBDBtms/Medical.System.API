@@ -47,7 +47,7 @@ namespace Medical.System.Servers
                 str += $" and c.PatientName like '%" + name + "%'";
             }
             if (flag == 2)
-            {
+            { 
                 str += $" and a.Phone='{name}'";
             }
             if (flag == 3)
