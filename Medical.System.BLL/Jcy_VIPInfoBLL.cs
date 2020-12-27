@@ -115,7 +115,7 @@ namespace Medical.System.BLL
         ///会员等级变更记录
         /// </summary>
         /// <returns></returns>
-        public List<VIPInfo> SetGrade(string name = "")
+        public List<SetGrade> SetGrade(string name = "")
         {
             return dal.SetGrade(name);
 

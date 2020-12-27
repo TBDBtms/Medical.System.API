@@ -123,7 +123,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<VIPInfo> GetVIPgrade()
         {
-            string str = $"select distinct a.VGradeId,a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId where id<=5";
+            string str = $"select distinct a.VGradeId,a.VTypeName,a.Discount,b.VGradeName from VIPInfo a join VIPgrade b on a.VGradeId=b.VGradeId where id<=6";
             return dbcoon.Query<VIPInfo>(str).ToList();
         }
         /// <summary>
@@ -133,7 +133,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int UpdVIPgrade(VIPInfo vip)
         {
-            string str = $"update VIPInfo set EndTime='{vip.EndTime}',VGradeId='{vip.VGradeId}',VIPName='{vip.VIPName}',Discount={vip.Discount} where Id={vip.Id}";
+            string str = $"update VIPInfo set EndTime='{vip.EndTime}',VGradeName='{vip.VGradeName}',VIPName='{vip.VIPName}',Discount={vip.Discount} where Id={vip.Id}";
             return dbcoon.Execute(str);
         }
         /// <summary>
@@ -189,10 +189,10 @@ namespace Medical.System.Servers
         ///会员等级变更记录
         /// </summary>
         /// <returns></returns>
-        public List<VIPInfo> SetGrade(string name = "")
+        public List<SetGrade> SetGrade(string name = "")
         {
-            string str = $"select * from VIPInfo a join SetGrade b on a.Id=b.Id join Patient c on a.Id=c.PatientId where c.PatientName='{name}'";
-            return dbcoon.Query<VIPInfo>(str).ToList();
+            string str = $"select * from SetGrade b join Patient c on b.Id=c.PatientId where c.PatientName='{name}'";
+            return dbcoon.Query<SetGrade>(str).ToList();
         }
         /// <summary>
         /// 添加会员等级变动记录
@@ -201,8 +201,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddGrade(SetGrade grade)
         {
-            var strs = grade.ChTime = DateTime.Now;
-            string str = $"insert into SetGrade values('{grade.VIPCard}','{grade.VIPName}',{strs},'{grade.ChType}','{grade.Operator}')";
+            string str = $"insert into SetGrade values('{grade.VIPCard}','{grade.VIPName}','{grade.ChTime = DateTime.Now}','{grade.ChType}','{grade.Operator}')";
             return dbcoon.Execute(str);
         }
         /// <summary>
