@@ -125,7 +125,5 @@ namespace Medical.Model.Jcy_Model
         /// 患者姓名
         /// </summary>
         public string PatientName { get; set; }
-
-        public int sid { get; set; }
     }
 }

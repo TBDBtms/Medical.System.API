@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", string phone = "", string card = "")
+        public List<VIPInfo> GetVIPInfos(DateTime? stime, DateTime? etime, int id = 0, string name = "", int flag = 0)
         {
-            return dal.GetVIPInfos(stime, etime,id,name,phone,card);
+            return dal.GetVIPInfos(stime, etime,id,name,flag);
         }
         /// <summary>
         /// 余额充值返填信息
@@ -115,7 +115,7 @@ namespace Medical.System.BLL
         ///会员等级变更记录
         /// </summary>
         /// <returns></returns>
-        public List<VIPInfo> SetGrade(string name = "")
+        public List<SetGrade> SetGrade(string name = "")
         {
             return dal.SetGrade(name);
 
@@ -137,9 +137,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<SValuemage> GetSValuemages(int id, string name = "", string phone = "", string card = "")
+        public List<SValuemage> GetSValuemages(int id, string name = "", string phone = "", string card = "",int flag=0)
         {
-            return dal.GetSValuemages(id, name, phone, card);
+            return dal.GetSValuemages(id, name, phone, card, flag);
         }
         /// <summary>
         /// 会员设置返填
@@ -178,9 +178,9 @@ namespace Medical.System.BLL
         /// <param name="phone"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        public List<Pointmanage> GetPointmanages(int id, string name = "", string phone = "", string card = "")
+        public List<Pointmanage> GetPointmanages(int id, string name = "", string phone = "", string card = "",int flag=0)
         {
-            return dal.GetPointmanages(id, name, phone, card);
+            return dal.GetPointmanages(id, name, phone, card,flag);
         }
         /// <summary>
         /// 积分变动记录
