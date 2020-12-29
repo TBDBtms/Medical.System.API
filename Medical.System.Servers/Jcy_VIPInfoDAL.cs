@@ -331,7 +331,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public List<MemberSet> GetMembers()
         {
-            string str = $"select * from MemberSet a join VIPgrade b on a.VGradeId=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
+            string str = $"select * from MemberSet a join VIPgrade b on a.Id=b.VGradeId join Patient c on a.id=c.PatientId where 1=1";
             return dbcoon.Query<MemberSet>(str).ToList();
         }
         /// <summary>
@@ -371,7 +371,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int AddVIPType(MemberSet mset)
         {
-            string str = $"insert into MemberSet values({mset.VGradeId},'{mset.VGradeName}','{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
+            string str = $"insert into MemberSet values('{mset.VGradeName}','{mset.VIPName}',{mset.VIPReset},{mset.MinIntegral},{mset.Upgrade},'{mset.Remark}',{mset.States})";
             return dbcoon.Execute(str);
         }
         /// <summary>
