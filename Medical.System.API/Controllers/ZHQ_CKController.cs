@@ -40,11 +40,11 @@ namespace Medical.System.API.Controllers
         /// 
         [HttpGet]
         [Route("api/[controller]/GetCKSQ")]
-        public IActionResult GetCKSQ(string name = "", int pageindex = 1, int pagesize = 10)
+        public IActionResult GetCKSQ()
         {
-            var list = bll.GetCKSQ(name, pageindex, pagesize);
-            int Count = list.Count;
-            return Ok(new { list = list.Skip((pageindex - 1) * pagesize).Take(pagesize), Count = Count });
+            var list = bll.GetCKSQ();
+           
+            return Ok(list);
         }
         /// <summary>
         /// 修改申批状态
