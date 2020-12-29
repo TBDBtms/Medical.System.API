@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// 查询出库申请
         /// </summary>
         /// <returns></returns>
-        public List<CKSQ> GetCKSQ(string name, int pageindex, int pagesize)
+        public List<CKSQ> GetCKSQ()
         {
-            return dal.GetCKSQ(name,pageindex,pagesize);
+            return dal.GetCKSQ();
         }
         /// <summary>
         /// 修改申批状态

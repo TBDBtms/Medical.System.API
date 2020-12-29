@@ -32,7 +32,7 @@ namespace Medical.System.Servers
         /// 查询申请信息表
         /// </summary>
         /// <returns></returns>
-        public List<RKSQ> GetRKSQ(string name,int pageindex,int pagesize)
+        public List<RKSQ> GetRKSQ()
         {
             string sql = "select * from RKSQ";
             var list= dbconn.Query<RKSQ>(sql).ToList();

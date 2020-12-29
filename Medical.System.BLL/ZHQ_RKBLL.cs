@@ -28,9 +28,9 @@ namespace Medical.System.BLL
         /// 查询申请信息表
         /// </summary>
         /// <returns></returns>
-        public List<RKSQ> GetRKSQ(string name, int pageindex=1,int pagesize=10)
+        public List<RKSQ> GetRKSQ()
         {
-            return dal.GetRKSQ(name,pageindex,pagesize);
+            return dal.GetRKSQ();
         }
         /// <summary>
         /// 修改申批状态

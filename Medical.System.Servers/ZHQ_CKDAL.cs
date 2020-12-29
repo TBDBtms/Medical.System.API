@@ -32,7 +32,7 @@ namespace Medical.System.Servers
         /// 查询出库申请
         /// </summary>
         /// <returns></returns>
-        public List<CKSQ> GetCKSQ(string name, int pageindex, int pagesize)
+        public List<CKSQ> GetCKSQ()
         {
             string sql = "select * from CKSQ";
            
