@@ -58,7 +58,7 @@ namespace Medical.System.Servers
         /// <returns></returns>
         public int DelCost(int cid)
         {
-            var sql = $"delete from CostsInfo where SequenceId={cid}";
+            var sql = $"delete from CostsInfo where SequenceIdes={cid}";
             return dbconn.Execute(sql);
         }
         /// <summary>
